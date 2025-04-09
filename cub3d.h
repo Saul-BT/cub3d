@@ -1,7 +1,10 @@
 #ifndef CUB3D_H
 # define CUB3D_H
 # include <unistd.h>
-# include <libft.h>
+# include "libft/libft.h"
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef struct	s_player
 {
@@ -17,6 +20,13 @@ typedef struct s_rgb_color
 	int		blue;
 }			t_rgb_color;
 
+typedef struct	s_map
+{
+	char	**map;
+	int		x_size;
+	int		y_size;
+}				t_map;
+
 typedef struct  s_data
 {
 	char		*n_texture;
@@ -30,11 +40,9 @@ typedef struct  s_data
 
 }				t_data;
 
-typedef struct	s_map
-{
-	char	**map
-	int		x_size;
-	int		y_size;
-}				t_map;
+//file checks
+
+bool	valid_file(char *filename, bool extension);
+
 
 #endif

@@ -1,5 +1,7 @@
 NAME = cub3d
-SRCS = main.c 
+SRCS = main.c
+SRCS += file_manage/valid_file.c 
+
 OBJS=$(SRCS:.c=.o)
 READLINE_PATH = vendor/readline
 LIBFT = ./libft
