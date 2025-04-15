@@ -33,16 +33,28 @@ typedef struct  s_data
 	char		*s_texture;
 	char		*w_texture;
 	char		*e_texture;
-	t_rgb_color	ceiling_color;
-	t_rgb_color	floor_color;
-	t_player	player;
-	t_map		map;
+	t_rgb_color	*ceiling_color;
+	t_rgb_color	*floor_color;
+	t_player	*player;
+	t_map		*map;
 
 }				t_data;
 
-//file checks
+//UTILS (FREE)
+int		free_data(t_data *data);
+void	freematrix(char	**matrix);
+//borrar
+void	printmat(char **matrix);
 
+
+//FILES
+//check
 bool	valid_file(char *filename, bool extension);
+//parse
+bool	file_interpreter(char *filename, t_data *data);
+//raw data
+char	**fill_raw_data(char *filename);
+char	**get_fixed_data(char **raw_data);
 
 
 #endif

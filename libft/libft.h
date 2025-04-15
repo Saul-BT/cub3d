@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include "unistd.h"
+# include "gnl/get_next_line.h"
 
 // Declarations
 typedef struct s_list

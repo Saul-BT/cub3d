@@ -1,6 +1,6 @@
 NAME = cub3d
-SRCS = main.c
-SRCS += file_manage/valid_file.c 
+SRCS = main.c utils.c
+SRCS += file_manage/valid_file.c file_manage/data_manage.c file_manage/raw_manage.c
 
 OBJS=$(SRCS:.c=.o)
 READLINE_PATH = vendor/readline
