@@ -1,8 +1,5 @@
 
 #include "../cub3d.h"
-// # include <sys/types.h>
-// # include <sys/stat.h>
-// # include <fcntl.h>
 
 static bool is_folder(char *filename)
 {
@@ -40,8 +37,8 @@ bool	right_extension(char *filename)
 }
 
 //"bool extension" comprueba que el archivo acabe en .cub para (a priori)
-//utilizar esta funcion tanto para los archivos de texturas como para el arg
-//del programa.
+//utilizar esta funcion tanto para los archivos de texturas como para los
+//arg del programa.
 
 bool	valid_file(char *filename, bool extension)
 {
