@@ -1,0 +1,17 @@
+{
+  "name": "cub3d-x11",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "containerEnv": {
+    "DISPLAY": "host.docker.internal:0"
+  },
+  "runArgs": [
+    "--env=DISPLAY=host.docker.internal:0"
+  ],
+  "mounts": [
+    "source=/tmp/.X11-unix,target=/tmp/.X11-unix,type=bind"
+  ],
+  "forwardPorts": [
+  ]
+}
