@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/22 21:52:58 by gade-oli         ###   ########.fr       */
+/*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
+/*   Updated: 2025/10/22 21:35:43 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/cub3d.h"
+#ifndef DEFINES_H
+# define DEFINES_H
 
-int	main(int argc, char **argv) 
+# define WIN_NAME "cub3d"
+# define WIN_WIDTH 1080
+# define WIN_HEIGHT 720
+
+# define SUCCESS 0
+# define ERROR 1
+
+typedef struct	s_mlx
 {
-	if (argc != 2)
-		return (ERROR);
-    
-	printf("map file: %s\n", argv[1]);
-	
-	//mlx = malloc(sizeof(t_mlx));
-	//if (!mlx)
-	//	return (ERROR);
-	mlx_t *mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, true);
-	if (!mlx)
-		return (ERROR);
-	mlx_loop(mlx);
+	void	*ptr;
+	void	*win;
+}	t_mlx;
 
-	return (SUCCESS);
-}
+typedef struct	s_cub3d
+{
+	t_mlx *mlx;
+}	t_cub3d;
 
-
+#endif

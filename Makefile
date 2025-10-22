@@ -4,10 +4,14 @@ CFLAGS = -Wall -Wextra -Werror -g
 SRC = src/main.c
 OBJ = $(SRC:.c=.o)
 
+#todo: build the mlx on compile time with the cub3d
+MLX = libs/MLX42/build/libmlx42.a
+MLXFLAGS = -ldl -lglfw -pthread -lm
+
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+	$(CC) $(MLXFLAGS) $(CFLAGS) $(OBJ) $(MLX) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
