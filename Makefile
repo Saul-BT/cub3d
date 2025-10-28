@@ -6,7 +6,7 @@
 #    By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/10/25 19:55:21 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/10/28 21:59:16 by gade-oli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,7 @@ $(MLX):
 	@cmake --build $(MLX_BUILD_DIR) -j4
 
 $(NAME): $(OBJ)
-	$(CC) $(MLXFLAGS) $(CFLAGS) $(MLX) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
 
 bin/%.o: src/%.c
 	@mkdir -p $(@D)
