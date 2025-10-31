@@ -6,7 +6,7 @@
 /*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/28 22:10:44 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/10/31 22:41:59 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	main(int argc, char **argv)
 	mlx_image_t	*img;
 
 	if (argc != 2)
-		return (ERROR);
-    
+		return (ft_error("usage: ./cub3d mapfile.cub"));
+
 	printf("map file: %s\n", argv[1]);
 	mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
 	if (!mlx)

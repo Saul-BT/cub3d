@@ -6,13 +6,11 @@
 #    By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/10/28 21:59:16 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/10/31 22:41:18 by gade-oli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 #colors-------------------------------------------------------------------------
-
-#colors----------------------------------------------------------
 
 RED     = \033[1;31m
 GREEN   = \033[1;32m
@@ -26,38 +24,55 @@ NAME = cub3d
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
 
-SRC = src/main.c
-OBJ = $(SRC:.c=.o)
+INC = inc/cub3d.h inc/defines.h
+
+SRC =	src/main.c \
+	src/utils/ft_error.c
+
+OBJ = $(SRC:src/%.c=bin/%.o)
+
+#lib-----------------------------------------------------------------------------
 
 MLX_DIR = lib/MLX42
 MLX_BUILD_DIR = $(MLX_DIR)/build
 MLX = $(MLX_BUILD_DIR)/libmlx42.a
 MLXFLAGS = -ldl -lglfw -pthread -lm
 
+LIBFT_DIR = lib/megalibft/
+LIBFT = $(LIBFT_DIR)megalibft.a
+
 #recipes-------------------------------------------------------------------------
 
-all: $(MLX) $(NAME)
+all: $(MLX) $(LIBFT) $(NAME)
+	@echo "$(GREEN)cub3d compiled!$(RESET)"
+
+$(LIBFT):
+	@make --directory=$(LIBFT_DIR)
+	@echo "$(GREEN)libft compiled!$(RESET)"
 
 $(MLX):
-	@echo "$(BLUE)configuting MLX build and sources directories on cmake$(RESET)"
+	@echo "$(BLUE)configuring MLX build and sources dirs on cmake$(RESET)"
 	@cmake -B $(MLX_BUILD_DIR) -S $(MLX_DIR)
 	@echo "$(BLUE)building MLX42$(RESET)"
 	@cmake --build $(MLX_BUILD_DIR) -j4
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 
-bin/%.o: src/%.c
+bin/%.o: src/%.c $(INC)
 	@mkdir -p $(@D)
-	$(CC) $(CFLAGS) -I$(MLX_DIR) -c $< -o $@
+	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f $(OBJ)
-	@echo "$(RED)clean MLX42 objects$(RESET)"
-	rm -rf $(MLX_BUILD_DIR)
+	@rm -f $(OBJ)
+	@rm -rf $(MLX_BUILD_DIR)
+	@make clean --directory=$(LIBFT_DIR)
+	@echo "$(RED)binaries deleted!$(RESET)"
 
 fclean: clean
-	rm -f $(NAME)
+	@make fclean --directory=$(LIBFT_DIR)
+	@rm -f $(NAME)
+	@echo "$(RED)cub3d deleted!$(RESET)"
 
 re: fclean all
 
