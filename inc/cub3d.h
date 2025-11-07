@@ -15,6 +15,7 @@
 
 # include <stdio.h> //TODO: delete all printf calls
 # include <stdlib.h>
+# include <fcntl.h>
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/megalibft/libft.h"
@@ -22,5 +23,8 @@
 
 // utils/ft_error.c
 int	ft_error(char *str);
+
+// utils/init.c
+t_cub3d *cub3d_init(char *mapfile);
 
 #endif

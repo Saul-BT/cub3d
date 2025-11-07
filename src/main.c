@@ -12,30 +12,34 @@
 
 #include "../inc/cub3d.h"
 
+static void debug(t_cub3d cub3d)
+{
+    printf("NO %s\n", cub3d.texture.north);
+    printf("SO %s\n", cub3d.texture.south);
+    printf("WE %s\n", cub3d.texture.west);
+    printf("EA %s\n", cub3d.texture.east);
+    printf("\n");
+    printf("F %s\n", cub3d.texture.color_floor);
+    printf("C %s\n", cub3d.texture.color_ceiling);
+    printf("\n");
+    for (int i = 0; cub3d.map[i]; i++)
+        printf("%s\n", cub3d.map[i]);
+}
+
 int	main(int argc, char **argv) 
 {
-	mlx_t		*mlx;
-	mlx_image_t	*img;
+	t_cub3d *cub3d;
 
 	if (argc != 2)
 		return (ft_error("usage: ./cub3d mapfile.cub"));
 
-	printf("map file: %s\n", argv[1]);
-	mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
-	if (!mlx)
+	cub3d = cub3d_init(argv[1]);
+
+	if (!cub3d)
 		return (ERROR);
-	img = mlx_new_image(mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!img)
-	{
-		mlx_close_window(mlx);
-		return (ERROR);
-	}
-	if (mlx_image_to_window(mlx, img, 0, 0) == -1)
-	{
-		mlx_close_window(mlx);
-		return (ERROR);
-	}
-	mlx_loop(mlx);
+	
+	debug(*cub3d);
+	mlx_loop(cub3d->mlx.mlx);
 	return (SUCCESS);
 }
 

@@ -22,13 +22,25 @@
 
 typedef struct	s_mlx
 {
-	void	*ptr;
-	void	*win;
+	void	*img;
+	void	*mlx;
 }	t_mlx;
+
+typedef struct	s_texture
+{
+	char	*north;
+	char	*south;
+	char	*east;
+	char	*west;
+	char	*color_floor;
+	char	*color_ceiling;
+}	t_texture;
 
 typedef struct	s_cub3d
 {
-	t_mlx *mlx;
+	t_mlx mlx;
+	char	**map;
+	t_texture	texture;
 }	t_cub3d;
 
 #endif
