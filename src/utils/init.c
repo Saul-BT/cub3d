@@ -14,52 +14,99 @@ static char	*ft_strndup(const char *s1, size_t tam)
 static bool set_texture(t_texture *texture, int fd)
 {
     char *line = get_next_line(fd);
+    if (!line) {
+        return false;
+    }
 
     while(line != NULL)
     {
         if (ft_strncmp("NO", line, 2) == 0)
         {
-            if (texture->north)
+            if (texture->north) {
+                free(line);
                 return false;
+            }
             texture->north = ft_strndup(line + 3, ft_strlen(line + 3));
+            if (!texture->north) {
+                free(line);
+                return false;
+            }
         }
         if (ft_strncmp("SO", line, 2) == 0)
         {
-            if (texture->south)
+            if (texture->south) {
+                free(line);
                 return false;
+            }
             texture->south = ft_strndup(line + 3, ft_strlen(line + 3));
+            if (!texture->south) {
+                free(line);
+                return false;
+            }
         }
         if (ft_strncmp("WE", line, 2) == 0)
         {
-            if (texture->west)
+            if (texture->west) {
+                free(line);
                 return false;
+            }
             texture->west = ft_strndup(line + 3, ft_strlen(line + 3));
+            if (!texture->west) {
+                free(line);
+                return false;
+            }
         }
         if (ft_strncmp("EA", line, 2) == 0)
         {
-            if (texture->east)
+            if (texture->east) {
+                free(line);
                 return false;
+            }
             texture->east = ft_strndup(line + 3, ft_strlen(line + 3));
+            if (!texture->east) {
+                free(line);
+                return false;
+            }
         }
         if (ft_strncmp("F", line, 1) == 0)
         {
-            if (texture->color_floor)
+            if (texture->color_floor) {
+                free(line);
                 return false;
+            }
             texture->color_floor = ft_strndup(line + 2, ft_strlen(line + 2));
+            if (!texture->color_floor) {
+                free(line);
+                return false;
+            }
         }
         if (ft_strncmp("C", line, 1) == 0)
         {
-            if (texture->color_ceiling)
+            if (texture->color_ceiling) {
+                free(line);
                 return false;
+            }
             texture->color_ceiling = ft_strndup(line + 2, ft_strlen(line + 2));
+            if (!texture->color_ceiling) {
+                free(line);
+                return false;
+            }
         }
         free(line);
         if (texture->north && texture->south && texture->west && texture->east && texture->color_floor && texture->color_ceiling)
             break;
         line = get_next_line(fd);
+        if (!line) {
+            return false;
+        }
     }
 
     return true;
+}
+
+static void free_map(char **map) {
+    int i = 0;
+    
 }
 
 static bool set_map(char ***map, int fd)
@@ -151,22 +198,24 @@ t_cub3d *cub3d_init(char *mapfile)
 
     if (!set_texture(&ret->texture, fd)) // FIXME: Leaks here
     {
+        free(ret);
         close(fd);
         return NULL;
     }
 
     if (!set_map(&ret->map, fd)) // FIXME: Leaks here
     {
+        free(ret);
         close(fd);
         return NULL;
     }
-
+/*
     if (!set_mlx(&ret->mlx)) // FIXME: Leaks here
     {
         close(fd);
         return NULL;
     }
-
+*/
     close(fd);
 
     return ret;

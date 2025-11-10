@@ -22,7 +22,7 @@ RESET   = \033[0;0m
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -g
 
 INC = inc/cub3d.h inc/defines.h
 

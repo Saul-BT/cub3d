@@ -39,7 +39,7 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	
 	debug(*cub3d);
-	mlx_loop(cub3d->mlx.mlx);
+//	mlx_loop(cub3d->mlx.mlx);
 	return (SUCCESS);
 }
 
