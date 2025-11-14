@@ -26,5 +26,6 @@ int	ft_error(char *str);
 
 // utils/init.c
 t_cub3d *cub3d_init(char *mapfile);
+void free_cub3d(t_cub3d **cub3d);
 
 #endif
