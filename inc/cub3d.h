@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/31 22:42:27 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/14 21:07:03 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h> //TODO: delete all printf calls
 # include <stdlib.h>
+# include <math.h>
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/megalibft/libft.h"
@@ -22,6 +23,9 @@
 
 // utils/ft_error.c
 int	ft_error(char *str);
+
+// utils/math.c
+float	deg_to_rads(float deg);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
