@@ -23,4 +23,7 @@
 // utils/ft_error.c
 int	ft_error(char *str);
 
+// mlx/hooks.c
+void	key_hook(mlx_key_data_t keydata, void *param);
+
 #endif

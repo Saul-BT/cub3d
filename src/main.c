@@ -35,7 +35,9 @@ int	main(int argc, char **argv)
 		mlx_close_window(mlx);
 		return (ERROR);
 	}
+	mlx_key_hook(mlx, &key_hook, mlx);
 	mlx_loop(mlx);
+	mlx_terminate(mlx);
 	return (SUCCESS);
 }
 
