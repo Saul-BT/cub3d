@@ -21,7 +21,7 @@ static bool set_texture(t_texture *texture, int fd)
                 return false;
             }
         }
-        if (ft_strncmp("SO", line, 2) == 0)
+        else if (ft_strncmp("SO", line, 2) == 0)
         {
             if (texture->south) {
                 free(line);
@@ -33,7 +33,7 @@ static bool set_texture(t_texture *texture, int fd)
                 return false;
             }
         }
-        if (ft_strncmp("WE", line, 2) == 0)
+        else if (ft_strncmp("WE", line, 2) == 0)
         {
             if (texture->west) {
                 free(line);
@@ -45,7 +45,7 @@ static bool set_texture(t_texture *texture, int fd)
                 return false;
             }
         }
-        if (ft_strncmp("EA", line, 2) == 0)
+        else if (ft_strncmp("EA", line, 2) == 0)
         {
             if (texture->east) {
                 free(line);
@@ -57,7 +57,7 @@ static bool set_texture(t_texture *texture, int fd)
                 return false;
             }
         }
-        if (ft_strncmp("F", line, 1) == 0)
+        else if (ft_strncmp("F", line, 1) == 0)
         {
             if (texture->color_floor) {
                 free(line);
@@ -69,7 +69,7 @@ static bool set_texture(t_texture *texture, int fd)
                 return false;
             }
         }
-        if (ft_strncmp("C", line, 1) == 0)
+        else if (ft_strncmp("C", line, 1) == 0)
         {
             if (texture->color_ceiling) {
                 free(line);
@@ -80,6 +80,11 @@ static bool set_texture(t_texture *texture, int fd)
                 free(line);
                 return false;
             }
+        }
+        else if (*line != '\n')
+        {
+            free(line);
+            return false;
         }
         free(line);
         if (texture->north && texture->south && texture->west && texture->east && texture->color_floor && texture->color_ceiling)
@@ -218,7 +223,6 @@ t_cub3d *cub3d_init(char *mapfile)
     if (!ret)
         return NULL;
 
-    printf("pepe");
     set_defaults(ret);
 
     fd = open(mapfile, O_RDONLY);
@@ -234,7 +238,7 @@ t_cub3d *cub3d_init(char *mapfile)
 
     if (!set_map(&ret->map, fd)) // FIXME: Leaks here
     {
-        free_cub3d(ret);
+        free_cub3d(&ret);
         close(fd);
         return NULL;
     }
