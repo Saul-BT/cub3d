@@ -32,4 +32,7 @@ void free_cub3d(t_cub3d **cub3d);
 bool set_texture(char ***texture, int fd);
 bool set_map(char ***map, int fd);
 
+// validator/validator.c
+bool is_map_valid(char **map);
+
 #endif

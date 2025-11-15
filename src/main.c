@@ -39,6 +39,9 @@ int	main(int argc, char **argv)
 
 	if (!cub3d)
 		return (ERROR);
+
+    if (!is_map_valid(cub3d->map))
+        printf("Miau\n");
 	
 	debug(&cub3d);
 //	mlx_loop(cub3d->mlx.mlx);
