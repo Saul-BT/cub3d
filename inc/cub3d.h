@@ -28,4 +28,8 @@ int	ft_error(char *str);
 t_cub3d *cub3d_init(char *mapfile);
 void free_cub3d(t_cub3d **cub3d);
 
+// parser/parser.c
+bool set_texture(char ***texture, int fd);
+bool set_map(char ***map, int fd);
+
 #endif

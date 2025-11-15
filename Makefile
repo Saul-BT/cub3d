@@ -28,6 +28,7 @@ INC = inc/cub3d.h inc/defines.h
 
 SRC =	src/main.c \
 	src/utils/ft_error.c \
+	src/parser/parser.c \
 	src/utils/init.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
