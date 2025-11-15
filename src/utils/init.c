@@ -1,106 +1,62 @@
 #include "../../inc/cub3d.h"
 
-static bool set_texture(t_texture *texture, int fd)
+static bool all_textures_setted(char **texture)
 {
-    char *line = get_next_line(fd);
-    if (!line) {
-        return false;
-    }
+    return (texture[NORTH] && texture[SOUTH] && texture[WEST] && texture[EAST] && texture[C_FLOOR] && texture[C_CEILING]);
+}
 
-    while(line != NULL)
+static bool set_texture(char ***texture, int fd)
+{
+    int tex_id;
+    int tex_id_len;
+    char *line;
+    static char *texture_ids[6];
+    texture_ids[NORTH] = "NO ";
+	texture_ids[SOUTH] = "SO ";
+	texture_ids[EAST] = "EA ";
+	texture_ids[WEST] = "WE ";
+	texture_ids[C_FLOOR] = "F ";
+	texture_ids[C_CEILING] = "C ";
+
+    *texture = ft_calloc(6, sizeof(char *));
+    if (!*texture)
+        return false;
+    
+    while(!all_textures_setted(*texture) && (line = get_next_line(fd)) != NULL)
     {
-        if (ft_strncmp("NO", line, 2) == 0)
+        if (*line == '\n')
         {
-            if (texture->north) {
-                free(line);
-                return false;
-            }
-            texture->north = ft_substr(line, 3, ft_strlen(line + 4));
-            if (!texture->north) {
-                free(line);
-                return false;
-            }
+            free(line);
+            continue;
         }
-        else if (ft_strncmp("SO", line, 2) == 0)
+        tex_id = 0;
+        while(tex_id < 6)
         {
-            if (texture->south) {
-                free(line);
-                return false;
+            tex_id_len = ft_strlen(texture_ids[tex_id]);
+            if (ft_strncmp(texture_ids[tex_id], line, tex_id_len) == 0)
+            {
+                if ((*texture)[tex_id]) {
+                    tex_id++;
+                    continue;
+                }
+                (*texture)[tex_id] = ft_substr(line, tex_id_len, ft_strlen(line + tex_id_len + 1));
+                if (!(*texture)[tex_id]) {
+                    free(line);
+                    return false;
+                }
+                break;
             }
-            texture->south = ft_substr(line, 3, ft_strlen(line + 4));
-            if (!texture->south) {
-                free(line);
-                return false;
-            }
+            tex_id++;
         }
-        else if (ft_strncmp("WE", line, 2) == 0)
-        {
-            if (texture->west) {
-                free(line);
-                return false;
-            }
-            texture->west = ft_substr(line, 3, ft_strlen(line + 4));
-            if (!texture->west) {
-                free(line);
-                return false;
-            }
-        }
-        else if (ft_strncmp("EA", line, 2) == 0)
-        {
-            if (texture->east) {
-                free(line);
-                return false;
-            }
-            texture->east = ft_substr(line, 3, ft_strlen(line + 4));
-            if (!texture->east) {
-                free(line);
-                return false;
-            }
-        }
-        else if (ft_strncmp("F", line, 1) == 0)
-        {
-            if (texture->color_floor) {
-                free(line);
-                return false;
-            }
-            texture->color_floor = ft_substr(line, 2, ft_strlen(line + 3));
-            if (!texture->color_floor) {
-                free(line);
-                return false;
-            }
-        }
-        else if (ft_strncmp("C", line, 1) == 0)
-        {
-            if (texture->color_ceiling) {
-                free(line);
-                return false;
-            }
-            texture->color_ceiling = ft_substr(line, 2, ft_strlen(line + 3));
-            if (!texture->color_ceiling) {
-                free(line);
-                return false;
-            }
-        }
-        else if (*line != '\n')
+        if (tex_id == 6)
         {
             free(line);
             return false;
         }
         free(line);
-        if (texture->north && texture->south && texture->west && texture->east && texture->color_floor && texture->color_ceiling)
-            break;
-        line = get_next_line(fd);
-        if (!line) {
-            return false;
-        }
     }
 
     return true;
-}
-
-static void free_map(char **map) {
-    int i = 0;
-    
 }
 
 static char *read_map(char *head, int fd)
@@ -110,16 +66,20 @@ static char *read_map(char *head, int fd)
     char *map;
 
     map = head;
+    tmp = NULL;
     while ((line = get_next_line(fd)) != NULL)
     {
+        if (*line == '\n')
+        {
+            free(map);
+            free(line);
+            return false;
+        }
         tmp = ft_strjoin(map, line);
         free(map);
         free(line);
         if (!tmp)
-        {
-            free(line);
             return NULL;
-        }
         map = tmp;
     }
 
@@ -128,7 +88,6 @@ static char *read_map(char *head, int fd)
 
 static bool set_map(char ***map, int fd)
 {
-    int i;
     char *line;
     char *raw_map;
 
@@ -185,12 +144,7 @@ void set_defaults(t_cub3d *cub3d)
     cub3d->map = NULL;
     cub3d->mlx.img = NULL;
     cub3d->mlx.mlx = NULL;
-    cub3d->texture.north = NULL;
-    cub3d->texture.south = NULL;
-    cub3d->texture.west = NULL;
-    cub3d->texture.east = NULL;
-    cub3d->texture.color_floor = NULL;
-    cub3d->texture.color_ceiling = NULL;
+    cub3d->texture = NULL;
 }
 
 void free_cub3d(t_cub3d **cub3d)
@@ -203,12 +157,10 @@ void free_cub3d(t_cub3d **cub3d)
     free((*cub3d)->map);
     free((*cub3d)->mlx.img);
     free((*cub3d)->mlx.mlx);
-    free((*cub3d)->texture.north);
-    free((*cub3d)->texture.south);
-    free((*cub3d)->texture.west);
-    free((*cub3d)->texture.east);
-    free((*cub3d)->texture.color_floor);
-    free((*cub3d)->texture.color_ceiling);
+    i = 0;
+    while ((*cub3d)->texture && i < 6)
+        free((*cub3d)->texture[i++]);
+    free((*cub3d)->texture);
     set_defaults(*cub3d);
     free(*cub3d);
     *cub3d = NULL;
@@ -238,6 +190,7 @@ t_cub3d *cub3d_init(char *mapfile)
 
     if (!set_map(&ret->map, fd)) // FIXME: Leaks here
     {
+        
         free_cub3d(&ret);
         close(fd);
         return NULL;

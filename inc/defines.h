@@ -20,27 +20,27 @@
 # define SUCCESS 0
 # define ERROR 1
 
+typedef enum e_texture_type
+{
+	NORTH = 0,
+	SOUTH = 1,
+	EAST = 2,
+	WEST = 3,
+	C_FLOOR = 4,
+	C_CEILING = 5,
+} t_texture_type;
+
 typedef struct	s_mlx
 {
 	void	*img;
 	void	*mlx;
 }	t_mlx;
 
-typedef struct	s_texture
-{
-	char	*north;
-	char	*south;
-	char	*east;
-	char	*west;
-	char	*color_floor;
-	char	*color_ceiling;
-}	t_texture;
-
 typedef struct	s_cub3d
 {
 	t_mlx mlx;
 	char	**map;
-	t_texture	texture;
+	char	**texture;
 }	t_cub3d;
 
 #endif
