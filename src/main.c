@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/17 13:18:05 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:14:04 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ int	main(int argc, char **argv)
 	if (!cub3d)
 		return (ERROR);
 
-    if (!is_map_valid(cub3d->map.raw))
-        printf("Miau\n");
-	
+    if (!is_map_valid(cub3d->map)){
+        return (ERROR);
+	}
 	debug(&cub3d);
 //	mlx_loop(cub3d->mlx.mlx);
 	return (SUCCESS);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/31 22:42:27 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/17 17:06:13 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/megalibft/libft.h"
+# include "../lib/queue/queue.h"
 # include "defines.h"
 
 // utils/ft_error.c
@@ -33,6 +34,6 @@ bool set_texture(char ***texture, int fd);
 bool set_map(t_map *map, int fd);
 
 // validator/validator.c
-bool is_map_valid(char **map);
+bool is_map_valid(t_map map);
 
 #endif

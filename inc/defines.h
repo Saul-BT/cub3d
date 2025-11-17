@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/22 21:35:43 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/17 15:41:00 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,12 @@ typedef struct	s_mlx
 	void	*img;
 	void	*mlx;
 }	t_mlx;
+
+typedef struct s_point
+{
+	size_t x;
+	size_t y;
+} t_point;
 
 typedef struct	s_map
 {

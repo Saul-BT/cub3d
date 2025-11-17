@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/10/31 22:41:18 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/11/17 17:07:48 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,10 @@ SRC =	src/main.c \
 	src/parser/parser.c \
 	src/validator/validator.c \
 	src/utils/init.c
+
+SRC += lib/queue/ft_dequeue.c \
+	lib/queue/ft_enqueue.c \
+	lib/queue/ft_queue_init.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 
