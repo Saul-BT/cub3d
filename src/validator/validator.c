@@ -50,12 +50,14 @@ static bool is_one_player(char **map)
     return has_player;
 }
 
+#include "unistd.h"
 static void debug_bfs(t_map map, bool **visited)
 {
     size_t x;
     size_t y;
     
     y = 0;
+    printf("\e[1;1H\e[2J");
     printf("======================================\n");
     while (y < map.height)
     {
@@ -72,6 +74,7 @@ static void debug_bfs(t_map map, bool **visited)
         y++;
     }
     printf("======================================\n");
+    usleep(1500);
 }
 
 static bool bfs(t_map map)
@@ -202,7 +205,7 @@ static bool bfs(t_map map)
     t_point *new_point;
     while (queue.front)
     {
-        //debug_bfs(map, visited);
+        debug_bfs(map, visited);
         point = (t_point *)ft_dequeue(&queue);
         if (!point) // TODO: check if necessary
         {
