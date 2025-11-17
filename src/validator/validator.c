@@ -127,6 +127,8 @@ static bool bfs(t_map map)
                 // FIXME: leak here
                 return false;
             }
+            point->x = x;
+            point->y = 0;
             ft_enqueue(&queue, point);
             visited[0][x] = true;
         }
@@ -138,6 +140,8 @@ static bool bfs(t_map map)
                 // FIXME: leak here
                 return false;
             }
+            point->x = x;
+            point->y = map.height - 1;
             ft_enqueue(&queue, point);
             visited[map.height - 1][x] = true;
         }
@@ -166,6 +170,8 @@ static bool bfs(t_map map)
                 // FIXME: leak here
                 return false;
             }
+            point->x = 0;
+            point->y = y;
             ft_enqueue(&queue, point);
             visited[y][0] = true;
         }
@@ -177,6 +183,8 @@ static bool bfs(t_map map)
                 // FIXME: leak here
                 return false;
             }
+            point->x = map.width - 1;
+            point->y = y;
             ft_enqueue(&queue, point);
             visited[y][map.width - 1] = true;
         }
@@ -194,7 +202,7 @@ static bool bfs(t_map map)
     t_point *new_point;
     while (queue.front)
     {
-        debug_bfs(map, visited);
+        //debug_bfs(map, visited);
         point = (t_point *)ft_dequeue(&queue);
         if (!point) // TODO: check if necessary
         {
@@ -208,7 +216,6 @@ static bool bfs(t_map map)
             return false;
         }
 
-        //free(point);
         i = 0;
         while (i < 4)
         {
@@ -230,6 +237,7 @@ static bool bfs(t_map map)
             }
             i++;
         }
+        free(point);
     }
     return true;
 }
