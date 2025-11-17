@@ -50,7 +50,6 @@ static bool is_one_player(char **map)
     return has_player;
 }
 
-#include "unistd.h"
 static void debug_bfs(t_map map, bool **visited)
 {
     size_t x;
