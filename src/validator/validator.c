@@ -242,6 +242,24 @@ static bool bfs(t_map map)
         }
         free(point);
     }
+
+    // the closed maps should have floor
+    y = 0;
+    while (y < map.height)
+    {
+        x = 0;
+        while (x < map.width)
+        {
+            if (map.raw[y][x] == ' ' && !visited[y][x])
+            {
+                // FIXME: leak here
+                return false;
+            }
+            x++;
+        }
+        y++;
+    }
+
     return true;
 }
 
