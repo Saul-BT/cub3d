@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/10/31 22:41:59 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/17 13:18:05 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,10 @@ static void debug(t_cub3d **cub3d)
     printf("F %s\n", (*cub3d)->texture[C_FLOOR]);
     printf("C %s\n", (*cub3d)->texture[C_CEILING]);
     printf("\n");
-    for (int i = 0; (*cub3d)->map[i]; i++)
-        printf("%s\n", (*cub3d)->map[i]);
+    for (int i = 0; (*cub3d)->map.raw[i]; i++)
+        printf("%s\n", (*cub3d)->map.raw[i]);
+
+    printf("\nMap size: %ld x %ld\n", (*cub3d)->map.width, (*cub3d)->map.height);
 
     free_cub3d(cub3d);
 }
@@ -40,7 +42,7 @@ int	main(int argc, char **argv)
 	if (!cub3d)
 		return (ERROR);
 
-    if (!is_map_valid(cub3d->map))
+    if (!is_map_valid(cub3d->map.raw))
         printf("Miau\n");
 	
 	debug(&cub3d);

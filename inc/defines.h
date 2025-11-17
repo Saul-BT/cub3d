@@ -36,10 +36,18 @@ typedef struct	s_mlx
 	void	*mlx;
 }	t_mlx;
 
+typedef struct	s_map
+{
+	char **raw;
+	size_t	height;
+	size_t	width;
+}	t_map;
+
 typedef struct	s_cub3d
 {
 	t_mlx mlx;
-	char	**map;
+	//char	**map;
+	t_map	map;
 	char	**texture;
 }	t_cub3d;
 

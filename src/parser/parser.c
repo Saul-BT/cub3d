@@ -86,7 +86,55 @@ static char *read_map(char *head, int fd)
     return map;
 }
 
-bool set_map(char ***map, int fd)
+/**
+ * ex:
+ * {                        {
+ *   "1111111",               "1111111",
+ *   "1001",        ===>      "1001   ",
+ *   "10001",       ===>      "10001  ",
+ *   " 111",                  " 111   ",
+ * }                        }
+ */
+bool reshape_map(t_map *map)
+{
+    size_t y;
+    size_t cur_len;
+    size_t max_x;
+    char *reshaped;
+
+    y = 0;
+    max_x = 0;
+    while (map->raw[y])
+    {
+        cur_len = ft_strlen(map->raw[y]);
+        if (cur_len > max_x)
+            max_x = cur_len;
+        y++;
+    }
+
+    if (max_x == 0)
+        return false;
+
+    y = 0;
+    while (map->raw[y])
+    {
+        reshaped = ft_calloc(max_x + 1, sizeof(char));
+        if (!reshaped)
+            return false;
+        ft_memset(reshaped, ' ', max_x);
+        ft_memcpy(reshaped, map->raw[y], ft_strlen(map->raw[y]));
+        free(map->raw[y]);
+        map->raw[y] = reshaped;
+        y++;
+    }
+
+    map->height = y;
+    map->width = max_x;
+
+    return true;
+}
+
+bool set_map(t_map *map, int fd)
 {
     char *line;
     char *raw_map;
@@ -111,9 +159,11 @@ bool set_map(char ***map, int fd)
     raw_map = read_map(line, fd);
     if (!raw_map)
         return false;
-    *map = ft_split(raw_map, '\n');
+    map->raw = ft_split(raw_map, '\n');
     free(raw_map);
-    if (!*map)
+    if (!map->raw)
+        return false;
+    if (!reshape_map(map))
         return false;
 
     return true;

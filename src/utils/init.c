@@ -22,7 +22,9 @@ static bool set_mlx(t_mlx *mlx)
 
 void set_defaults(t_cub3d *cub3d)
 {
-    cub3d->map = NULL;
+    cub3d->map.raw = NULL;
+    cub3d->map.height = 0;
+    cub3d->map.width = 0;
     cub3d->mlx.img = NULL;
     cub3d->mlx.mlx = NULL;
     cub3d->texture = NULL;
@@ -33,9 +35,9 @@ void free_cub3d(t_cub3d **cub3d)
     size_t i;
 
     i = 0;
-    while((*cub3d)->map && (*cub3d)->map[i])
-        free((*cub3d)->map[i++]);
-    free((*cub3d)->map);
+    while((*cub3d)->map.raw && (*cub3d)->map.raw[i])
+        free((*cub3d)->map.raw[i++]);
+    free((*cub3d)->map.raw);
     free((*cub3d)->mlx.img);
     free((*cub3d)->mlx.mlx);
     i = 0;
