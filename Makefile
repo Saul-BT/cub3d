@@ -6,7 +6,7 @@
 #    By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/11/14 21:13:39 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/11/19 20:11:24 by gade-oli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,10 +27,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 INC = inc/cub3d.h inc/defines.h
 
 SRC =	src/main.c \
-	src/draw.c \
+	src/mlx/hooks.c \
 	src/utils/ft_error.c \
-	src/utils/math.c \
-	src/mlx/hooks.c
+	src/utils/math.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 
