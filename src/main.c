@@ -6,7 +6,7 @@
 /*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/19 20:19:39 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:44:05 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,20 @@ static char** get_mock_map(void)
 }
 
 //atm for 2D minimap
-void	get_map_dimensions(t_cub *cub)
+void	get_map_dimensions(char **map, t_cub *cub)
 {
 	int	y;
 	int	x;
 	int	max_x;
 
-	if (!cub->map)
+	if (!map)
 		return ;
 	max_x = 0;
+	x = 0;
+	y = 0;
 	while (cub->map[y])
 	{
-		x = ft_strlen(cub->map[x]);
+		x = ft_strlen(map[x]);
 		if (x > max_x)
 			max_x = x;
 		y++;
@@ -46,11 +48,6 @@ void	get_map_dimensions(t_cub *cub)
 	cub->map_height = y;
 	cub->map_width = x;
 }
-
-/*void	draw_minimap(t_cub *cub)
-{
-	
-}*/
 
 // the size of a cube is atm determined through the TILE size on defines.h
 void	draw_cube(t_win *win, int x, int y, int color)
@@ -65,6 +62,26 @@ void	draw_cube(t_win *win, int x, int y, int color)
 		while (i < TILE)
 		{
 			mlx_put_pixel(win->mmap, x+i, y+j, color);
+			i++;
+		}
+		j++;
+	}
+}
+
+void	draw_minimap(t_cub *cub)
+{
+	int	i;
+	int	j;
+
+	get_map_dimensions(cub->map, cub);
+	j = 0;
+	while (j < cub->map_height)
+	{
+		i = 0;
+		while (i < cub->map_width)
+		{
+			if (cub->map[j][i] == '1')
+				draw_cube(cub->win, i*TILE, j*TILE, BLUE);
 			i++;
 		}
 		j++;
@@ -95,10 +112,12 @@ int	main(int argc, char **argv)
 {
 	t_cub	cub;
 
-	if (argc != 2)
-		return (ft_error("usage: ./cub3d mapfile.cub"));
+	//TODO: activate when parser is done
+	//if (argc != 2)
+	//	return (ft_error("usage: ./cub3d mapfile.cub"));
+	//printf("map file: %s\n", argv[1]);
+	(void)argc, (void)argv;
 
-	printf("map file: %s\n", argv[1]);
 	cub.win = malloc(sizeof(t_win));
 	if (!cub.win)
 		return (ft_error("malloc error\n"));
@@ -109,7 +128,10 @@ int	main(int argc, char **argv)
 	
 	mlx_key_hook(cub.win->mlx, &key_hook, cub.win->mlx);
 
-	draw_cube(cub.win, 10, 10, BLUE);
+	//draw_cube(cub.win, 10, 10, BLUE);
+	//get_map_dimensions(cub.map, &cub);
+	draw_minimap(&cub);
+	printf("map dimensions: x = %d, y = %d\n", cub.map_width, cub.map_height);
 
 	mlx_loop(cub.win->mlx);
 	mlx_terminate(cub.win->mlx);
