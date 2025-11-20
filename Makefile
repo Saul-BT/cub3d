@@ -6,7 +6,7 @@
 #    By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/11/19 20:11:24 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/11/20 20:24:54 by gade-oli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ LIBFT = $(LIBFT_DIR)megalibft.a
 #recipes-------------------------------------------------------------------------
 
 all: $(MLX) $(LIBFT) $(NAME)
-	@echo "$(GREEN)cub3d compiled!$(RESET)"
 
 $(LIBFT):
 	@make --directory=$(LIBFT_DIR)
@@ -60,6 +59,7 @@ $(MLX):
 
 $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
+	@echo "$(GREEN)cub3d compiled!$(RESET)"
 
 bin/%.o: src/%.c $(INC)
 	@mkdir -p $(@D)

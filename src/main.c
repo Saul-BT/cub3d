@@ -6,7 +6,7 @@
 /*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/20 19:44:05 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/11/20 20:43:01 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ void	draw_cube(t_win *win, int x, int y, int color)
 	}
 }
 
+int	is_player(char c)
+{
+	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
+}
+
 void	draw_minimap(t_cub *cub)
 {
 	int	i;
@@ -82,6 +87,12 @@ void	draw_minimap(t_cub *cub)
 		{
 			if (cub->map[j][i] == '1')
 				draw_cube(cub->win, i*TILE, j*TILE, BLUE);
+			if (is_player(cub->map[j][i]))
+			{
+				draw_cube(cub->win, i*TILE, j*TILE, RED);
+				cub->player->x = i;
+				cub->player->y = j;
+			}
 			i++;
 		}
 		j++;
@@ -108,6 +119,8 @@ int	init_window(t_win *win)
 	return (SUCCESS);
 }
 
+
+
 int	main(int argc, char **argv) 
 {
 	t_cub	cub;
@@ -125,8 +138,15 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	//TODO: change it to real parser
 	cub.map = get_mock_map();
+	cub.player = malloc(sizeof(t_player));
+	if (!cub.player)
+	{
+		//free(cub.win); TODO: create a final cleaner
+		return (ft_error("malloc error\n"));
+	}
+	cub.player->angle = 0.0;
 	
-	mlx_key_hook(cub.win->mlx, &key_hook, cub.win->mlx);
+	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
 
 	//draw_cube(cub.win, 10, 10, BLUE);
 	//get_map_dimensions(cub.map, &cub);
