@@ -27,6 +27,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	dy = 0;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
+	//TODO: separate player movement logic to another file
 	if (keydata.key == MLX_KEY_W)
 	{
 		//calculate movement

@@ -22,12 +22,20 @@
 # include "defines.h"
 
 // utils/ft_error.c
-int	ft_error(char *str);
-
+int     ft_error(char *str);
 // utils/math.c
 float	deg_to_rads(float deg);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
+// mlx/window.c
+int		init_window(t_win *win);
+
+// rendering/draw.c
+void	draw_cube(t_win *win, int x, int y, int color);
+void	draw_minimap(t_cub *cub);
+// rendering/map.c
+void	get_map_dimensions(char **map, t_cub *cub);
+int     is_player(char c);
 
 #endif

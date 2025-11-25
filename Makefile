@@ -27,9 +27,9 @@ CFLAGS = -Wall -Wextra -Werror -g
 INC = inc/cub3d.h inc/defines.h
 
 SRC =	src/main.c \
-	src/mlx/hooks.c \
-	src/utils/ft_error.c \
-	src/utils/math.c
+		src/mlx/hooks.c src/mlx/window.c \
+		src/rendering/map.c src/rendering/draw.c \
+		src/utils/ft_error.c src/utils/math.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 
