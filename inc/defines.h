@@ -16,13 +16,18 @@
 # define WIN_NAME "cub3d"
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
-# define FOV 0.785398 //45º
+
 # define TILE 64 //a tile in the map will occupy 64x64 pixels
+
+# define FOV 0.785398 //45º
 # define MOVE_SPEED 0.5
 # define ROTATION_SPEED 0.25
 
 # define BLUE 0x00FFFFFF
-# define RED 0x00AAAAAA
+# define RED 0xFF0000FF
+# define GREEN 0x00FF00FF
+# define BLACK 0x000000FF
+# define WHITE 0xFFFFFFFF
 
 # define SUCCESS 0
 # define ERROR 1
@@ -42,12 +47,13 @@ typedef	struct	s_player
 	float	angle;
 }	t_player;
 
+// main cub3d struct
 typedef struct	s_cub
 {
 	t_win		*win;
 	char		**map;
-	int		map_height;
-	int		map_width;
+	int			map_height;
+	int			map_width;
 	t_player	*player;
 }	t_cub;
 

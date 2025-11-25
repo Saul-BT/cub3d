@@ -47,6 +47,9 @@ int	main(int argc, char **argv)
 	if (!cub.player)
 	{
 		//free(cub.win); TODO: create a final cleaner
+		cub.player->x = 0.0;
+    	cub.player->y = 0.0;
+    	cub.player->angle = 0.0;
 		return (ft_error("malloc error\n"));
 	}
 	cub.player->angle = 0.0;
@@ -55,6 +58,7 @@ int	main(int argc, char **argv)
 
 	//draw_cube(cub.win, 10, 10, BLUE);
 	//get_map_dimensions(cub.map, &cub);
+	init_player_position(&cub);
 	draw_minimap(&cub);
 	printf("map dimensions: x = %d, y = %d\n", cub.map_width, cub.map_height);
 

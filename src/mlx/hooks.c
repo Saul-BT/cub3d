@@ -12,8 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-//TODO: clear screen per movement
-// moves player and exits window
 void	key_hook(mlx_key_data_t keydata, void *param)
 {
 	t_cub	*cub;
@@ -28,13 +26,39 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 		mlx_close_window(mlx);
 	//TODO: separate player movement logic to another file
-	if (keydata.key == MLX_KEY_W)
-	{
-		//calculate movement
-		dx = cos(cub->player->angle) * MOVE_SPEED;
-		dy = sin(cub->player->angle) * MOVE_SPEED;
-		//update player
-		cub->player->x = cub->player->x + dx;
-		cub->player->y = cub->player->y + dy;
-	}
+	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
+    {
+        if (keydata.key == MLX_KEY_W) // Forward
+        {
+            dx = cos(cub->player->angle) * MOVE_SPEED;
+            dy = sin(cub->player->angle) * MOVE_SPEED;
+            move_player(cub, dx, dy);
+        }
+        else if (keydata.key == MLX_KEY_S) // Backward
+        {
+            dx = -cos(cub->player->angle) * MOVE_SPEED;
+            dy = -sin(cub->player->angle) * MOVE_SPEED;
+            move_player(cub, dx, dy);
+        }
+        else if (keydata.key == MLX_KEY_A) // Strafe left
+        {
+            dx = -sin(cub->player->angle) * MOVE_SPEED;
+            dy = cos(cub->player->angle) * MOVE_SPEED;
+            move_player(cub, dx, dy);
+        }
+        else if (keydata.key == MLX_KEY_D) // Strafe right
+        {
+            dx = sin(cub->player->angle) * MOVE_SPEED;
+            dy = -cos(cub->player->angle) * MOVE_SPEED;
+            move_player(cub, dx, dy);
+        }
+        else if (keydata.key == MLX_KEY_LEFT) // Rotate left
+        {
+            rotate_player(cub, -ROTATION_SPEED);
+        }
+        else if (keydata.key == MLX_KEY_RIGHT) // Rotate right
+        {
+            rotate_player(cub, ROTATION_SPEED);
+        }
+    }
 }

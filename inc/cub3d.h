@@ -32,10 +32,17 @@ void	key_hook(mlx_key_data_t keydata, void *param);
 int		init_window(t_win *win);
 
 // rendering/draw.c
+void	clear_screen(t_cub *cub);
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_minimap(t_cub *cub);
+void	draw_grid(t_cub *cub, t_win *win);
 // rendering/map.c
 void	get_map_dimensions(char **map, t_cub *cub);
+// rendering/player.c
 int     is_player(char c);
+void	move_player(t_cub *cub, float dx, float dy);
+void	rotate_player(t_cub *cub, float rotation);
+void	init_player_position(t_cub *cub);
+
 
 #endif

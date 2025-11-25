@@ -34,8 +34,3 @@ void	get_map_dimensions(char **map, t_cub *cub)
 	cub->map_height = y;
 	cub->map_width = max_x;
 }
-
-int	is_player(char c)
-{
-	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
-}
