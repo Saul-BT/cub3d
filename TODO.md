@@ -6,6 +6,9 @@ minimap:
 - [x] draw minimap grid tiles to make it prettier
 - [x] draw raycasting ray direction
 
+- [ ] create generalist `draw_line` method
+- [ ] include ray distance up to the first wall encountered
+
 3d raycast:
 - [ ] 
 

@@ -45,5 +45,7 @@ void	move_player(t_cub *cub, float dx, float dy);
 void	rotate_player(t_cub *cub, float rotation);
 void	init_player_position(t_cub *cub);
 void	minimap_player_ray(t_win *win, t_player *player);
+// rendering/raycast.c
+void	dda(t_cub *cub, t_player *player);
 
 #endif
