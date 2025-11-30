@@ -23,6 +23,9 @@ void	init_player_position(t_cub *cub)
     int	j;
 
     j = 0;
+    cub->player->angle = 0.0;
+	cub->player->x = 0.0;
+	cub->player->y = 0.0;
     while (j < cub->map_height)
     {
         i = 0;
