@@ -75,7 +75,7 @@ void	draw_grid(t_cub *cub, t_win *win)
         while (x < cub->map_width * TILE)
         {
             if (x < (int)win->mmap->width && y < (int)win->mmap->height)
-                mlx_put_pixel(win->mmap, x, y, GREEN); // Dark gray grid
+                mlx_put_pixel(win->mmap, x, y, GREEN);
             x++;
         }
         y += TILE;

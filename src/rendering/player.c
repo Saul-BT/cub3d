@@ -17,15 +17,27 @@ int	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
+float	player_init_angle(char c)
+{
+	if (c == 'N')
+		return (N);
+	if (c == 'S')
+		return (S);
+	if (c == 'E')
+		return (E);
+	if (c == 'W')
+		return (W);
+	return (ERROR);
+}
+
 void	init_player_position(t_cub *cub)
 {
     int	i;
     int	j;
 
     j = 0;
-    cub->player->angle = 0.0;
-	cub->player->x = 0.0;
-	cub->player->y = 0.0;
+	cub->player->x = 0;
+	cub->player->y = 0;
     while (j < cub->map_height)
     {
         i = 0;
@@ -35,6 +47,7 @@ void	init_player_position(t_cub *cub)
             {
                 cub->player->x = i;
                 cub->player->y = j;
+                cub->player->angle = player_init_angle(cub->map[j][i]);
                 return ;
             }
             i++;
@@ -43,8 +56,7 @@ void	init_player_position(t_cub *cub)
     }
 }
 
-//only used for the minimap atm
-
+//TODO: remove printf debug lines
 void	move_player(t_cub *cub, float dx, float dy)
 {
     printf("Before move: x=%.2f, y=%.2f\n", cub->player->x, cub->player->y);

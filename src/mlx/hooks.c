@@ -28,35 +28,35 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	//TODO: separate player movement logic to another file
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
     {
-        if (keydata.key == MLX_KEY_W) // Forward
+        if (keydata.key == MLX_KEY_W)
         {
             dx = cos(cub->player->angle) * MOVE_SPEED;
             dy = sin(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
-        else if (keydata.key == MLX_KEY_S) // Backward
+        else if (keydata.key == MLX_KEY_S)
         {
             dx = -cos(cub->player->angle) * MOVE_SPEED;
             dy = -sin(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
-        else if (keydata.key == MLX_KEY_A) // Strafe left
+        else if (keydata.key == MLX_KEY_A)
         {
             dx = -sin(cub->player->angle) * MOVE_SPEED;
             dy = cos(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
-        else if (keydata.key == MLX_KEY_D) // Strafe right
+        else if (keydata.key == MLX_KEY_D)
         {
             dx = sin(cub->player->angle) * MOVE_SPEED;
             dy = -cos(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
-        else if (keydata.key == MLX_KEY_LEFT) // Rotate left
+        else if (keydata.key == MLX_KEY_LEFT)
         {
             rotate_player(cub, -ROTATION_SPEED);
         }
-        else if (keydata.key == MLX_KEY_RIGHT) // Rotate right
+        else if (keydata.key == MLX_KEY_RIGHT)
         {
             rotate_player(cub, ROTATION_SPEED);
         }

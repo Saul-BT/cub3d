@@ -17,11 +17,16 @@
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 
-# define TILE 64 //a tile in the map will occupy 64x64 pixels
-
+# define TILE 128 //a tile in the map will occupy 64x64 pixels
 # define FOV 0.785398 //45º
-# define MOVE_SPEED 0.5
+# define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.25
+
+// following the Unit Circle in radians and NSEW equivalents
+# define N 1.5708 //90º
+# define E 0 //0º / 360º
+# define S 4.71239 //270º
+# define W 3.14159 //180º
 
 # define BLUE 0x00FFFFFF
 # define RED 0xFF0000FF
