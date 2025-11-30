@@ -17,7 +17,7 @@ int	is_player(char c)
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
 
-float	player_init_angle(char c)
+static float	player_init_angle(char c)
 {
 	if (c == 'N')
 		return (N);
@@ -63,7 +63,6 @@ void	move_player(t_cub *cub, float dx, float dy)
     cub->player->x += dx;
     cub->player->y += dy;
     printf("After move: x=%.2f, y=%.2f (dx=%.2f, dy=%.2f)\n", cub->player->x, cub->player->y, dx, dy);
-        
     clear_screen(cub);
     draw_minimap(cub);
 }
@@ -71,11 +70,41 @@ void	move_player(t_cub *cub, float dx, float dy)
 void	rotate_player(t_cub *cub, float rotation)
 {
     cub->player->angle += rotation;
-    
     if (cub->player->angle >= 2 * PI)
         cub->player->angle -= 2 * PI;
     if (cub->player->angle < 0)
         cub->player->angle += 2 * PI;
     clear_screen(cub);
     draw_minimap(cub);
+}
+
+void	minimap_player_ray(t_win *win, t_player *player)
+{
+	float	end_x;
+    float	end_y;
+    float	ray_x;
+    float	ray_y;
+    float	steps;
+    float	x_inc;
+    float	y_inc;
+    int		i;
+
+    end_x = (player->x * TILE + TILE / 2) + cos(player->angle) * RAY_LENGTH * TILE;
+    end_y = (player->y * TILE + TILE / 2) + sin(player->angle) * RAY_LENGTH * TILE;
+    
+    ray_x = player->x * TILE + TILE / 2;
+    ray_y = player->y * TILE + TILE / 2;
+    
+    steps = fmax(fabs(end_x - ray_x), fabs(end_y - ray_y));
+    x_inc = (end_x - ray_x) / steps;
+    y_inc = (end_y - ray_y) / steps;
+    
+    i = 0;
+    while (i <= steps)
+    {
+        safe_put_pixel(win->mmap, (int)ray_x, (int)ray_y, RED);
+        ray_x += x_inc;
+        ray_y += y_inc;
+        i++;
+    }
 }

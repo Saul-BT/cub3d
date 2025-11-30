@@ -33,6 +33,7 @@ int		init_window(t_win *win);
 
 // rendering/draw.c
 void	clear_screen(t_cub *cub);
+void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color);
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_minimap(t_cub *cub);
 void	draw_grid(t_cub *cub, t_win *win);
@@ -43,6 +44,6 @@ int     is_player(char c);
 void	move_player(t_cub *cub, float dx, float dy);
 void	rotate_player(t_cub *cub, float rotation);
 void	init_player_position(t_cub *cub);
-
+void	minimap_player_ray(t_win *win, t_player *player);
 
 #endif

@@ -2,12 +2,15 @@ minimap:
 - [x] basic outline
 - [x] draw player
 - [ ] add player keyhooks for movement
-    - [ ] move player along the tiles smoothly
+    - [x] move player along the tiles smoothly
 - [x] draw minimap grid tiles to make it prettier
-- [ ] draw raycasting rays projections
+- [x] draw raycasting ray direction
 
 3d raycast:
 - [ ] 
 
 bonus:
 - [ ] add collisions to the map
+
+raycast notes:
+- one ray per column of the screen

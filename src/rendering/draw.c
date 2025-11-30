@@ -30,6 +30,15 @@ void	clear_screen(t_cub *cub)
     }
 }
 
+void safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color)
+{
+	if (!img)
+		return ;
+	if (x < 0 || y < 0 || x >= (int)img->width || y >= (int)img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color);
+}
+
 // the size of a cube is atm determined through the TILE size on defines.h
 void	draw_cube(t_win *win, int x, int y, int color)
 {
@@ -61,8 +70,7 @@ void	draw_grid(t_cub *cub, t_win *win)
 		y = 0;
 		while (y < cub->map_height * TILE)
 		{
-            if (x < (int)win->mmap->width && y < (int)win->mmap->height)
-				mlx_put_pixel(win->mmap, x, y, GREEN);
+			safe_put_pixel(win->mmap, x, y, GREEN);
 			y++;
 		}
 		x += TILE;
@@ -74,8 +82,7 @@ void	draw_grid(t_cub *cub, t_win *win)
         x = 0;
         while (x < cub->map_width * TILE)
         {
-            if (x < (int)win->mmap->width && y < (int)win->mmap->height)
-                mlx_put_pixel(win->mmap, x, y, GREEN);
+            safe_put_pixel(win->mmap, x, y, GREEN);
             x++;
         }
         y += TILE;
@@ -100,10 +107,7 @@ void	draw_player_circle(t_win *win, t_player *player)
 			dx = x - center_x;
 			dy = y - center_y;
 			if (dx * dx + dy * dy <= radius * radius)
-			{
-                if (x >= 0 && x < (int)win->mmap->width && y >= 0 && y < (int)win->mmap->height)
-					mlx_put_pixel(win->mmap, x, y, RED);
-			}
+				safe_put_pixel(win->mmap, x, y, RED);
 			x++;
 		}
 		y++;
@@ -126,13 +130,12 @@ void	draw_minimap(t_cub *cub)
 			if (cub->map[j][i] == '1')
 				draw_cube(cub->win, i*TILE, j*TILE, BLUE);
 			if (cub->map[j][i] == '0' || is_player(cub->map[j][i]))
-                    draw_cube(cub->win, i*TILE, j*TILE, WHITE);
+                draw_cube(cub->win, i*TILE, j*TILE, WHITE);
 			i++;
 		}
 		j++;
 	}
 	draw_grid(cub, cub->win);
+	minimap_player_ray(cub->win, cub->player);
 	draw_player_circle(cub->win, cub->player);
 }
-
-

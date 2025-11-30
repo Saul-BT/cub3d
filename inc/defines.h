@@ -22,6 +22,8 @@
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.25
 
+# define RAY_LENGTH 1 //used in the minimap
+
 // following the Unit Circle in radians and NSEW equivalents
 # define N 1.5708 //90º
 # define E 0 //0º / 360º
