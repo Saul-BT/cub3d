@@ -100,6 +100,9 @@ void	minimap_player_ray(t_cub *cub, t_player *player)
     
     x_inc = cos(player->angle);
     y_inc = sin(player->angle);
+
+	map_x = (int)(ray_x / TILE);
+	map_y = (int)(ray_y / TILE);
     
     while (!ray_touches_wall(map_x, map_y, cub))
     {

@@ -20,7 +20,7 @@
 # define TILE 128 //a tile in the map will occupy 64x64 pixels
 # define FOV 0.785398 //45º
 # define MOVE_SPEED 0.25
-# define ROTATION_SPEED 0.25
+# define ROTATION_SPEED 0.15
 
 # define RAY_LENGTH 1 //used in the minimap
 
