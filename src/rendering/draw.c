@@ -136,6 +136,6 @@ void	draw_minimap(t_cub *cub)
 		j++;
 	}
 	draw_grid(cub, cub->win);
-	minimap_player_ray(cub->win, cub->player);
+	minimap_player_ray(cub, cub->player);
 	draw_player_circle(cub->win, cub->player);
 }

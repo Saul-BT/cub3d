@@ -78,33 +78,38 @@ void	rotate_player(t_cub *cub, float rotation)
     draw_minimap(cub);
 }
 
-void	minimap_player_ray(t_win *win, t_player *player)
+int	ray_touches_wall(int px, int py, t_cub *cub)
 {
-	float	end_x;
-    float	end_y;
+	if (px < 0 || py < 0 || py >= cub->map_height || px >= cub->map_width ||
+		cub->map[py][px] == '1')
+		return (1);
+	return (0);
+}
+
+void	minimap_player_ray(t_cub *cub, t_player *player)
+{
     float	ray_x;
     float	ray_y;
-    float	steps;
     float	x_inc;
     float	y_inc;
-    int		i;
+	int		map_x;
+	int		map_y;
 
-    end_x = (player->x * TILE + TILE / 2) + cos(player->angle) * RAY_LENGTH * TILE;
-    end_y = (player->y * TILE + TILE / 2) + sin(player->angle) * RAY_LENGTH * TILE;
-    
     ray_x = player->x * TILE + TILE / 2;
     ray_y = player->y * TILE + TILE / 2;
     
-    steps = fmax(fabs(end_x - ray_x), fabs(end_y - ray_y));
-    x_inc = (end_x - ray_x) / steps;
-    y_inc = (end_y - ray_y) / steps;
+    x_inc = cos(player->angle);
+    y_inc = sin(player->angle);
     
-    i = 0;
-    while (i <= steps)
+    while (1)
     {
-        safe_put_pixel(win->mmap, (int)ray_x, (int)ray_y, RED);
+		map_x = (int)(ray_x / TILE);
+		map_y = (int)(ray_y / TILE);
+		if (ray_touches_wall(map_x, map_y, cub))
+			break ;
+
+        safe_put_pixel(cub->win->mmap, (int)ray_x, (int)ray_y, RED);
         ray_x += x_inc;
         ray_y += y_inc;
-        i++;
     }
 }
