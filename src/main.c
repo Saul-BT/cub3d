@@ -16,11 +16,11 @@
 static char** get_mock_map(void)
 {
 	static char *map_data[] = {
-		"111111",
-		"100101",
-		"101001",
-		"1100N1",
-		"111111",
+		"111111111111",
+		"100100000001",
+		"101001000000",
+		"11E001000000",
+		"111111111111",
 		NULL
 	};
 	return (map_data);
@@ -53,9 +53,10 @@ int	main(int argc, char **argv)
 	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
 
 	//draw_cube(cub.win, 10, 10, BLUE);
-	//get_map_dimensions(cub.map, &cub);
+	get_map_dimensions(cub.map, &cub);
 	init_player_position(&cub);
-	draw_minimap(&cub);
+	//draw_minimap(&cub);
+	raycast(&cub);
 	printf("map dimensions: x = %d, y = %d\n", cub.map_width, cub.map_height);
 
 	mlx_loop(cub.win->mlx);

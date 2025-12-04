@@ -18,7 +18,7 @@
 # define WIN_HEIGHT 720
 
 # define TILE 128 //a tile in the map will occupy 64x64 pixels
-# define FOV 0.785398 //45º
+# define FOV 0.785398f //45º
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
 

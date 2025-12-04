@@ -42,14 +42,14 @@ void	key_hook(mlx_key_data_t keydata, void *param)
         }
         else if (keydata.key == MLX_KEY_A)
         {
-            dx = -sin(cub->player->angle) * MOVE_SPEED;
-            dy = cos(cub->player->angle) * MOVE_SPEED;
+            dx = sin(cub->player->angle) * MOVE_SPEED;
+            dy = -cos(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
         else if (keydata.key == MLX_KEY_D)
         {
-            dx = sin(cub->player->angle) * MOVE_SPEED;
-            dy = -cos(cub->player->angle) * MOVE_SPEED;
+            dx = -sin(cub->player->angle) * MOVE_SPEED;
+            dy = cos(cub->player->angle) * MOVE_SPEED;
             move_player(cub, dx, dy);
         }
         else if (keydata.key == MLX_KEY_LEFT)
