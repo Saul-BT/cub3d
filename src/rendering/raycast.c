@@ -14,12 +14,12 @@
 #include "../../inc/cub3d.h"
 
 // Check if ray hit a wall or is out of bounds
-static int	hit_wall(t_cub *cub, int map_x, int map_y)
+int	ray_hits_wall(int px, int py, t_cub *cub)
 {
-    if (map_x < 0 || map_y < 0 || map_y >= cub->map_height 
-        || map_x >= cub->map_width || cub->map[map_y][map_x] == '1')
-        return (1);
-    return (0);
+	if (px < 0 || py < 0 || py >= cub->map_height || px >= cub->map_width ||
+		cub->map[py][px] == '1')
+		return (1);
+	return (0);
 }
 
 static float	cast_ray(t_cub *cub, float ray_angle)
@@ -36,7 +36,7 @@ static float	cast_ray(t_cub *cub, float ray_angle)
     x_step = cos(ray_angle) * 0.01;
     y_step = sin(ray_angle) * 0.01;
     
-    while (!hit_wall(cub, (int)ray_x, (int)ray_y))
+    while (!ray_hits_wall((int)ray_x, (int)ray_y, cub))
     {
         ray_x += x_step;
         ray_y += y_step;

@@ -57,7 +57,7 @@ void	init_player_position(t_cub *cub)
 }
 
 //TODO: remove printf debug lines
-void	move_player(t_cub *cub, float dx, float dy)
+static void	move_player(t_cub *cub, float dx, float dy)
 {
     printf("Before move: x=%.2f, y=%.2f\n", cub->player->x, cub->player->y);
     cub->player->x += dx;
@@ -80,38 +80,32 @@ void	rotate_player(t_cub *cub, float rotation)
     //raycast(cub);
 }
 
-int	ray_touches_wall(int px, int py, t_cub *cub)
+void    player_motion(t_cub *cub, keys_t key)
 {
-	if (px < 0 || py < 0 || py >= cub->map_height || px >= cub->map_width ||
-		cub->map[py][px] == '1')
-		return (1);
-	return (0);
-}
+    float	dx;
+	float	dy;
 
-void	draw_minimap_player_ray(t_cub *cub, t_player *player)
-{
-    float	ray_x;
-    float	ray_y;
-    float	x_inc;
-    float	y_inc;
-	int		map_x;
-	int		map_y;
-
-    ray_x = player->x * TILE + TILE / 2;
-    ray_y = player->y * TILE + TILE / 2;
-    
-    x_inc = cos(player->angle);
-    y_inc = sin(player->angle);
-
-	map_x = (int)(ray_x / TILE);
-	map_y = (int)(ray_y / TILE);
-    
-    while (!ray_touches_wall(map_x, map_y, cub))
+    dx = 0;
+	dy = 0;
+    if (key == MLX_KEY_W)
     {
-		map_x = (int)(ray_x / TILE);
-		map_y = (int)(ray_y / TILE);
-        safe_put_pixel(cub->win->mmap, (int)ray_x, (int)ray_y, RED);
-        ray_x += x_inc;
-        ray_y += y_inc;
+        dx = cos(cub->player->angle) * MOVE_SPEED;
+        dy = sin(cub->player->angle) * MOVE_SPEED;
     }
+    else if (key == MLX_KEY_S)
+    {
+        dx = -cos(cub->player->angle) * MOVE_SPEED;
+        dy = -sin(cub->player->angle) * MOVE_SPEED;
+    }
+    else if (key == MLX_KEY_A)
+    {
+        dx = sin(cub->player->angle) * MOVE_SPEED;
+        dy = -cos(cub->player->angle) * MOVE_SPEED;
+    }
+    else if (key == MLX_KEY_D)
+    {
+        dx = -sin(cub->player->angle) * MOVE_SPEED;
+        dy = cos(cub->player->angle) * MOVE_SPEED;
+    }
+    move_player(cub, dx, dy);
 }

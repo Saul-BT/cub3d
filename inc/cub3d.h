@@ -45,13 +45,14 @@ void	draw_minimap(t_cub *cub);
 void	draw_grid(t_cub *cub, t_win *win);
 // rendering/minimap.c
 void	get_map_dimensions(char **map, int *map_width, int *map_height);
+void	draw_minimap_player_ray(t_cub *cub, t_player *player);
 // rendering/player.c
 int     is_player(char c);
-void	move_player(t_cub *cub, float dx, float dy);
 void	rotate_player(t_cub *cub, float rotation);
 void	init_player_position(t_cub *cub);
-void	draw_minimap_player_ray(t_cub *cub, t_player *player);
+void    player_motion(t_cub *cub, keys_t key);
 // rendering/raycast.c
+int	    ray_hits_wall(int px, int py, t_cub *cub);
 void	raycast(t_cub *cub);
 
 
