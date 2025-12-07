@@ -135,10 +135,7 @@ static bool visit_top_border(size_t x, t_map map, bool **visited, t_queue *queue
 
     point = malloc(sizeof(t_point));
     if (!point)
-    {
-        free_bfs_stuff(queue, visited, map.height);
         return false;
-    }
     point->x = x;
     point->y = 0;
     ft_enqueue(queue, point);
@@ -154,10 +151,7 @@ static bool visit_bottom_border(size_t x, t_map map, bool **visited, t_queue *qu
 
     point = malloc(sizeof(t_point));
     if (!point)
-    {
-        free_bfs_stuff(queue, visited, map.height);
         return false;
-    }
     point->x = x;
     point->y = map.height - 1;
     ft_enqueue(queue, point);
@@ -172,10 +166,7 @@ static bool visit_left_border(size_t y, t_map map, bool **visited, t_queue *queu
 
     point = malloc(sizeof(t_point));
     if (!point)
-    {
-        free_bfs_stuff(queue, visited, map.height);
         return false;
-    }
     point->x = 0;
     point->y = y;
     ft_enqueue(queue, point);
@@ -192,10 +183,7 @@ static bool visit_right_border(size_t y, t_map map, bool **visited, t_queue *que
 
     point = malloc(sizeof(t_point));
     if (!point)
-    {
-        free_bfs_stuff(queue, visited, map.height);
         return false;
-    }
     point->x = map.width - 1;
     point->y = y;
     ft_enqueue(queue, point);
@@ -206,117 +194,78 @@ static bool visit_right_border(size_t y, t_map map, bool **visited, t_queue *que
 
 static bool visit_borders(t_map map, bool **visited, t_queue *queue)
 {
-    size_t x;
-    size_t y;
-    t_point *point;
-    // add points of top and bottom
-    x = 0;
-    while (x < map.width)
+    size_t i;
+    i = 0;
+    while (i < map.width)
     {
-        if (ft_strchr("0NSEW", map.raw[0][x])
-            || ft_strchr("0NSEW", map.raw[map.height - 1][x]))
-        {
-            free_bfs_stuff(queue, visited, map.height);
+        if (ft_strchr("0NSEW", map.raw[0][i]) || ft_strchr("0NSEW", map.raw[map.height - 1][i]))
             return false;
-        }
-
-        if (map.raw[0][x] != '1' && !visited[0][x] && !visit_top_border(x, map, visited, queue))
+        if (map.raw[0][i] != '1' && !visited[0][i] && !visit_top_border(i, map, visited, queue))
             return false;
-        if (map.raw[map.height - 1][x] != '1' && !visited[map.height - 1][x]  && !visit_bottom_border(x, map, visited, queue))
+        if (map.raw[map.height - 1][i] != '1' && !visited[map.height - 1][i]  && !visit_bottom_border(i, map, visited, queue))
             return false;
-        x++;
+        i++;
     }
-    // add points of left and right
-    y = 0;
-    while (y < map.height)
+    i = 0;
+    while (i < map.height)
     {
-        if (ft_strchr("0NSEW", map.raw[y][0])
-            || ft_strchr("0NSEW", map.raw[y][map.width - 1]))
-        {
-            free_bfs_stuff(queue, visited, map.height);
+        if (ft_strchr("0NSEW", map.raw[i][0]) || ft_strchr("0NSEW", map.raw[i][map.width - 1]))
             return false;
-        }
-
-        if (map.raw[y][0] != '1' && !visited[y][0] && !visit_left_border(y, map, visited, queue))
+        if (map.raw[i][0] != '1' && !visited[i][0] && !visit_left_border(i, map, visited, queue))
             return false;
-        if (map.raw[y][map.width - 1] != '1' && !visited[y][map.width - 1] && !visit_right_border(y, map, visited, queue))
+        if (map.raw[i][map.width - 1] != '1' && !visited[i][map.width - 1] && !visit_right_border(i, map, visited, queue))
             return false;
-        y++;
+        i++;
     }
     return true;
 }
 
-static bool bfs(t_map map)
+static bool visit_neighbourg(size_t x, size_t y, bool **visited, t_queue *queue)
 {
-    size_t x;
-    size_t y;
-    bool **visited;
-    t_queue queue;
     t_point *point;
 
-    visited = get_visited_map(map.width, map.height);
-    if (!visited)
+    point = malloc(sizeof(t_point));
+    if (!point)
         return false;
+    point->x = x;
+    point->y = y;
+    ft_enqueue(queue, point);
+    visited[y][x] = true;
 
-    ft_queue_init(&queue);
-    if (!visit_borders(map, visited, &queue))
-    {
-        free_bfs_stuff(&queue, visited, map.height);
-        return false;
-    }
+    return true;
+}
 
-    // actual bfs
+static bool visit_neighbourgs(t_point point, t_map map, t_queue *queue, bool **visited)
+{
+    int i;
+    size_t x;
+    size_t y;
+    t_point *new_point;
     static t_point directions[4];
     directions[0] = (t_point){ .x = 1, .y = 0 };
     directions[1] = (t_point){ .x = 0, .y = 1 };
     directions[2] = (t_point){ .x = -1, .y = 0 };
     directions[3] = (t_point){ .x = 0, .y = -1 };
-
-    int i;
-    t_point *new_point;
-    while (queue.front)
+    i = 0;
+    while (i < 4)
     {
-        //debug_bfs(map, visited);
-        point = (t_point *)ft_dequeue(&queue);
-        if (!point) // TODO: check if necessary
+        x = point.x + directions[i].x;
+        y = point.y + directions[i].y;
+        if (x > 0 && x < map.width && y > 0 && y < map.height
+            && !visited[y][x] && map.raw[y][x] != '1'
+            && !visit_neighbourg(x, y, visited, queue))
         {
-            free_bfs_stuff(&queue, visited, map.height);
             return false;
         }
-        
-        if (ft_strchr("0NSEW", map.raw[point->y][point->x]))
-        {
-            free(point);
-            free_bfs_stuff(&queue, visited, map.height);
-            return false;
-        }
-
-        i = 0;
-        while (i < 4)
-        {
-            x = point->x + directions[i].x;
-            y = point->y + directions[i].y;
-            if (x > 0 && x < map.width && y > 0 && y < map.height
-                && !visited[y][x] && map.raw[y][x] != '1')
-            {
-                new_point = malloc(sizeof(t_point));
-                if (!new_point)
-                {
-                    free(point);
-                    free_bfs_stuff(&queue, visited, map.height);
-                    return false;
-                }
-                new_point->x = x;
-                new_point->y = y;
-                ft_enqueue(&queue, new_point);
-                visited[y][x] = true;
-            }
-            i++;
-        }
-        free(point);
+        i++;
     }
+    return true;
+}
 
-    // the closed maps should have floor
+static bool has_invalid_spaces(t_map map, bool **visited)
+{
+    size_t x;
+    size_t y;
     y = 0;
     while (y < map.height)
     {
@@ -325,16 +274,40 @@ static bool bfs(t_map map)
         {
             if (map.raw[y][x] == ' ' && !visited[y][x])
             {
-                free_bfs_stuff(&queue, visited, map.height);
-                return false;
+                return true;
             }
             x++;
         }
         y++;
     }
+    return false;
+}
 
+static bool bfs(t_map map)
+{
+    bool **visited;
+    t_queue queue;
+    t_point *point;
+
+    visited = get_visited_map(map.width, map.height);
+    if (!visited)
+        return false;
+    ft_queue_init(&queue);
+    if (!visit_borders(map, visited, &queue))
+        return (free_bfs_stuff(&queue, visited, map.height), false);
+    while (queue.front)
+    {
+        //debug_bfs(map, visited);
+        point = (t_point *)ft_dequeue(&queue);
+        if (!point) // TODO: check if necessary
+            return (free_bfs_stuff(&queue, visited, map.height), false);
+        if (ft_strchr("0NSEW", map.raw[point->y][point->x]) || !visit_neighbourgs(*point, map, &queue, visited))
+            return (free(point), free_bfs_stuff(&queue, visited, map.height), false);
+        free(point);
+    }
+    if (has_invalid_spaces(map, visited))
+        return (free_bfs_stuff(&queue, visited, map.height), false);
     free_bfs_stuff(&queue, visited, map.height);
-
     return true;
 }
 
