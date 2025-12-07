@@ -18,7 +18,7 @@
 # define WIN_HEIGHT 720
 # define MMAP_SIZE 16
 
-# define TILE 128 //square tile
+# define TILE 64 //square tile
 # define FOV 0.785398f //45º
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15

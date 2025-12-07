@@ -47,3 +47,10 @@ int	init_window(t_win *win)
 	// }
 	return (SUCCESS);
 }
+
+void	free_window(t_win *win)
+{
+	//mlx_delete_image(win->mlx, win->game);
+	mlx_delete_image(win->mlx, win->mmap);
+	mlx_close_window(win->mlx);
+}

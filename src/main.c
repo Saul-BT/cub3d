@@ -31,7 +31,6 @@ int	main(int argc, char **argv)
 	init_player_position(&cub);
 	draw_minimap(&cub);
 	//raycast(&cub);
-	printf("map dimensions: x = %d, y = %d\n", cub.map_width, cub.map_height);
 	mlx_loop(cub.win->mlx);
 	mlx_terminate(cub.win->mlx);
 	//free_struct(cub.win);

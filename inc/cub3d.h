@@ -35,6 +35,7 @@ int     init_structs(t_cub *cub);
 void	key_hook(mlx_key_data_t keydata, void *param);
 // mlx/window.c
 int		init_window(t_win *win);
+void	free_window(t_win *win);
 
 // rendering/draw.c
 void	clear_screen(t_cub *cub);

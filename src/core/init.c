@@ -17,9 +17,9 @@ static char** get_mock_map(void)
 {
 	static char *map_data[] = {
 		"111111111111",
-		"100100000001",
-		"101001000000",
-		"11E001000000",
+		"101000000001",
+		"100101000001",
+		"10E001000001",
 		"111111111111",
 		NULL
 	};
@@ -34,12 +34,21 @@ int	init_structs(t_cub *cub)
 	if (init_window(cub->win) == ERROR)
 		return (ERROR);
 	cub->map = get_mock_map();
+	//TODO: malloc check for map when parser is integrated
 	cub->player = malloc(sizeof(t_player));
 	if (!cub->player)
 	{
-		//free_array(cub->map);
-		free(cub);
+		//free_array(cub->map); //TODO: enable when parser is integrated
+		free(cub->win);
 		return (ft_error("malloc error in player struct\n"));
 	}
 	return (SUCCESS);
+}
+
+void	free_structs(t_cub *cub)
+{
+	free_window(cub->win);
+	free(cub->win);
+	//free_array(cub->map); //TODO: enable when parser is integrated
+	free(cub->player);
 }
