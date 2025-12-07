@@ -6,7 +6,7 @@
 #    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/11/17 17:07:48 by sblanco-         ###   ########.fr        #
+#    Updated: 2025/12/07 19:20:45 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RESET   = \033[0;0m
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g # -Wall -Wextra -Werror -g
 
 INC = inc/cub3d.h inc/defines.h
 

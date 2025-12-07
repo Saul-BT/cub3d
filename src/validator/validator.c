@@ -17,6 +17,7 @@ static bool all_valid_chars(char **map)
             free(trimmed);
             return false;
         }
+        free(trimmed);
         y++;
     }
 
@@ -76,6 +77,28 @@ static void debug_bfs(t_map map, bool **visited)
     usleep(1500);
 }
 
+static void free_bfs_stuff(t_queue *queue, bool **visited, size_t row_count)
+{
+    t_point *point;
+    size_t row;
+
+    row = 0;
+    while (row < row_count)
+    {
+        free(visited[row]);
+        row++;
+    }
+    free(visited);
+    if (!queue)
+        return;
+    point = ft_dequeue(queue);
+    while(point != NULL)
+    {
+        free(point);
+        point = ft_dequeue(queue);
+    }
+}
+
 static bool bfs(t_map map)
 {
     size_t x;
@@ -94,7 +117,7 @@ static bool bfs(t_map map)
         visited[y] = malloc(map.width * sizeof(bool));
         if (!visited[y])
         {
-            // FIXME: leak here
+            free_bfs_stuff(NULL, visited, y);
             return false;
         }
         while(x < map.width)
@@ -110,14 +133,10 @@ static bool bfs(t_map map)
     x = 0;
     while (x < map.width)
     {
-        if (ft_strchr("0NSEW", map.raw[0][x]))
+        if (ft_strchr("0NSEW", map.raw[0][x])
+            || ft_strchr("0NSEW", map.raw[map.height - 1][x]))
         {
-            // FIXME: leak here
-            return false;
-        }
-        if (ft_strchr("0NSEW", map.raw[map.height - 1][x]))
-        {
-            // FIXME: leak here
+            free_bfs_stuff(&queue, visited, map.height);
             return false;
         }
 
@@ -126,7 +145,7 @@ static bool bfs(t_map map)
             point = malloc(sizeof(t_point));
             if (!point)
             {
-                // FIXME: leak here
+                free_bfs_stuff(&queue, visited, map.height);
                 return false;
             }
             point->x = x;
@@ -139,7 +158,7 @@ static bool bfs(t_map map)
             point = malloc(sizeof(t_point));
             if (!point)
             {
-                // FIXME: leak here
+                free_bfs_stuff(&queue, visited, map.height);
                 return false;
             }
             point->x = x;
@@ -153,14 +172,10 @@ static bool bfs(t_map map)
     y = 0;
     while (y < map.height)
     {
-        if (ft_strchr("0NSEW", map.raw[y][0]))
+        if (ft_strchr("0NSEW", map.raw[y][0])
+            || ft_strchr("0NSEW", map.raw[y][map.width - 1]))
         {
-            // FIXME: leak here
-            return false;
-        }
-        if (ft_strchr("0NSEW", map.raw[y][map.width - 1]))
-        {
-            // FIXME: leak here
+            free_bfs_stuff(&queue, visited, map.height);
             return false;
         }
 
@@ -169,7 +184,7 @@ static bool bfs(t_map map)
             point = malloc(sizeof(t_point));
             if (!point)
             {
-                // FIXME: leak here
+                free_bfs_stuff(&queue, visited, map.height);
                 return false;
             }
             point->x = 0;
@@ -182,7 +197,7 @@ static bool bfs(t_map map)
             point = malloc(sizeof(t_point));
             if (!point)
             {
-                // FIXME: leak here
+                free_bfs_stuff(&queue, visited, map.height);
                 return false;
             }
             point->x = map.width - 1;
@@ -208,13 +223,14 @@ static bool bfs(t_map map)
         point = (t_point *)ft_dequeue(&queue);
         if (!point) // TODO: check if necessary
         {
-            // FIXME: leak here
+            free_bfs_stuff(&queue, visited, map.height);
             return false;
         }
         
         if (ft_strchr("0NSEW", map.raw[point->y][point->x]))
         {
-            // FIXME: leak here
+            free(point);
+            free_bfs_stuff(&queue, visited, map.height);
             return false;
         }
 
@@ -229,7 +245,8 @@ static bool bfs(t_map map)
                 new_point = malloc(sizeof(t_point));
                 if (!new_point)
                 {
-                    // FIXME: leak here
+                    free(point);
+                    free_bfs_stuff(&queue, visited, map.height);
                     return false;
                 }
                 new_point->x = x;
@@ -251,7 +268,7 @@ static bool bfs(t_map map)
         {
             if (map.raw[y][x] == ' ' && !visited[y][x])
             {
-                // FIXME: leak here
+                free_bfs_stuff(&queue, visited, map.height);
                 return false;
             }
             x++;
@@ -259,50 +276,10 @@ static bool bfs(t_map map)
         y++;
     }
 
+    free_bfs_stuff(&queue, visited, map.height);
+
     return true;
 }
-
-/*
- 111
-10001
-10001
-10001
- 111
-static bool is_closed(size_t *x, size_t *y, char **map)
-{
-    size_t row;
-    size_t col;
-    size_t last_x;
-    size_t last_y;
-
-    row = y;
-    col = x;
-    while (map[])
-}
-
-static bool all_maps_closed(char **map)
-{
-    size_t x;
-    size_t y;
-    bool all_closed;
-
-    y = 0;
-    all_closed = true;
-    while (map[y])
-    {
-        x = 0;
-        while (map[y][x])
-        {
-            if (map[y][x] == '0')
-                all_closed = all_closed && is_cosed(x, y, map);
-            x++;
-        }
-        y++;
-    }
-
-    return all_closed;
-}
-*/
 
 bool is_map_valid(t_map map)
 {

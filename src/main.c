@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/17 18:16:23 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/07 19:05:15 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 		return (ERROR);
 
     if (!is_map_valid(cub3d->map)){
+        free_cub3d(&cub3d);
         return (ERROR);
 	}
 	debug(&cub3d);
