@@ -99,28 +99,26 @@ static void free_bfs_stuff(t_queue *queue, bool **visited, size_t row_count)
     }
 }
 
-static bool bfs(t_map map)
+static bool **get_visited_map(size_t width, size_t height)
 {
     size_t x;
     size_t y;
     bool **visited;
-    t_queue queue;
-    t_point *point;
 
-    visited = malloc(map.height * sizeof(bool *));
+    visited = malloc(height * sizeof(bool *));
     if (!visited)
-        return false;
+        return NULL;
     y = 0;
-    while(y < map.height)
+    while(y < height)
     {
         x = 0;
-        visited[y] = malloc(map.width * sizeof(bool));
+        visited[y] = malloc(width * sizeof(bool));
         if (!visited[y])
         {
             free_bfs_stuff(NULL, visited, y);
             return false;
         }
-        while(x < map.width)
+        while(x < width)
         {
             visited[y][x] = false;
             x++;
@@ -128,7 +126,89 @@ static bool bfs(t_map map)
         y++;
     }
 
-    ft_queue_init(&queue);
+    return visited;
+}
+
+static bool visit_top_border(size_t x, t_map map, bool **visited, t_queue *queue)
+{
+    t_point *point;
+
+    point = malloc(sizeof(t_point));
+    if (!point)
+    {
+        free_bfs_stuff(queue, visited, map.height);
+        return false;
+    }
+    point->x = x;
+    point->y = 0;
+    ft_enqueue(queue, point);
+    visited[0][x] = true;
+
+    return true;
+}
+
+
+static bool visit_bottom_border(size_t x, t_map map, bool **visited, t_queue *queue)
+{
+    t_point *point;
+
+    point = malloc(sizeof(t_point));
+    if (!point)
+    {
+        free_bfs_stuff(queue, visited, map.height);
+        return false;
+    }
+    point->x = x;
+    point->y = map.height - 1;
+    ft_enqueue(queue, point);
+    visited[map.height - 1][x] = true;
+
+    return true;
+}
+
+static bool visit_left_border(size_t y, t_map map, bool **visited, t_queue *queue)
+{
+    t_point *point;
+
+    point = malloc(sizeof(t_point));
+    if (!point)
+    {
+        free_bfs_stuff(queue, visited, map.height);
+        return false;
+    }
+    point->x = 0;
+    point->y = y;
+    ft_enqueue(queue, point);
+    visited[y][0] = true;
+
+    return true;
+}
+
+
+
+static bool visit_right_border(size_t y, t_map map, bool **visited, t_queue *queue)
+{
+    t_point *point;
+
+    point = malloc(sizeof(t_point));
+    if (!point)
+    {
+        free_bfs_stuff(queue, visited, map.height);
+        return false;
+    }
+    point->x = map.width - 1;
+    point->y = y;
+    ft_enqueue(queue, point);
+    visited[y][map.width - 1] = true;
+
+    return true;
+}
+
+static bool visit_borders(t_map map, bool **visited, t_queue *queue)
+{
+    size_t x;
+    size_t y;
+    t_point *point;
     // add points of top and bottom
     x = 0;
     while (x < map.width)
@@ -136,36 +216,14 @@ static bool bfs(t_map map)
         if (ft_strchr("0NSEW", map.raw[0][x])
             || ft_strchr("0NSEW", map.raw[map.height - 1][x]))
         {
-            free_bfs_stuff(&queue, visited, map.height);
+            free_bfs_stuff(queue, visited, map.height);
             return false;
         }
 
-        if (map.raw[0][x] != '1' && !visited[0][x])
-        {
-            point = malloc(sizeof(t_point));
-            if (!point)
-            {
-                free_bfs_stuff(&queue, visited, map.height);
-                return false;
-            }
-            point->x = x;
-            point->y = 0;
-            ft_enqueue(&queue, point);
-            visited[0][x] = true;
-        }
-        if (map.raw[map.height - 1][x] != '1' && !visited[map.height - 1][x])
-        {
-            point = malloc(sizeof(t_point));
-            if (!point)
-            {
-                free_bfs_stuff(&queue, visited, map.height);
-                return false;
-            }
-            point->x = x;
-            point->y = map.height - 1;
-            ft_enqueue(&queue, point);
-            visited[map.height - 1][x] = true;
-        }
+        if (map.raw[0][x] != '1' && !visited[0][x] && !visit_top_border(x, map, visited, queue))
+            return false;
+        if (map.raw[map.height - 1][x] != '1' && !visited[map.height - 1][x]  && !visit_bottom_border(x, map, visited, queue))
+            return false;
         x++;
     }
     // add points of left and right
@@ -175,37 +233,36 @@ static bool bfs(t_map map)
         if (ft_strchr("0NSEW", map.raw[y][0])
             || ft_strchr("0NSEW", map.raw[y][map.width - 1]))
         {
-            free_bfs_stuff(&queue, visited, map.height);
+            free_bfs_stuff(queue, visited, map.height);
             return false;
         }
 
-        if (map.raw[y][0] != '1' && !visited[y][0])
-        {
-            point = malloc(sizeof(t_point));
-            if (!point)
-            {
-                free_bfs_stuff(&queue, visited, map.height);
-                return false;
-            }
-            point->x = 0;
-            point->y = y;
-            ft_enqueue(&queue, point);
-            visited[y][0] = true;
-        }
-        if (map.raw[y][map.width - 1] != '1' && !visited[y][map.width - 1])
-        {
-            point = malloc(sizeof(t_point));
-            if (!point)
-            {
-                free_bfs_stuff(&queue, visited, map.height);
-                return false;
-            }
-            point->x = map.width - 1;
-            point->y = y;
-            ft_enqueue(&queue, point);
-            visited[y][map.width - 1] = true;
-        }
+        if (map.raw[y][0] != '1' && !visited[y][0] && !visit_left_border(y, map, visited, queue))
+            return false;
+        if (map.raw[y][map.width - 1] != '1' && !visited[y][map.width - 1] && !visit_right_border(y, map, visited, queue))
+            return false;
         y++;
+    }
+    return true;
+}
+
+static bool bfs(t_map map)
+{
+    size_t x;
+    size_t y;
+    bool **visited;
+    t_queue queue;
+    t_point *point;
+
+    visited = get_visited_map(map.width, map.height);
+    if (!visited)
+        return false;
+
+    ft_queue_init(&queue);
+    if (!visit_borders(map, visited, &queue))
+    {
+        free_bfs_stuff(&queue, visited, map.height);
+        return false;
     }
 
     // actual bfs
@@ -219,7 +276,7 @@ static bool bfs(t_map map)
     t_point *new_point;
     while (queue.front)
     {
-        debug_bfs(map, visited);
+        //debug_bfs(map, visited);
         point = (t_point *)ft_dequeue(&queue);
         if (!point) // TODO: check if necessary
         {
