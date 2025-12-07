@@ -35,7 +35,7 @@ void	get_map_dimensions(char **map, int *map_width, int *map_height)
 	*map_width = max_x;
 }
 
-void	draw_minimap_player_ray(t_cub *cub, t_player *player)
+static void	draw_minimap_player_ray(t_cub *cub, t_player *player)
 {
     float	ray_x;
     float	ray_y;
@@ -61,4 +61,33 @@ void	draw_minimap_player_ray(t_cub *cub, t_player *player)
         ray_x += x_inc;
         ray_y += y_inc;
     }
+}
+
+void	draw_minimap(t_cub *cub)
+{
+	int	i;
+	int	j;
+	int	player_center_x;
+	int	player_center_y;
+
+	clear_screen(cub);
+	j = 0;
+	while (j < cub->map_height)
+	{
+		i = 0;
+		while (i < cub->map_width)
+		{
+			if (cub->map[j][i] == '1')
+				draw_cube(cub->win, i*TILE, j*TILE, BLUE);
+			if (cub->map[j][i] == '0' || is_player(cub->map[j][i]))
+                draw_cube(cub->win, i*TILE, j*TILE, WHITE);
+			i++;
+		}
+		j++;
+	}
+	draw_grid(cub, cub->win);
+	player_center_x = cub->player->x * TILE + TILE / 2;
+	player_center_y = cub->player->y * TILE + TILE / 2;
+	draw_minimap_player_ray(cub, cub->player);
+	draw_circle(cub->win, player_center_x, player_center_y);
 }

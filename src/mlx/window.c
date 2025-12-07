@@ -54,3 +54,30 @@ void	free_window(t_win *win)
 	mlx_delete_image(win->mlx, win->mmap);
 	mlx_close_window(win->mlx);
 }
+
+void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color)
+{
+	if (!img)
+		return ;
+	if (x < 0 || y < 0 || x >= (int)img->width || y >= (int)img->height)
+		return ;
+	mlx_put_pixel(img, x, y, color);
+}
+
+void	clear_screen(t_cub *cub)
+{
+    int	x;
+    int	y;
+
+    y = 0;
+    while (y < (int)cub->win->mmap->height)
+    {
+        x = 0;
+        while (x < (int)cub->win->mmap->width)
+        {
+            safe_put_pixel(cub->win->mmap, x, y, BLACK);
+            x++;
+        }
+        y++;
+    }
+}
