@@ -64,8 +64,8 @@ void	move_player(t_cub *cub, float dx, float dy)
     cub->player->y += dy;
     printf("After move: x=%.2f, y=%.2f (dx=%.2f, dy=%.2f)\n", cub->player->x, cub->player->y, dx, dy);
     clear_screen(cub);
-    //draw_minimap(cub);
-    raycast(cub);
+    draw_minimap(cub);
+    //raycast(cub);
 }
 
 void	rotate_player(t_cub *cub, float rotation)
@@ -76,8 +76,8 @@ void	rotate_player(t_cub *cub, float rotation)
     if (cub->player->angle < 0)
         cub->player->angle += 2 * PI;
     clear_screen(cub);
-    //draw_minimap(cub);
-    raycast(cub);
+    draw_minimap(cub);
+    //raycast(cub);
 }
 
 int	ray_touches_wall(int px, int py, t_cub *cub)

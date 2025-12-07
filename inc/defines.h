@@ -16,8 +16,9 @@
 # define WIN_NAME "cub3d"
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
+# define MMAP_SIZE 16
 
-# define TILE 128 //a tile in the map will occupy 64x64 pixels
+# define TILE 128 //square tile
 # define FOV 0.785398f //45º
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
@@ -45,6 +46,7 @@ typedef struct	s_win
 {
 	mlx_t		*mlx;
 	mlx_image_t	*mmap;
+	mlx_image_t	*game;
 }	t_win;
 
 typedef	struct	s_player

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -13,7 +13,7 @@
 #include "../../inc/cub3d.h"
 
 //atm for 2D minimap
-void	get_map_dimensions(char **map, t_cub *cub)
+void	get_map_dimensions(char **map, int *map_width, int *map_height)
 {
 	int	y;
 	int	x;
@@ -24,13 +24,13 @@ void	get_map_dimensions(char **map, t_cub *cub)
 	max_x = 0;
 	x = 0;
 	y = 0;
-	while (cub->map[y])
+	while (map[y])
 	{
 		x = ft_strlen(map[y]);
 		if (x > max_x)
 			max_x = x;
 		y++;
 	}
-	cub->map_height = y;
-	cub->map_width = max_x;
+	*map_height = y;
+	*map_width = max_x;
 }

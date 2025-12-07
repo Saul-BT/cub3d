@@ -12,23 +12,10 @@
 
 #include "../inc/cub3d.h"
 
-//TODO: delete when parser integrated
-static char** get_mock_map(void)
-{
-	static char *map_data[] = {
-		"111111111111",
-		"100100000001",
-		"101001000000",
-		"11E001000000",
-		"111111111111",
-		NULL
-	};
-	return (map_data);
-}
-
 int	main(int argc, char **argv) 
 {
 	t_cub	cub;
+	int		error;
 
 	//TODO: activate when parser is done
 	//if (argc != 2)
@@ -36,32 +23,17 @@ int	main(int argc, char **argv)
 	//printf("map file: %s\n", argv[1]);
 	(void)argc, (void)argv;
 
-	cub.win = malloc(sizeof(t_win));
-	if (!cub.win)
-		return (ft_error("malloc error\n"));
-	if (init_window(cub.win) == ERROR)
+	error = init_structs(&cub);
+	if (error)
 		return (ERROR);
-	//TODO: change it to real parser
-	cub.map = get_mock_map();
-	cub.player = malloc(sizeof(t_player));
-	if (!cub.player)
-	{
-		//free(cub.win); TODO: create a final cleaner
-		return (ft_error("malloc error\n"));
-	}
-
 	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
-
-	//draw_cube(cub.win, 10, 10, BLUE);
-	get_map_dimensions(cub.map, &cub);
+	get_map_dimensions(cub.map, &cub.map_width, &cub.map_height);
 	init_player_position(&cub);
-	//draw_minimap(&cub);
-	raycast(&cub);
+	draw_minimap(&cub);
+	//raycast(&cub);
 	printf("map dimensions: x = %d, y = %d\n", cub.map_width, cub.map_height);
-
 	mlx_loop(cub.win->mlx);
 	mlx_terminate(cub.win->mlx);
-	
 	//free_struct(cub.win);
 	return (SUCCESS);
 }

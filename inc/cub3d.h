@@ -25,6 +25,11 @@
 int     ft_error(char *str);
 // utils/math.c
 float	deg_to_rads(float deg);
+// utils/free_array.c
+void	free_array(void **arr);
+
+// core/init.c
+int     init_structs(t_cub *cub);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
@@ -37,8 +42,8 @@ void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color);
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_minimap(t_cub *cub);
 void	draw_grid(t_cub *cub, t_win *win);
-// rendering/map.c
-void	get_map_dimensions(char **map, t_cub *cub);
+// rendering/minimap.c
+void	get_map_dimensions(char **map, int *map_width, int *map_height);
 // rendering/player.c
 int     is_player(char c);
 void	move_player(t_cub *cub, float dx, float dy);

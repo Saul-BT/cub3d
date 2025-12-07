@@ -119,7 +119,6 @@ void	draw_minimap(t_cub *cub)
 	int	i;
 	int	j;
 
-	get_map_dimensions(cub->map, cub);
 	clear_screen(cub);
 	j = 0;
 	while (j < cub->map_height)

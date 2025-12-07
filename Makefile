@@ -28,8 +28,9 @@ INC = inc/cub3d.h inc/defines.h
 
 SRC =	src/main.c \
 		src/mlx/hooks.c src/mlx/window.c \
-		src/rendering/map.c src/rendering/draw.c src/rendering/player.c src/rendering/raycast.c \
-		src/utils/ft_error.c src/utils/math.c
+		src/core/init.c \
+		src/rendering/minimap.c src/rendering/draw.c src/rendering/player.c src/rendering/raycast.c \
+		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 
