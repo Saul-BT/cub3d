@@ -69,11 +69,11 @@ static void	draw_slice(t_cub *cub, int x, float distance, float ray_angle)
     
     y = -1;
     while (++y < draw_start)
-        safe_put_pixel(cub->win->mmap, x, y, 0x87CEEBFF);
+        safe_put_pixel(cub->win->mmap, x, y, CYAN);
     while (y < draw_end)
         safe_put_pixel(cub->win->mmap, x, y++, BLUE);
     while (y < WIN_HEIGHT)
-        safe_put_pixel(cub->win->mmap, x, y++, 0x228B22FF);
+        safe_put_pixel(cub->win->mmap, x, y++, GREEN);
 }
 
 void	raycast(t_cub *cub)

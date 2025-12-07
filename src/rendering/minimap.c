@@ -12,7 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-//atm for 2D minimap
 void	get_map_dimensions(char **map, int *map_width, int *map_height)
 {
 	int	y;

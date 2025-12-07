@@ -32,7 +32,6 @@ int	main(int argc, char **argv)
 	draw_minimap(&cub);
 	//raycast(&cub);
 	mlx_loop(cub.win->mlx);
-	mlx_terminate(cub.win->mlx);
-	//free_struct(cub.win);
+	free_all(&cub);
 	return (SUCCESS);
 }

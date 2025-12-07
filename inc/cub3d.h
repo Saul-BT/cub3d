@@ -30,12 +30,12 @@ void	free_array(void **arr);
 
 // core/init.c
 int     init_structs(t_cub *cub);
+void	free_all(t_cub *cub);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 // mlx/window.c
 int		init_window(t_win *win);
-void	free_window(t_win *win);
 void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color);
 void	clear_screen(t_cub *cub);
 // rendering/draw.c

@@ -14,8 +14,8 @@
 # define DEFINES_H
 
 # define WIN_NAME "cub3d"
-# define WIN_WIDTH 1080
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 # define MMAP_SIZE 16
 
 # define TILE 64 //square tile
@@ -31,9 +31,10 @@
 # define S 4.71239 //270º
 # define W 3.14159 //180º
 
+# define CYAN 0x87CEEBFF
 # define BLUE 0x00FFFFFF
 # define RED 0xFF0000FF
-# define GREEN 0x00FF00FF
+# define GREEN 0x228B22FF
 # define BLACK 0x000000FF
 # define WHITE 0xFFFFFFFF
 

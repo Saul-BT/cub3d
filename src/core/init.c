@@ -45,9 +45,9 @@ int	init_structs(t_cub *cub)
 	return (SUCCESS);
 }
 
-void	free_structs(t_cub *cub)
+void	free_all(t_cub *cub)
 {
-	free_window(cub->win);
+	mlx_terminate(cub->win->mlx);
 	free(cub->win);
 	//free_array(cub->map); //TODO: enable when parser is integrated
 	free(cub->player);

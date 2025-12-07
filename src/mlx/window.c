@@ -48,13 +48,6 @@ int	init_window(t_win *win)
 	return (SUCCESS);
 }
 
-void	free_window(t_win *win)
-{
-	//mlx_delete_image(win->mlx, win->game);
-	mlx_delete_image(win->mlx, win->mmap);
-	mlx_close_window(win->mlx);
-}
-
 void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color)
 {
 	if (!img)
