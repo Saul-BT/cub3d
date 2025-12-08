@@ -18,7 +18,10 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 
 	cub = (t_cub *)param;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
 		mlx_terminate(cub->win->mlx);
+		exit(SUCCESS);
+	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)
 	{
 		if (keydata.key == MLX_KEY_W || keydata.key == MLX_KEY_A
