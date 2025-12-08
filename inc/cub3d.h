@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/08 11:02:49 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:41:30 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ bool visit_borders(t_bfs *data);
 bool visit_neighbourgs(t_point point, t_bfs *data);
 bool has_invalid_spaces(t_map map, bool **visited);
 // bfs/main.c
-void bfs_debug(t_bfs data);
-bool bfs_init(t_bfs *data, t_map map);
 void bfs_free(t_queue *queue, bool **visited, size_t row_count);
 bool bfs(t_map map);
 // ./utils.c
