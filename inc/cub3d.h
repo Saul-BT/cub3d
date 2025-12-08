@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/07 19:17:07 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 11:02:49 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,23 @@ void free_cub3d(t_cub3d **cub3d);
 bool set_texture(char ***texture, int fd);
 bool set_map(t_map *map, int fd);
 
-// validator/validator.c
+// --- VALIDATOR ---
+// bfs/utils.c
+bool **get_visited_map(size_t width, size_t height);
+bool visit_point(size_t x, size_t y, t_bfs *data);
+bool visit_borders(t_bfs *data);
+bool visit_neighbourgs(t_point point, t_bfs *data);
+bool has_invalid_spaces(t_map map, bool **visited);
+// bfs/main.c
+void bfs_debug(t_bfs data);
+bool bfs_init(t_bfs *data, t_map map);
+void bfs_free(t_queue *queue, bool **visited, size_t row_count);
+bool bfs(t_map map);
+// ./utils.c
+bool all_valid_chars(char **map);
+bool is_one_player(char **map);
+// ./main.c
 bool is_map_valid(t_map map);
+// -----------------
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/17 15:41:00 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 10:00:32 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,12 @@ typedef struct	s_cub3d
 	t_map	map;
 	char	**texture;
 }	t_cub3d;
+
+typedef struct	s_bfs
+{
+	t_map	map;
+	bool	**visited;
+	t_queue	queue;
+}	t_bfs;
 
 #endif
