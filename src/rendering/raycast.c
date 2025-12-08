@@ -67,13 +67,13 @@ static void	draw_slice(t_cub *cub, int x, float distance, float ray_angle)
     if (draw_end >= WIN_HEIGHT)
         draw_end = WIN_HEIGHT - 1;
     
-    y = -1;
-    while (++y < draw_start)
-        safe_put_pixel(cub->win->mmap, x, y, CYAN);
+    y = 0;
+    while (y < draw_start)
+        safe_put_pixel(cub->win->mmap, x, y++, CYAN); //SKY
     while (y < draw_end)
         safe_put_pixel(cub->win->mmap, x, y++, BLUE);
     while (y < WIN_HEIGHT)
-        safe_put_pixel(cub->win->mmap, x, y++, GREEN);
+        safe_put_pixel(cub->win->mmap, x, y++, GREEN); //FLOOR
 }
 
 void	raycast(t_cub *cub)
