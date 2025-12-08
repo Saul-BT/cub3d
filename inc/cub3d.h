@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/08 11:41:30 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 18:51:49 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,32 +22,41 @@
 # include "../lib/queue/queue.h"
 # include "defines.h"
 
+// --- UTILS ---
 // utils/ft_error.c
 int	ft_error(char *str);
-
 // utils/init.c
 t_cub3d *cub3d_init(char *mapfile);
 void free_cub3d(t_cub3d **cub3d);
+// utils/mlx.c
+mlx_image_t	*my_mlx_load_image(t_mlx *mlx, char *path);
+// -------------
 
-// parser/parser.c
+// --- PARSER ---
+// parser/texture_utils.c
+bool	set_valid_color(char *color, uint32_t *value);
+// parser/index.c
 bool set_texture(char ***texture, int fd);
 bool set_map(t_map *map, int fd);
+// --------------
 
 // --- VALIDATOR ---
-// bfs/utils.c
+// validator/bfs_utils.c
 bool **get_visited_map(size_t width, size_t height);
 bool visit_point(size_t x, size_t y, t_bfs *data);
 bool visit_borders(t_bfs *data);
 bool visit_neighbourgs(t_point point, t_bfs *data);
 bool has_invalid_spaces(t_map map, bool **visited);
-// bfs/main.c
+// validator/bfs.c
 void bfs_free(t_queue *queue, bool **visited, size_t row_count);
 bool bfs(t_map map);
-// ./utils.c
+// validator/utils.c
 bool all_valid_chars(char **map);
 bool is_one_player(char **map);
+bool	is_filename_valid(char *filename);
 // ./main.c
 bool is_map_valid(t_map map);
+bool	set_valid_textures(char **texture, t_mlx *mlx);
 // -----------------
 
 #endif

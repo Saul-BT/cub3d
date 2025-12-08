@@ -6,7 +6,7 @@
 #    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/12/08 11:03:35 by sblanco-         ###   ########.fr        #
+#    Updated: 2025/12/08 18:45:33 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,14 +28,18 @@ INC = inc/cub3d.h inc/defines.h
 
 SRC =	src/main.c \
 	src/utils/ft_error.c \
-	src/parser/parser.c \
-	src/utils/init.c
+	src/utils/init.c \
+	src/utils/mlx.c
+
+# PARSER
+SRC += src/parser/texture_utils.c \
+	src/parser/index.c
 
 # VALIDATOR
-SRC += src/validator/bfs/utils.c \
-	src/validator/bfs/main.c \
+SRC += src/validator/bfs_utils.c \
+	src/validator/bfs.c \
 	src/validator/utils.c \
-	src/validator/main.c
+	src/validator/index.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 

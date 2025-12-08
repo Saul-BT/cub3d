@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/08 10:00:32 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 12:26:35 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,14 @@ typedef enum e_texture_type
 
 typedef struct	s_mlx
 {
-	void	*img;
-	void	*mlx;
+	void		*img;
+	void		*mlx;
+	mlx_image_t	*north_img;
+	mlx_image_t	*south_img;
+	mlx_image_t	*east_img;
+	mlx_image_t	*west_img;
+	uint32_t	floor_color;
+	uint32_t	ceiling_color;
 }	t_mlx;
 
 typedef struct s_point

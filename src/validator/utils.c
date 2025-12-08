@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:44 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 11:17:35 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 18:12:41 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,19 @@ bool	is_one_player(char **map)
 		y++;
 	}
 	return (has_player);
+}
+
+// FIXME: .cub.cub
+bool	is_filename_valid(char *filename)
+{
+	char	*match;
+	char	before_ext;
+
+	match = ft_strnstr(filename, ".cub", ft_strlen(filename));
+	if (!match)
+		return (false);
+	if (filename == match)
+		return (false);
+	before_ext = *(filename + (match - filename) - 1);
+	return (before_ext != '/');
 }

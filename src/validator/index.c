@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   index.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:48 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 11:38:17 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/08 18:40:14 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,26 @@ bool	is_map_valid(t_map map)
 	if (!is_one_player(map.raw))
 		return (false);
 	if (!bfs(map))
+		return (false);
+	return (true);
+}
+
+bool	set_valid_textures(char **texture, t_mlx *mlx)
+{
+	mlx->north_img = my_mlx_load_image(mlx, texture[NORTH]);
+	if (!mlx->north_img)
+		return (false);
+	mlx->south_img = my_mlx_load_image(mlx, texture[SOUTH]);
+	if (!mlx->south_img)
+		return (false);
+	mlx->east_img = my_mlx_load_image(mlx, texture[EAST]);
+	if (!mlx->east_img)
+		return (false);
+	mlx->west_img = my_mlx_load_image(mlx, texture[WEST]);
+	if (!mlx->west_img)
+		return (false);
+	if (!set_valid_color(texture[C_FLOOR], &(mlx->floor_color))
+		|| !set_valid_color(texture[C_CEILING], &(mlx->ceiling_color)))
 		return (false);
 	return (true);
 }

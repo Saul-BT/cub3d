@@ -1,10 +1,10 @@
 C 155,96,4
 F 200,200,150
 
-NO assets/textures/Leaves.png
-SO assets/textures/Magma.png
-WE assets/textures/Obsidian.png
-EA assets/textures/Tile.png
+NO ./xpm/wall_north.xpm
+SO ./xpm/wall_north.xpm
+WE ./xpm/wall_north.xpm
+EA ./xpm/wall_north.xpm
 
 
 
