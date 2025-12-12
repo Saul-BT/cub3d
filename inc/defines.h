@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   defines.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/20 20:38:24 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/12 03:34:32 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,13 @@
 # define DEFINES_H
 
 # define WIN_NAME "cub3d"
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
-# define MMAP_SIZE 16
+# define WIN_WIDTH 1024
+# define WIN_HEIGHT 768
 
 # define TILE 64 //square tile
-# define FOV 0.785398f //45º
+# define FOV 0.66
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
-
-# define RAY_LENGTH 1 //used in the minimap
-
-// following the Unit Circle in radians and NSEW equivalents
-# define N 1.5708 //90º
-# define E 0 //0º / 360º
-# define S 4.71239 //270º
-# define W 3.14159 //180º
 
 # define CYAN 0x87CEEBFF
 # define BLUE 0x00FFFFFF
@@ -50,14 +41,37 @@ typedef struct	s_win
 	mlx_image_t	*game;
 }	t_win;
 
-typedef	struct	s_player
+typedef struct	s_player
 {
-	float	x;
-	float	y;
-	float	angle;
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 }	t_player;
 
-// main cub3d struct
+typedef struct s_ray
+{
+	double		camera_x;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			map_x;
+	int			map_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		perp_wall_dist;
+	int			step_x;
+	int			step_y;
+	int			hit;
+	int			side;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}	t_ray;
+
 typedef struct	s_cub
 {
 	t_win		*win;

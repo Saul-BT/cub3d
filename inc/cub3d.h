@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/14 21:07:03 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/12 02:56:40 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	get_map_dimensions(char **map, int *map_width, int *map_height);
 void	draw_minimap(t_cub *cub);
 // rendering/player.c
 int     is_player(char c);
-void	rotate_player(t_cub *cub, float rotation);
+void	rotate_player(t_cub *cub, double rotation);
 void	init_player_position(t_cub *cub);
 void    player_motion(t_cub *cub, keys_t key);
 // rendering/raycast.c

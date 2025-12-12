@@ -3,95 +3,109 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 20:42:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/30 20:42:06 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/12 03:28:52 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "../../inc/cub3d.h"
 
-// Check if ray hit a wall or is out of bounds
-int	ray_hits_wall(int px, int py, t_cub *cub)
+static void init_ray(t_cub *cub, t_ray *ray, int x)
 {
-	if (px < 0 || py < 0 || py >= cub->map_height || px >= cub->map_width ||
-		cub->map[py][px] == '1')
-		return (1);
-	return (0);
+    ray->camera_x = 2 * x / (double)WIN_WIDTH - 1;
+    ray->ray_dir_x = cub->player->dir_x + cub->player->plane_x * ray->camera_x;
+    ray->ray_dir_y = cub->player->dir_y + cub->player->plane_y * ray->camera_x;
+    ray->map_x = (int)cub->player->x;
+    ray->map_y = (int)cub->player->y;
+    ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
+    ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
+    ray->hit = 0;
 }
 
-static float	cast_ray(t_cub *cub, float ray_angle)
+static void init_step(t_cub *cub, t_ray *ray)
 {
-    float	ray_x;
-    float	ray_y;
-    float	x_step;
-    float	y_step;
-
-    // Start from player center
-    ray_x = cub->player->x + 0.5;
-    ray_y = cub->player->y + 0.5;
-    
-    x_step = cos(ray_angle) * 0.01;
-    y_step = sin(ray_angle) * 0.01;
-    
-    while (!ray_hits_wall((int)ray_x, (int)ray_y, cub))
+    if (ray->ray_dir_x < 0)
     {
-        ray_x += x_step;
-        ray_y += y_step;
+        ray->step_x = -1;
+        ray->side_dist_x = (cub->player->x - ray->map_x) * ray->delta_dist_x;
     }
-    
-    return (sqrt(pow(ray_x - (cub->player->x + 0.5), 2) 
-        + pow(ray_y - (cub->player->y + 0.5), 2)));
+    else
+    {
+        ray->step_x = 1;
+        ray->side_dist_x = (ray->map_x + 1.0 - cub->player->x) * ray->delta_dist_x;
+    }
+    if (ray->ray_dir_y < 0)
+    {
+        ray->step_y = -1;
+        ray->side_dist_y = (cub->player->y - ray->map_y) * ray->delta_dist_y;
+    }
+    else
+    {
+        ray->step_y = 1;
+        ray->side_dist_y = (ray->map_y + 1.0 - cub->player->y) * ray->delta_dist_y;
+    }
 }
 
-// one vertical slice of wall
-static void	draw_slice(t_cub *cub, int x, float distance, float ray_angle)
+static void perform_dda(t_cub *cub, t_ray *ray)
 {
-    int		wall_height;
-    int		draw_start;
-    int		draw_end;
-    int		y;
-    float	corrected_dist;
-
-    // fix fisheye effect
-    corrected_dist = distance * cos(ray_angle - cub->player->angle);
-    
-    wall_height = (int)(WIN_HEIGHT / corrected_dist);
-    draw_start = (WIN_HEIGHT - wall_height) / 2;
-    draw_end = draw_start + wall_height;
-    
-    if (draw_start < 0)
-        draw_start = 0;
-    if (draw_end >= WIN_HEIGHT)
-        draw_end = WIN_HEIGHT - 1;
-    
-    y = 0;
-    while (y < draw_start)
-        safe_put_pixel(cub->win->mmap, x, y++, CYAN); //SKY
-    while (y < draw_end)
-        safe_put_pixel(cub->win->mmap, x, y++, BLUE);
-    while (y < WIN_HEIGHT)
-        safe_put_pixel(cub->win->mmap, x, y++, GREEN); //FLOOR
+    while (ray->hit == 0)
+    {
+        if (ray->side_dist_x < ray->side_dist_y)
+        {
+            ray->side_dist_x += ray->delta_dist_x;
+            ray->map_x += ray->step_x;
+            ray->side = 0;
+        }
+        else
+        {
+            ray->side_dist_y += ray->delta_dist_y;
+            ray->map_y += ray->step_y;
+            ray->side = 1;
+        }
+        if (cub->map[ray->map_y][ray->map_x] == '1')
+            ray->hit = 1;
+    }
 }
 
-void	raycast(t_cub *cub)
+static void calculate_wall_height(t_cub *cub, t_ray *ray)
 {
-    int		x;
-    float	ray_angle;
-    float	angle_step;
-    float	distance;
+    if (ray->side == 0)
+        ray->perp_wall_dist = (ray->map_x - cub->player->x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+    else
+        ray->perp_wall_dist = (ray->map_y - cub->player->y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+    ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
+    ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
+    if (ray->draw_start < 0)
+        ray->draw_start = 0;
+    ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
+    if (ray->draw_end >= WIN_HEIGHT)
+        ray->draw_end = WIN_HEIGHT - 1;
+}
 
-    angle_step = FOV / WIN_WIDTH;
-    ray_angle = cub->player->angle - (FOV / 2);
-    
+void raycast(t_cub *cub)
+{
+    int     x;
+    int     y;
+    t_ray   ray;
+
     x = 0;
     while (x < WIN_WIDTH)
     {
-        distance = cast_ray(cub, ray_angle);
-        draw_slice(cub, x, distance, ray_angle);
-        ray_angle += angle_step;
+        init_ray(cub, &ray, x);
+        init_step(cub, &ray);
+        perform_dda(cub, &ray);
+        calculate_wall_height(cub, &ray);
+        y = 0;
+        // drawing time
+        while (y < ray.draw_start) //ceiling
+            safe_put_pixel(cub->win->mmap, x, y++, CYAN); 
+        uint32_t color = (ray.side == 1) ? BLUE / 2 : BLUE;
+        while (y < ray.draw_end) //wall
+            safe_put_pixel(cub->win->mmap, x, y++, color);
+        while (y < WIN_HEIGHT) //floor
+            safe_put_pixel(cub->win->mmap, x, y++, GREEN);
         x++;
     }
 }
