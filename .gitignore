@@ -6,3 +6,6 @@ cub3d
 
 # IDE Boilerplate
 .vscode
+
+# mac
+.DS_Store

@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/12 03:29:37 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 12:21:53 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv)
 		return (ERROR);
 	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
 	get_map_dimensions(cub.map, &cub.map_width, &cub.map_height);
-	init_player_position(&cub);
+	init_player_position(cub.player, cub.map, cub.map_height);
 	draw_minimap(&cub);
 	//raycast(&cub);
 	mlx_loop(cub.win->mlx);

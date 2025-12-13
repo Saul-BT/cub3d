@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/12 02:56:40 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:01:09 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdio.h> //TODO: delete all printf calls
 # include <stdlib.h>
 # include <math.h>
+# include <float.h>
 
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/megalibft/libft.h"
@@ -47,9 +48,9 @@ void	get_map_dimensions(char **map, int *map_width, int *map_height);
 void	draw_minimap(t_cub *cub);
 // rendering/player.c
 int     is_player(char c);
-void	rotate_player(t_cub *cub, double rotation);
-void	init_player_position(t_cub *cub);
-void    player_motion(t_cub *cub, keys_t key);
+void	init_player_position(t_player *player, char **map, int map_height);
+void	rotate_player(t_player *p, double rotation);
+void    player_motion(t_player *p, keys_t key, t_cub *cub);
 // rendering/raycast.c
 int	    ray_hits_wall(int px, int py, t_cub *cub);
 void	raycast(t_cub *cub);
