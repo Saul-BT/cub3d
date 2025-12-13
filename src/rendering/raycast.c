@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 20:42:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 17:52:01 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 21:50:45 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ static void	perform_dda(t_cub *cub, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
+		if (ray->map_x < 0 || ray->map_x >= cub->map_width || 
+            ray->map_y < 0 || ray->map_y >= cub->map_height)
+            break ;
 		if (cub->map[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 		}
