@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:21:41 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 12:44:19 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 20:54:23 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,11 @@ static void init_player_dir(t_player *p, double dx, double dy, double px, double
 
 void	init_player_position(t_player *player, char **map, int map_height)
 {
-	int	y;
-	int	x;
+	int		y;
+	int		x;
+	double	plane_length;
 
+	plane_length = (double)WIN_WIDTH / ((double)WIN_HEIGHT * 2);
 	y = 0;
 	while (y < map_height)
 	{
@@ -42,13 +44,13 @@ void	init_player_position(t_player *player, char **map, int map_height)
 				player->x = x + 0.5;
 				player->y = y + 0.5;
 				if (map[y][x] == 'N')
-					init_player_dir(player, 0, -1, FOV, 0);
+					init_player_dir(player, 0, -1, plane_length, 0);
 				else if (map[y][x] == 'S')
-					init_player_dir(player, 0, 1, -FOV, 0);
+					init_player_dir(player, 0, 1, -plane_length, 0);
 				else if (map[y][x] == 'E')
-					init_player_dir(player, 1, 0, 0, FOV);
+					init_player_dir(player, 1, 0, 0, plane_length);
 				else if (map[y][x] == 'W')
-					init_player_dir(player, -1, 0, 0, -FOV);
+					init_player_dir(player, -1, 0, 0, -plane_length);
 				return ;
 			}
 			x++;

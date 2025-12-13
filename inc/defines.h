@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 18:05:53 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 20:54:37 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define DEFINES_H
 
 # define WIN_NAME "cub3d"
-# define WIN_WIDTH 1280
+# define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
-
 # define TILE 64 //square tile
-# define FOV 0.66
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
 
