@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:46:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/12 03:40:03 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 14:30:11 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ static void	draw_minimap_player_ray(t_cub *cub, t_player *player)
     }
 }
 
+//TODO: bonus
 void	draw_minimap(t_cub *cub)
 {
 	int	i;

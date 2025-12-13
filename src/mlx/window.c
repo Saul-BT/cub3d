@@ -3,14 +3,46 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:42:50 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/25 19:42:51 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:37:18 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
+
+static int	load_mlx_textures(t_win *win)
+{
+	win->wall_north = mlx_load_png(WALL_NORTH);
+	if (!win->wall_north)
+		return (ERROR);
+	win->wall_south = mlx_load_png(WALL_SOUTH);
+	if (!win->wall_south)
+	{
+		printf("penis");
+		mlx_delete_texture(win->wall_north);
+		return (ERROR);
+	}
+	win->wall_east = mlx_load_png(WALL_EAST);
+	if (!win->wall_east)
+	{
+		mlx_delete_texture(win->wall_north);
+		mlx_delete_texture(win->wall_south);
+		return (ERROR);
+	}
+	win->wall_west = mlx_load_png(WALL_WEST);
+	if (!win->wall_west)
+	{
+		mlx_delete_texture(win->wall_north);
+		mlx_delete_texture(win->wall_south);
+		mlx_delete_texture(win->wall_west);
+		return (ERROR);
+	}
+	win->ceiling_color = BLUE;
+	win->floor_color = GREEN;
+	return (SUCCESS);
+}
 
 int	init_window(t_win *win)
 {
@@ -45,6 +77,13 @@ int	init_window(t_win *win)
 	// 	mlx_close_window(win->mlx);
 	// 	return (ERROR);
 	// }
+	if (load_mlx_textures(win) == ERROR)
+	{
+		mlx_delete_image(win->mlx, win->mmap);
+	// 	mlx_delete_image(win->mlx, win->game);
+		mlx_close_window(win->mlx);
+		return (ERROR);
+	}
 	return (SUCCESS);
 }
 

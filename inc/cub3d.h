@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 13:01:09 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:01:07 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
-
 # include "../lib/MLX42/include/MLX42/MLX42.h"
 # include "../lib/megalibft/libft.h"
 # include "defines.h"
@@ -54,6 +53,9 @@ void    player_motion(t_player *p, keys_t key, t_cub *cub);
 // rendering/raycast.c
 int	    ray_hits_wall(int px, int py, t_cub *cub);
 void	raycast(t_cub *cub);
-
+// rendering/texture.c
+void	draw_ceiling(t_cub *cub, t_ray *ray, int x);
+void	draw_floor(t_cub *cub, t_ray *ray, int x);
+void	draw_wall(t_cub *cub, t_ray *ray, int x);
 
 #endif

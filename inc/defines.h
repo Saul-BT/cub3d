@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 13:23:57 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 18:05:53 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define DEFINES_H
 
 # define WIN_NAME "cub3d"
-# define WIN_WIDTH 640
-# define WIN_HEIGHT 480
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 # define TILE 64 //square tile
 # define FOV 0.66
@@ -29,6 +29,12 @@
 # define BLACK 0x000000FF
 # define WHITE 0xFFFFFFFF
 
+//TODO: delete when merged with parser
+# define WALL_NORTH "./assets/textures/minecraft/creeper.png"
+# define WALL_SOUTH "./assets/textures/minecraft/enderman.png"
+# define WALL_EAST "./assets/textures/minecraft/pig.png"
+# define WALL_WEST "./assets/textures/minecraft/steve.png"
+
 # define SUCCESS 0
 # define ERROR 1
 
@@ -36,9 +42,17 @@
 
 typedef struct	s_win
 {
-	mlx_t		*mlx;
-	mlx_image_t	*mmap;
-	mlx_image_t	*game;
+	mlx_t			*mlx;
+	mlx_image_t		*mmap; //TODO: bonus
+	mlx_image_t		*game;
+	mlx_texture_t	*ceiling; //TODO: bonus
+	mlx_texture_t	*floor; //TODO: bonus
+	uint32_t		ceiling_color;
+	uint32_t		floor_color;
+	mlx_texture_t	*wall_north;
+	mlx_texture_t	*wall_south;
+	mlx_texture_t	*wall_east;
+	mlx_texture_t	*wall_west;
 }	t_win;
 
 typedef struct	s_player
@@ -66,8 +80,8 @@ typedef struct s_ray
 	int			step_x;
 	int			step_y;
 	int			hit;
-	int			side;
-	int			line_height;
+	int			side;			//0 if wall is N,S / 1 if wall is W,E
+	int			line_height;	//wall size to draw
 	int			draw_start;
 	int			draw_end;
 }	t_ray;

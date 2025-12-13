@@ -6,7 +6,7 @@
 #    By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/12/12 03:29:03 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/12/13 17:00:25 by gade-oli         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ INC = inc/cub3d.h inc/defines.h
 SRC =	src/main.c \
 		src/mlx/hooks.c src/mlx/window.c \
 		src/core/init.c \
-		src/rendering/minimap.c src/rendering/draw.c src/rendering/player.c src/rendering/raycast.c \
+		src/rendering/minimap.c src/rendering/draw.c src/rendering/player.c src/rendering/raycast.c src/rendering/texture.c \
 		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)

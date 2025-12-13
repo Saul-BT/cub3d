@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 20:42:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 13:03:23 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/13 17:52:01 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ static void	init_ray(t_cub *cub, t_ray *ray, int x)
 	ray->map_y = (int)cub->player->y;
 	ray->ray_dir_x = cub->player->dir_x + cub->player->plane_x * ray->camera_x;
 	if (ray->ray_dir_x == 0)
-		ray->ray_dir_x = FLT_MIN;
+		ray->ray_dir_x = DBL_EPSILON;
 	ray->ray_dir_y = cub->player->dir_y + cub->player->plane_y * ray->camera_x;
 	if (ray->ray_dir_y == 0)
-		ray->ray_dir_y = FLT_MIN;
+		ray->ray_dir_y = DBL_EPSILON;
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	ray->hit = 0;
@@ -76,9 +76,13 @@ static void	perform_dda(t_cub *cub, t_ray *ray)
 static void	calculate_wall_height(t_cub *cub, t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->map_x - cub->player->x + (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		ray->perp_wall_dist = (ray->map_x - cub->player->x + 
+			(1 - ray->step_x) / 2) / ray->ray_dir_x;
 	else
-		ray->perp_wall_dist = (ray->map_y - cub->player->y + (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ray->perp_wall_dist = (ray->map_y - cub->player->y + 
+			(1 - ray->step_y) / 2) / ray->ray_dir_y;
+	if (ray->perp_wall_dist < DBL_EPSILON)
+			ray->perp_wall_dist = DBL_EPSILON;
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
 	ray->draw_start = -ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_start < 0)
@@ -91,9 +95,7 @@ static void	calculate_wall_height(t_cub *cub, t_ray *ray)
 void raycast(t_cub *cub)
 {
 	int			x;
-	int			y;
 	t_ray		ray;
-	uint32_t	color;
 
 	x = 0;
 	while (x < WIN_WIDTH)
@@ -102,15 +104,9 @@ void raycast(t_cub *cub)
 		init_step(cub, &ray);
 		perform_dda(cub, &ray);
 		calculate_wall_height(cub, &ray);
-		y = 0;
-        // drawing time
-		while (y < ray.draw_start) //ceiling
-			safe_put_pixel(cub->win->mmap, x, y++, CYAN); 
-		color = (ray.side == 1) ? BLUE / 2 : BLUE;
-		while (y < ray.draw_end) //wall
-			safe_put_pixel(cub->win->mmap, x, y++, color);
-		while (y < WIN_HEIGHT) //floor
-			safe_put_pixel(cub->win->mmap, x, y++, GREEN);
+		draw_ceiling(cub, &ray, x);
+		draw_wall(cub, &ray, x);
+		draw_floor(cub, &ray, x);
 		x++;
 	}
 }
