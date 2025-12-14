@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 19:07:41 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:35:10 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	set_defaults(t_cub *cub)
 	cub->map.raw = NULL;
 	cub->map.height = 0;
 	cub->map.width = 0;
+	cub->win = NULL;
 	/*cub->win->game = NULL;
 	cub->win->mlx = NULL;
 	cub->win->wall_north = NULL;
@@ -37,15 +38,13 @@ void	cub_free(t_cub *cub)
 		free(cub->map.raw[i++]);
 	// mlx_terminate((*cub)->win->mlx); <- check
 	free(cub->map.raw);
-	free(cub->win->game);
-	free(cub->win->mmap);
+	//free(cub->win->game);
+	//free(cub->win->mmap);
 	//free(cub->win->mlx);
-	free(cub->win->wall_north);
-	free(cub->win->wall_south);
-	free(cub->win->wall_east);
-	free(cub->win->wall_west);
-	free(cub->win->ceiling);
-	free(cub->win->floor);
+	//free(cub->win->wall_north);
+	//free(cub->win->wall_south);
+	//free(cub->win->wall_east);
+	//free(cub->win->wall_west);
 	free(cub->win); // <- check if pointer is needed
 	free(cub->player);
 	// free_array(cub->map); //TODO: enable when parser is integrated

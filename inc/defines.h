@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:53:43 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:20:42 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,6 @@ typedef struct s_win
 	mlx_t			*mlx;
 	mlx_image_t		*mmap; // TODO: bonus
 	mlx_image_t		*game;
-	mlx_texture_t	*ceiling; // TODO: bonus
-	mlx_texture_t	*floor; // TODO: bonus
 	uint32_t		ceiling_color;
 	uint32_t		floor_color;
 	mlx_texture_t	*wall_north; // from saul north_img
