@@ -6,23 +6,22 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:21:41 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 13:07:36 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:32:33 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static void	move_player(t_cub *cub, double dx, double dy)
+static void	move_player(t_cub *cub, t_dpoint diff)
 {
-	double	new_x;
-	double	new_y;
+	t_dpoint new_pos;
 
-	new_x = cub->player->pos.x + dx;
-	new_y = cub->player->pos.y + dy;
-	if (new_x >= 0 && new_x <= cub->map_width)
-		cub->player->pos.x = new_x;
-	if (new_y >= 0 && new_y <= cub->map_height)
-		cub->player->pos.y = new_y;
+	new_pos.x = cub->player->pos.x + diff.x;
+	new_pos.y = cub->player->pos.y + diff.y;
+	if (new_pos.x >= 0 && new_pos.x <= cub->map_width)
+		cub->player->pos.x = new_pos.x;
+	if (new_pos.y >= 0 && new_pos.y <= cub->map_height)
+		cub->player->pos.y = new_pos.y;
 }
 
 void	rotate_player(t_player *player, double rotation)
@@ -42,22 +41,29 @@ void	rotate_player(t_player *player, double rotation)
 	player->plane.y = old_plane_x * dy + player->plane.y * dx;
 }
 
-// MLX_KEY_W is already the standard movement, same direction
-void	player_motion(t_player *player, keys_t key, t_cub *cub)
+void    player_motion(t_player *player, keys_t key, t_cub *cub)
 {
-	double	dx;
-	double	dy;
+	t_dpoint	diff;
 
-	dx = player->dir.x * MOVE_SPEED;
-	dy = player->dir.y * MOVE_SPEED;
+	if (key == MLX_KEY_W)
+	{
+		diff.x = player->dir.x * MOVE_SPEED;
+		diff.y = player->dir.y * MOVE_SPEED;
+	}
 	if (key == MLX_KEY_S)
 	{
-		dx *= -1;
-		dy *= -1;
+		diff.x = -player->dir.x * MOVE_SPEED;
+		diff.y = -player->dir.y * MOVE_SPEED;
 	}
-	else if (key == MLX_KEY_A)
-		dy *= -1;
-	else if (key == MLX_KEY_D)
-		dx = -1;
-	move_player(cub, dx, dy);
+	if (key == MLX_KEY_A)
+	{
+		diff.x = player->dir.y * MOVE_SPEED;
+		diff.y = -player->dir.x * MOVE_SPEED;
+	}
+	if (key == MLX_KEY_D)
+	{
+		diff.x = -player->dir.y * MOVE_SPEED;
+		diff.y = player->dir.x * MOVE_SPEED;
+	}
+	move_player(cub, diff);
 }

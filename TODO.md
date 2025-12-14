@@ -1,3 +1,4 @@
 - [ ] merger with saul
 	- [ ] norminette init.c
 	- [ ] norminette window.c
+- [ ] homogeneizar struct ray para que use los puntos double
