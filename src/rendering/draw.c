@@ -30,50 +30,6 @@ void	draw_cube(t_win *win, int x, int y, int color)
 	}
 }
 
-t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from, t_point *to)
-{
-	t_point	diff;
-
-	p->x = from->x;
-	p->y = from->y;
-	dir->x = -1;
-	dir->y = -1;
-	if (from->x < to->x)
-		dir->x = 1;
-	if (from->y < to->y)
-		dir->y = 1;
-	diff.x = abs(to->x - from->x);
-	diff.y = abs(to->y - from->y);
-	return (diff);
-}
-
-void	draw_line(t_win *win, t_point from, t_point to, uint32_t color)
-{
-	t_point	point;
-	t_point	diff;
-	t_point	dir;
-	int		err;
-	int		factor;
-
-	diff = setup_bresenham(&point, &dir, &from, &to);
-	err = diff.x - diff.y;
-	while (!(point.x == to.x && point.y == to.y))
-	{
-		safe_put_pixel(win->mmap, point.x, point.y, color);
-		factor = err * 2;
-		if (factor > -diff.y)
-		{
-			point.x += dir.x;
-			err -= diff.y;
-		}
-		if (factor < diff.x)
-		{
-			point.y += dir.y;
-			err += diff.x;
-		}
-	}
-}
-
 void	draw_circle(t_win *win, int center_x, int center_y)
 {
 	int	radius;
