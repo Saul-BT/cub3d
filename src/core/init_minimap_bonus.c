@@ -22,8 +22,8 @@ int	init_minimap(t_win *win)
 		mlx_close_window(win->mlx);
 		return (ERROR);
 	}
-	if (mlx_image_to_window(win->mlx, win->mmap, WIN_WIDTH - MMAP_SIZE, 20) ==
-		-1)
+	if (mlx_image_to_window(win->mlx, win->mmap, WIN_WIDTH - MMAP_SIZE, 20)
+		== -1)
 	{
 		mlx_delete_image(win->mlx, win->mmap);
 		mlx_delete_image(win->mlx, win->game);
@@ -31,4 +31,22 @@ int	init_minimap(t_win *win)
 		return (ERROR);
 	}
 	return (SUCCESS);
+}
+
+void	clear_mmap_window(t_cub *cub)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < (int)cub->win->mmap->height)
+	{
+		x = 0;
+		while (x < (int)cub->win->mmap->width)
+		{
+			safe_put_pixel(cub->win->mmap, x, y, BLACK);
+			x++;
+		}
+		y++;
+	}
 }

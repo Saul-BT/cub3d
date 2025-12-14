@@ -12,32 +12,25 @@
 
 #include "../inc/cub3d.h"
 
-// from gabri
-// TODO: activate parser
-int main(int argc, char **argv) {
-  t_cub cub;
-  int error;
+int	main(int argc, char **argv)
+{
+	t_cub	cub;
+	int		error;
 
-  // from saul
-  if (argc != 2)
-    return (ft_error("usage: ./cub3d mapfile.cub"));
-  if (!cub_init(argv[1], &cub))
-    return (ERROR);
-
-  if (!is_map_valid(cub.map) || !set_valid_textures(cub.texture, cub.win)) {
-    cub_free(&cub);
-    return (ERROR);
-  }
-  // end of saul
-
-  // from gabri
-  mlx_key_hook(cub.win->mlx, &key_hook, &cub);
-  init_player(cub.player, cub.map.raw, cub.map.height);
-  //draw_minimap(&cub);
-  raycast(&cub);
-  mlx_loop(cub.win->mlx);
-  cub_free(&cub);
-  // end of gabri
-  return (SUCCESS);
+	if (argc != 2)
+  		return (ft_error("usage: ./cub3d mapfile.cub"));
+	if (!cub_init(argv[1], &cub))
+		return (ERROR);
+	if (!is_map_valid(cub.map))
+	{
+		cub_free(&cub);
+		return (ERROR);
+	}
+	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
+	init_player(cub.player, cub.map.raw, cub.map.height);
+	//draw_minimap(&cub);
+	raycast(&cub);
+	mlx_loop(cub.win->mlx);
+	cub_free(&cub);
+	return (SUCCESS);
 }
-// end of gabri

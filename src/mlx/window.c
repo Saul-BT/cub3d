@@ -12,24 +12,31 @@
 
 #include "../../inc/cub3d.h"
 
-int	init_window(t_win *win)
+int	init_window(t_cub *cub)
 {
-	win->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
-	if (!win->mlx)
+	cub->win->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
+	if (!cub->win->mlx)
 		return (ERROR);
-	win->game = mlx_new_image(win->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!win->game)
+	cub->win->game = mlx_new_image(cub->win->mlx, WIN_WIDTH, WIN_HEIGHT);
+	if (!cub->win->game)
 	{
-		mlx_close_window(win->mlx);
+		mlx_close_window(cub->win->mlx);
 		return (ERROR);
 	}
-	if (mlx_image_to_window(win->mlx, win->game, 0, 0) == -1)
+	if (mlx_image_to_window(cub->win->mlx, cub->win->game, 0, 0) == -1)
 	{
-		mlx_delete_image(win->mlx, win->game);
-		mlx_close_window(win->mlx);
+		mlx_delete_image(cub->win->mlx, cub->win->game);
+		mlx_close_window(cub->win->mlx);
 		return (ERROR);
 	}
-	init_minimap(win); // TODO: only add minimap for bonus
+	if (!set_valid_textures(cub->texture, cub->win))
+	{
+		mlx_delete_image(cub->win->mlx, cub->win->game);
+		mlx_close_window(cub->win->mlx);
+		cub_free(cub);
+		return (ERROR);
+	}
+	//init_minimap(win); // TODO: only add minimap for bonus
 	return (SUCCESS);
 }
 
@@ -48,14 +55,15 @@ void	clear_screen(t_cub *cub)
 	int	y;
 
 	y = 0;
-	while (y < (int)cub->win->mmap->height)
+	while (y < (int)cub->win->game->height)
 	{
 		x = 0;
-		while (x < (int)cub->win->mmap->width)
+		while (x < (int)cub->win->game->width)
 		{
-			safe_put_pixel(cub->win->mmap, x, y, BLACK);
+			safe_put_pixel(cub->win->game, x, y, BLACK);
 			x++;
 		}
 		y++;
 	}
+	//clear_mmap(cub);
 }

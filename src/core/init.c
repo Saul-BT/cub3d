@@ -85,7 +85,7 @@ bool	cub_init(char *mapfile, t_cub *cub)
 	if (!cub->win)
 		return (ft_error("malloc error in window struct\n"), NULL);
 	// end of gabri
-	if (init_window(cub->win) == ERROR)
+	if (init_window(cub) == ERROR)
 	{
 		cub_free(cub);
 		close(fd);

@@ -145,10 +145,7 @@ bool	set_map(t_map *map, int fd)
 	if (!line)
 		return (false);
 	if (*line != '\n')
-	{
-		free(line);
-		return (false);
-	}
+		return (free(line), false);
 	while (line != NULL && *line == '\n')
 	{
 		free(line);

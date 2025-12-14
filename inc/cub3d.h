@@ -18,12 +18,10 @@
 # include "../lib/queue/queue.h"
 # include "defines.h"
 # include <fcntl.h>
-//# include <float.h>
 # include <math.h>
 # include <stdio.h> // FIXME: remove when debug is removed
 # include <stdlib.h>
 
-// --- UTILS ---
 // utils/ft_error.c
 int		ft_error(char *str);
 // utils/math.c
@@ -32,19 +30,21 @@ float	deg_to_rads(float deg);
 void	free_array(void **arr);
 
 // core/init.c
-int		init_structs(t_cub *cub);
-void	free_all(t_cub *cub);
+bool	cub_init(char *mapfile, t_cub *cub);
+void	cub_free(t_cub *cub);
 // core/init_player.c
 void	init_player(t_player *player, char **map, int map_height);
 // core/init_minimap_bonus.c
 int		init_minimap(t_win *win);
+void	clear_mmap_window(t_cub *cub);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
 // mlx/window.c
-int		init_window(t_win *win);
+int		init_window(t_cub *cub);
 void	safe_put_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 void	clear_screen(t_cub *cub);
+
 // rendering/draw.c
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_line(t_win *win, t_point from, t_point to, uint32_t color);
@@ -62,20 +62,13 @@ void	raycast(t_cub *cub);
 void	render_ceiling(t_cub *cub, t_ray *ray, int x);
 void	render_floor(t_cub *cub, t_ray *ray, int x);
 void	render_wall(t_cub *cub, t_ray *ray, int x);
-// utils/init.c
-bool	cub_init(char *mapfile, t_cub *cub);
-void	cub_free(t_cub *cub);
-// -------------
 
-// --- PARSER ---
 // parser/texture_utils.c
 bool	set_valid_color(char *color, uint32_t *value);
 // parser/index.c
 bool	set_texture(char ***texture, int fd);
 bool	set_map(t_map *map, int fd);
-// --------------
 
-// --- VALIDATOR ---
 // validator/bfs_utils.c
 bool	**get_visited_map(size_t width, size_t height);
 bool	visit_point(size_t x, size_t y, t_bfs *data);
@@ -89,9 +82,8 @@ bool	bfs(t_map map);
 bool	all_valid_chars(char **map);
 bool	is_one_player(char **map);
 bool	is_filename_valid(char *filename);
-// ./main.c
+// validator/index.c
 bool	is_map_valid(t_map map);
 bool	set_valid_textures(char **texture, t_win *win);
-// -----------------
 
 #endif
