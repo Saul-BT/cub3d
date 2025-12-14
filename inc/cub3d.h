@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 11:31:34 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:51:12 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	rotate_player(t_player *p, double rotation);
 void    player_motion(t_player *p, keys_t key, t_cub *cub);
 // rendering/raycast.c
 void	init_step(t_cub *cub, t_ray *ray);
-int	    ray_hits_wall(int px, int py, t_cub *cub);
 void	raycast(t_cub *cub);
 // rendering/texture.c
 void	render_ceiling(t_cub *cub, t_ray *ray, int x);

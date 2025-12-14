@@ -6,19 +6,11 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:46:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 11:31:46 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:50:55 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-int	ray_hits_wall(int px, int py, t_cub *cub)
-{
-	if (px < 0 || py < 0 || py >= cub->map_height || px >= cub->map_width ||
-		cub->map[py][px] == '1')
-		return (1);
-	return (0);
-}
 
 //TODO: bonus include texture loading for ceiling and floor
 int	init_minimap(t_win *win)
@@ -82,6 +74,52 @@ void	draw_grid(t_win *win)
     draw_grid_h(win);
 }
 
+static int	is_wall_at(t_cub *cub, double wx, double wy)
+{
+    int	map_x;
+    int	map_y;
+
+    map_x = (int)wx;
+    map_y = (int)wy;
+    if (map_x < 0 || map_y < 0 || map_x >= cub->map_width
+        || map_y >= cub->map_height)
+        return (1);
+    if (cub->map[map_y][map_x] == '1')
+        return (1);
+    return (0);
+}
+
+static void	draw_player_ray(t_cub *cub)
+{
+    int		view;
+    double	dist;
+    double	wx;
+    double	wy;
+    double	tile_x;
+    double	tile_y;
+    t_point	end;
+
+    view = MMAP_SIZE / TILE;
+    tile_x = (int)cub->player->x + 0.5;
+    tile_y = (int)cub->player->y + 0.5;
+    if (is_wall_at(cub, tile_x, tile_y))
+        return ;
+    dist = 0.0;
+    while (dist < view)
+    {
+        wx = tile_x + cub->player->dir_x * dist;
+        wy = tile_y + cub->player->dir_y * dist;
+        if (is_wall_at(cub, wx, wy))
+            break ;
+        dist += 0.05;
+    }
+    end.x = (view / 2) * TILE + TILE / 2 + (int)((wx - tile_x) * TILE);
+    end.y = (view / 2) * TILE + TILE / 2 + (int)((wy - tile_y) * TILE);
+    draw_line(cub->win,
+        (t_point){(view / 2) * TILE + TILE / 2, (view / 2) * TILE + TILE / 2},
+        end, RED);
+}
+
 void	draw_minimap(t_cub *cub)
 {
     int	view;
@@ -114,6 +152,7 @@ void	draw_minimap(t_cub *cub)
         row++;
     }
     draw_grid(cub->win);
+	draw_player_ray(cub);
     draw_circle(cub->win,
         (MMAP_SIZE / TILE / 2) * TILE + TILE / 2,
         (MMAP_SIZE / TILE / 2) * TILE + TILE / 2);
