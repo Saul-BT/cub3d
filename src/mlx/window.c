@@ -6,40 +6,11 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:42:50 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 17:54:46 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:10:03 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-static int	load_mlx_textures(t_win *win)
-{
-	win->wall_north = mlx_load_png(WALL_NORTH);
-	if (!win->wall_north)
-		return (ERROR);
-	win->wall_south = mlx_load_png(WALL_SOUTH);
-	if (!win->wall_south)
-	{
-		mlx_delete_texture(win->wall_north);
-		return (ERROR);
-	}
-	win->wall_east = mlx_load_png(WALL_EAST);
-	if (!win->wall_east)
-	{
-		mlx_delete_texture(win->wall_north);
-		mlx_delete_texture(win->wall_south);
-		return (ERROR);
-	}
-	win->wall_west = mlx_load_png(WALL_WEST);
-	if (!win->wall_west)
-	{
-		mlx_delete_texture(win->wall_north);
-		mlx_delete_texture(win->wall_south);
-		mlx_delete_texture(win->wall_west);
-		return (ERROR);
-	}
-	return (SUCCESS);
-}
 
 int	init_window(t_win *win)
 {
@@ -58,16 +29,6 @@ int	init_window(t_win *win)
 		mlx_close_window(win->mlx);
 		return (ERROR);
 	}
-	//win->ceiling_color = BLUE;
-		// TODO: remove mock coloring for floor and ceiling when parser is integrated
-	//win->floor_color = GREEN; 
-		// TODO: remove mock coloring for floor and ceiling when parser is integrated
-	/*if (load_mlx_textures(win) == ERROR)
-	{
-		mlx_delete_image(win->mlx, win->game);
-		mlx_close_window(win->mlx);
-		return (ERROR);
-	}*/
 	init_minimap(win); // TODO: only add minimap for bonus
 	return (SUCCESS);
 }

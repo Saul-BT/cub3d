@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 00:04:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 17:46:33 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:04:30 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
 		mlx_terminate(cub->win->mlx);
+		cub_free(cub);
 		exit(SUCCESS);
 	}
 	if (keydata.action == MLX_PRESS || keydata.action == MLX_REPEAT)

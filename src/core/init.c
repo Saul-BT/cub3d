@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:31:52 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 19:07:41 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ void	cub_free(t_cub *cub)
 	// mlx_terminate((*cub)->win->mlx); <- check
 	free(cub->map.raw);
 	free(cub->win->game);
-	free(cub->win->mlx);
+	free(cub->win->mmap);
+	//free(cub->win->mlx);
 	free(cub->win->wall_north);
 	free(cub->win->wall_south);
 	free(cub->win->wall_east);
 	free(cub->win->wall_west);
+	free(cub->win->ceiling);
+	free(cub->win->floor);
 	free(cub->win); // <- check if pointer is needed
 	free(cub->player);
 	// free_array(cub->map); //TODO: enable when parser is integrated
