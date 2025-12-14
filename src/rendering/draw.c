@@ -30,8 +30,8 @@ void	draw_cube(t_win *win, int x, int y, int color)
 	}
 }
 
-static t_point	setup_bresenham(t_point *p, t_point *dir,
-	t_point *from, t_point *to)
+static t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from,
+		t_point *to)
 {
 	t_point	diff;
 

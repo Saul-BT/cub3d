@@ -14,10 +14,10 @@
 
 void	rotate_player(t_player *player, double rotation)
 {
-	double		old_dir_x;
-	double		old_plane_x;
-	double		dx;
-	double		dy;
+	double	old_dir_x;
+	double	old_plane_x;
+	double	dx;
+	double	dy;
 
 	dx = cos(rotation);
 	dy = sin(rotation);
@@ -35,9 +35,9 @@ static void	move_player(t_cub *cub, t_dpoint diff)
 
 	new_pos.x = cub->player->pos.x + diff.x;
 	new_pos.y = cub->player->pos.y + diff.y;
-	if (new_pos.x >= 0 && new_pos.x <= cub->map_width)
+	if (new_pos.x >= 0 && new_pos.x <= cub->map.width)
 		cub->player->pos.x = new_pos.x;
-	if (new_pos.y >= 0 && new_pos.y <= cub->map_height)
+	if (new_pos.y >= 0 && new_pos.y <= cub->map.height)
 		cub->player->pos.y = new_pos.y;
 }
 

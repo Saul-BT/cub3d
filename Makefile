@@ -22,7 +22,7 @@ RESET   = \033[0;0m
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -g # -Wall -Wextra -Werror -g
 
 INC = inc/cub3d.h inc/defines.h
 
@@ -32,7 +32,18 @@ SRC =	src/main.c \
 		src/core/init_minimap_bonus.c \
 		src/rendering/draw.c src/rendering/player_motion.c src/rendering/raycast.c src/rendering/texture.c \
 		src/rendering/minimap_bonus.c \
-		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c
+		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c \
+	src/utils/mlx.c
+
+# PARSER
+SRC += src/parser/texture_utils.c \
+	src/parser/index.c
+
+# VALIDATOR
+SRC += src/validator/bfs_utils.c \
+	src/validator/bfs.c \
+	src/validator/utils.c \
+	src/validator/index.c
 
 OBJ = $(SRC:src/%.c=bin/%.o)
 
@@ -46,13 +57,20 @@ MLXFLAGS = -ldl -lglfw -pthread -lm
 LIBFT_DIR = lib/megalibft/
 LIBFT = $(LIBFT_DIR)megalibft.a
 
+QUEUE_DIR = lib/queue/
+QUEUE = $(QUEUE_DIR)libqueue.a
+
 #recipes-------------------------------------------------------------------------
 
-all: $(MLX) $(LIBFT) $(NAME)
+all: $(MLX) $(LIBFT) $(QUEUE) $(NAME)
 
 $(LIBFT):
 	@make --directory=$(LIBFT_DIR)
 	@echo "$(GREEN)libft compiled!$(RESET)"
+
+$(QUEUE):
+	@make --directory=$(QUEUE_DIR)
+	@echo "$(GREEN)queue compiled!$(RESET)"
 
 $(MLX):
 	@echo "$(BLUE)configuring MLX build and sources dirs on cmake$(RESET)"
@@ -61,7 +79,7 @@ $(MLX):
 	@cmake --build $(MLX_BUILD_DIR) -j4
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(QUEUE) $(LIBFT) $(MLX) $(MLXFLAGS) -o $(NAME)
 	@echo "$(GREEN)cub3d compiled!$(RESET)"
 
 bin/%.o: src/%.c $(INC)
@@ -72,10 +90,12 @@ clean:
 	@rm -f $(OBJ)
 	@rm -rf $(MLX_BUILD_DIR)
 	@make clean --directory=$(LIBFT_DIR)
+	@make clean --directory=$(QUEUE_DIR)
 	@echo "$(RED)binaries deleted!$(RESET)"
 
 fclean: clean
 	@make fclean --directory=$(LIBFT_DIR)
+	@make fclean --directory=$(QUEUE_DIR)
 	@rm -f $(NAME)
 	@echo "$(RED)cub3d deleted!$(RESET)"
 

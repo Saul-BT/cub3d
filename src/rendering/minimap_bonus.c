@@ -14,9 +14,8 @@
 
 static int	is_wall_at(t_cub *cub, int x, int y)
 {
-	if (x < 0 || y < 0
-		|| x >= cub->map_width || y >= cub->map_height
-		|| cub->map[y][x] == '1')
+	if (x < 0 || y < 0 || x >= cub->map.width || y >= cub->map.height
+		|| cub->map.raw[y][x] == '1')
 		return (1);
 	return (0);
 }
@@ -68,9 +67,8 @@ static void	draw_player_ray(t_cub *cub, int view)
 	}
 	end.x = view * TILE + TILE / 2 + (int)((wall.x - player_tile.x) * TILE);
 	end.y = view * TILE + TILE / 2 + (int)((wall.y - player_tile.y) * TILE);
-	draw_line(cub->win,
-		(t_point){view * TILE + TILE / 2, view * TILE + TILE / 2},
-		end, RED);
+	draw_line(cub->win, (t_point){view * TILE + TILE / 2, view * TILE + TILE
+		/ 2}, end, RED);
 }
 
 static void	draw_tiles(t_cub *cub, int view)
@@ -86,10 +84,10 @@ static void	draw_tiles(t_cub *cub, int view)
 		while (i.x < view * 2)
 		{
 			map.x = (int)cub->player->pos.x - view + i.x;
-			if (map.x >= 0 && map.x < cub->map_width
-				&& map.y >= 0 && map.y < cub->map_height)
+			if (map.x >= 0 && map.x < cub->map.width && map.y >= 0
+				&& map.y < cub->map.height)
 			{
-				if (cub->map[map.y][map.x] == '1')
+				if (cub->map.raw[map.y][map.x] == '1')
 					draw_cube(cub->win, i.x * TILE, i.y * TILE, BLUE);
 				else
 					draw_cube(cub->win, i.x * TILE, i.y * TILE, WHITE);

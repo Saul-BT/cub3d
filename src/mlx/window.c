@@ -58,19 +58,21 @@ int	init_window(t_win *win)
 		mlx_close_window(win->mlx);
 		return (ERROR);
 	}
-	win->ceiling_color = BLUE; //TODO: remove mock coloring for floor and ceiling when parser is integrated
-	win->floor_color = GREEN; //TODO: remove mock coloring for floor and ceiling when parser is integrated
+	win->ceiling_color = BLUE;
+		// TODO: remove mock coloring for floor and ceiling when parser is integrated
+	win->floor_color = GREEN; 
+		// TODO: remove mock coloring for floor and ceiling when parser is integrated
 	if (load_mlx_textures(win) == ERROR)
 	{
 		mlx_delete_image(win->mlx, win->game);
 		mlx_close_window(win->mlx);
 		return (ERROR);
 	}
-	init_minimap(win); //TODO: only add minimap for bonus
+	init_minimap(win); // TODO: only add minimap for bonus
 	return (SUCCESS);
 }
 
-void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color)
+void	safe_put_pixel(mlx_image_t *img, int x, int y, uint32_t color)
 {
 	if (!img)
 		return ;

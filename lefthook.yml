@@ -1,0 +1,81 @@
+# Lefthook configuration for cub3d project
+# This file configures Git hooks to run code quality checks
+
+pre-commit:
+  parallel: true
+  commands:
+    c-formatter-42:
+      glob: "{src,inc}/**/*.c"
+      run: c_formatter_42 {all_files}
+      stage_fixed: true
+    norminette:
+      glob: "{src,inc}/**/*.{c,h}"
+      run: norminette {all_files}
+      stage_fixed: true
+
+pre-push:
+  commands:
+    valgrind-check:
+      run: |
+        echo "🔨 Building project for valgrind check..."
+        if ! make re > /tmp/build.log 2>&1; then
+          echo "❌ Error: Failed to build cub3d"
+          cat /tmp/build.log
+          rm -f /tmp/build.log
+          exit 1
+        fi
+        rm -f /tmp/build.log
+
+        if [ ! -f cub3d ]; then
+          echo "❌ Error: cub3d executable not found after build"
+          exit 1
+        fi
+
+        echo "🔍 Running valgrind memory leak check..."
+        # Use a simple map file for testing
+        TEST_MAP="assets/maps/simple.cub"
+
+        if [ ! -f "$TEST_MAP" ]; then
+          echo "⚠️  Warning: Test map file not found: $TEST_MAP"
+          echo "Skipping valgrind check"
+          exit 0
+        fi
+
+        # Run valgrind with leak check
+        # --leak-check=full: detailed leak information
+        # --show-leak-kinds=all: show all kinds of leaks
+        # --track-origins=yes: track origins of uninitialized values
+        # --error-exitcode=1: exit with error code if issues found
+        # --quiet: suppress normal valgrind output
+        VALGRIND_LOG="/tmp/valgrind_output.log"
+        timeout 10 valgrind \
+          --leak-check=full \
+          --show-leak-kinds=all \
+          --track-origins=yes \
+          --error-exitcode=1 \
+          --log-file="$VALGRIND_LOG" \
+          ./cub3d "$TEST_MAP" > /dev/null 2>&1 || VALGRIND_EXIT=$?
+
+        # Check if valgrind found any issues
+        if [ -n "$VALGRIND_EXIT" ] && [ "$VALGRIND_EXIT" -ne 0 ]; then
+          echo "❌ Valgrind found memory issues!"
+          if [ -f "$VALGRIND_LOG" ]; then
+            grep -A 20 "ERROR SUMMARY\|LEAK SUMMARY" "$VALGRIND_LOG" || cat "$VALGRIND_LOG"
+          fi
+          rm -f "$VALGRIND_LOG"
+          exit 1
+        fi
+
+        # Check for leaks in the output
+        if [ -f "$VALGRIND_LOG" ]; then
+          # Check for any non-zero leak values
+          if grep -E "definitely lost|indirectly lost|possibly lost" "$VALGRIND_LOG" | grep -v "0 bytes in 0 blocks" | grep -q "[1-9]"; then
+            echo "❌ Memory leaks detected:"
+            grep -E "definitely lost|indirectly lost|possibly lost" "$VALGRIND_LOG" | grep -v "0 bytes in 0 blocks"
+            rm -f "$VALGRIND_LOG"
+            exit 1
+          fi
+        fi
+
+        echo "✅ No memory leaks detected"
+        rm -f "$VALGRIND_LOG"

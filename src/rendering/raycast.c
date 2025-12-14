@@ -70,10 +70,10 @@ static void	perform_dda(t_cub *cub, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (ray->map_x < 0 || ray->map_x >= cub->map_width
-			|| ray->map_y < 0 || ray->map_y >= cub->map_height)
+		if (ray->map_x < 0 || ray->map_x >= cub->map.width || ray->map_y < 0
+			|| ray->map_y >= cub->map.height)
 			break ;
-		if (cub->map[ray->map_y][ray->map_x] == '1')
+		if (cub->map.raw[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }
@@ -81,11 +81,11 @@ static void	perform_dda(t_cub *cub, t_ray *ray)
 static void	calculate_wall_height(t_cub *cub, t_ray *ray)
 {
 	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->map_x - cub->player->pos.x
-				+ (1 - ray->step_x) / 2) / ray->ray_dir_x;
+		ray->perp_wall_dist = (ray->map_x - cub->player->pos.x + (1
+					- ray->step_x) / 2) / ray->ray_dir_x;
 	else
-		ray->perp_wall_dist = (ray->map_y - cub->player->pos.y
-				+ (1 - ray->step_y) / 2) / ray->ray_dir_y;
+		ray->perp_wall_dist = (ray->map_y - cub->player->pos.y + (1
+					- ray->step_y) / 2) / ray->ray_dir_y;
 	if (ray->perp_wall_dist < DBL_EPSILON)
 		ray->perp_wall_dist = DBL_EPSILON;
 	ray->line_height = (int)(WIN_HEIGHT / ray->perp_wall_dist);
@@ -99,8 +99,8 @@ static void	calculate_wall_height(t_cub *cub, t_ray *ray)
 
 void	raycast(t_cub *cub)
 {
-	int			x;
-	t_ray		ray;
+	int		x;
+	t_ray	ray;
 
 	x = 0;
 	while (x < WIN_WIDTH)

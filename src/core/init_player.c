@@ -48,8 +48,8 @@ static void	init_player_vals(t_player *player, int x, int y, char nsew)
 
 void	init_player(t_player *player, char **map, int map_height)
 {
-	int		y;
-	int		x;
+	int	y;
+	int	x;
 
 	y = 0;
 	while (y < map_height)
