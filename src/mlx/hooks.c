@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 00:04:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 13:05:33 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 17:46:33 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,6 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			rotate_player(cub->player, ROTATION_RADS);
 	}
 	clear_screen(cub);
-	draw_minimap(cub);
+	//draw_minimap(cub);
 	raycast(cub);
 }

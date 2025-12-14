@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+         #
+#    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/12/14 13:44:29 by gade-oli         ###   ########.fr        #
+#    Updated: 2025/12/14 18:11:14 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ RESET   = \033[0;0m
 NAME = cub3d
 
 CC = gcc
-CFLAGS = -g # -Wall -Wextra -Werror -g
+CFLAGS = -g -fsanitize=address # -Wall -Wextra -Werror -g
 
 INC = inc/cub3d.h inc/defines.h
 
@@ -32,8 +32,7 @@ SRC =	src/main.c \
 		src/core/init_minimap_bonus.c \
 		src/rendering/draw.c src/rendering/player_motion.c src/rendering/raycast.c src/rendering/texture.c \
 		src/rendering/minimap_bonus.c \
-		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c \
-	src/utils/mlx.c
+		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c
 
 # PARSER
 SRC += src/parser/texture_utils.c \

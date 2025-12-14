@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 14:38:54 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:11:51 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	render_wall(t_cub *cub, t_ray *ray, int x);
 // utils/init.c
 bool cub_init(char *mapfile, t_cub *cub);
 void cub_free(t_cub *cub);
-// utils/mlx.c
-mlx_image_t	*my_mlx_load_image(t_win *win, char *path);
 // -------------
 
 // --- PARSER ---

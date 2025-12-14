@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   window.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:42:50 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 12:26:29 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 17:54:46 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,16 +58,16 @@ int	init_window(t_win *win)
 		mlx_close_window(win->mlx);
 		return (ERROR);
 	}
-	win->ceiling_color = BLUE;
+	//win->ceiling_color = BLUE;
 		// TODO: remove mock coloring for floor and ceiling when parser is integrated
-	win->floor_color = GREEN; 
+	//win->floor_color = GREEN; 
 		// TODO: remove mock coloring for floor and ceiling when parser is integrated
-	if (load_mlx_textures(win) == ERROR)
+	/*if (load_mlx_textures(win) == ERROR)
 	{
 		mlx_delete_image(win->mlx, win->game);
 		mlx_close_window(win->mlx);
 		return (ERROR);
-	}
+	}*/
 	init_minimap(win); // TODO: only add minimap for bonus
 	return (SUCCESS);
 }

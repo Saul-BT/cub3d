@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:48 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 18:40:14 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:10:46 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,16 @@ bool	is_map_valid(t_map map)
 
 bool	set_valid_textures(char **texture, t_win *win)
 {
-	win->wall_north = my_mlx_load_image(win, texture[NORTH]);
+	win->wall_north = mlx_load_png(texture[NORTH]);
 	if (!win->wall_north)
 		return (false);
-	win->wall_south = my_mlx_load_image(win, texture[SOUTH]);
+	win->wall_south = mlx_load_png(texture[SOUTH]);
 	if (!win->wall_south)
 		return (false);
-	win->wall_east = my_mlx_load_image(win, texture[EAST]);
+	win->wall_east = mlx_load_png(texture[EAST]);
 	if (!win->wall_east)
 		return (false);
-	win->wall_west = my_mlx_load_image(win, texture[WEST]);
+	win->wall_west = mlx_load_png(texture[WEST]);
 	if (!win->wall_west)
 		return (false);
 	if (!set_valid_color(texture[C_FLOOR], &(win->floor_color))

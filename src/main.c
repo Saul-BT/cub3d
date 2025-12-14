@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 12:34:56 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 17:46:29 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int main(int argc, char **argv) {
   // from gabri
   mlx_key_hook(cub.win->mlx, &key_hook, &cub);
   init_player(cub.player, cub.map.raw, cub.map.height);
-  draw_minimap(&cub);
+  //draw_minimap(&cub);
   raycast(&cub);
   mlx_loop(cub.win->mlx);
   cub_free(&cub);
