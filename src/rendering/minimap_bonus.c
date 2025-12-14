@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:46:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 13:51:58 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:36:24 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,11 @@ static void	draw_tiles(t_cub *cub, int view)
 	t_point	map;
 
 	i.y = 0;
-	while (i.y < view)
+	while (i.y < view * 2)
 	{
 		map.y = (int)cub->player->pos.y - view + i.y;
 		i.x = 0;
-		while (i.x < view)
+		while (i.x < view * 2)
 		{
 			map.x = (int)cub->player->pos.x - view + i.x;
 			if (map.x >= 0 && map.x < cub->map_width
