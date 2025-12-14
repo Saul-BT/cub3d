@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:17:41 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:15:43 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(int argc, char **argv)
 {
 	t_cub	cub;
-	int		error;
 
 	if (argc != 2)
 		return (ft_error("usage: ./cub3d mapfile.cub"));

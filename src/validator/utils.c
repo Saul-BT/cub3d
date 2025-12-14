@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:44 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/14 20:01:46 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:25:20 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 bool	all_valid_chars(char **map)
 {
-	size_t	y;
+	int		y;
 	char	*trimmed;
 
 	y = 0;
@@ -36,8 +36,8 @@ bool	all_valid_chars(char **map)
 
 bool	is_one_player(char **map)
 {
-	size_t	x;
-	size_t	y;
+	int		x;
+	int		y;
 	bool	has_player;
 
 	y = 0;
@@ -68,13 +68,13 @@ bool	is_filename_valid(char *filename)
 	match = ft_strnstr(filename + 1, ".cub", ft_strlen(filename + 1));
 	if (!match)
 	{
-		ft_error("error: the name of the mapfile should has the '.cub' extension.");
+		ft_error("error: mapfile name should has the '.cub' extension.");
 		return (false);
 	}
 	before_ext = *(filename + (match - filename) - 1);
 	if (before_ext == '/')
 	{
-		ft_error("error: the name of the mapfile should has the '.cub' extension.");
+		ft_error("error: mapfile name should has the '.cub' extension.");
 		return (false);
 	}
 	return (true);

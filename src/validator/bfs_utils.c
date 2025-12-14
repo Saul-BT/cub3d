@@ -6,16 +6,16 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:52 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 18:45:44 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:28:29 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-bool	**get_visited_map(size_t width, size_t height)
+bool	**get_visited_map(int width, int height)
 {
-	size_t	x;
-	size_t	y;
+	int		x;
+	int		y;
 	bool	**visited;
 
 	visited = malloc(height * sizeof(bool *));
@@ -41,7 +41,7 @@ bool	**get_visited_map(size_t width, size_t height)
 	return (visited);
 }
 
-bool	visit_point(size_t x, size_t y, t_bfs *data)
+bool	visit_point(int x, int y, t_bfs *data)
 {
 	t_point	*point;
 
@@ -59,7 +59,7 @@ bool	visit_point(size_t x, size_t y, t_bfs *data)
 
 bool	visit_borders(t_bfs *data)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (i < data->map.width)
@@ -89,8 +89,8 @@ bool	visit_borders(t_bfs *data)
 bool	visit_neighbourgs(t_point point, t_bfs *data)
 {
 	int				i;
-	size_t			x;
-	size_t			y;
+	int				x;
+	int				y;
 	t_point			*new_point;
 	static t_point	directions[4];
 
@@ -115,8 +115,8 @@ bool	visit_neighbourgs(t_point point, t_bfs *data)
 
 bool	has_invalid_spaces(t_map map, bool **visited)
 {
-	size_t	x;
-	size_t	y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < map.height)

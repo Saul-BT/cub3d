@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 20:27:06 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:23:07 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	set_defaults(t_cub *cub)
 
 void	cub_free(t_cub *cub)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (cub->map.raw && cub->map.raw[i])
@@ -48,23 +48,23 @@ static bool	set_mapfile_stuff(char *mapfile, t_cub *cub, int *fd)
 	if (!is_filename_valid(mapfile))
 		return (false);
 	set_defaults(cub);
-	fd = open(mapfile, O_RDONLY);
-	if (fd == -1)
+	*fd = open(mapfile, O_RDONLY);
+	if (*fd == -1)
 	{
 		ft_error("error: cant read the mapfile, plz check the provided path");
 		return (false);
 	}
-	if (!set_texture(&cub->texture, fd))
+	if (!set_textures(&cub->texture, *fd))
 	{
-		ft_error("error: there are missing textures in the mapfile.");
+		ft_error("error: there are weird textures in the mapfile.");
 		cub_free(cub);
-		return (close(fd), false);
+		return (close(*fd), false);
 	}
-	if (!set_map(&cub->map, fd))
+	if (!set_map(&cub->map, *fd))
 	{
 		ft_error("error: the map zone is broken/missing, idk.");
 		cub_free(cub);
-		return (close(fd), false);
+		return (close(*fd), false);
 	}
 	return (true);
 }
@@ -73,7 +73,8 @@ bool	cub_init(char *mapfile, t_cub *cub)
 {
 	int	fd;
 
-	set_mapfile_stuff(mapfile, cub, &fd);
+	if (!set_mapfile_stuff(mapfile, cub, &fd))
+		return (false);
 	cub->win = malloc(sizeof(t_win));
 	if (!cub->win)
 		return (ft_error("malloc error in window struct\n"), NULL);

@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:55 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 18:45:51 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:25:10 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,10 @@ bool	bfs_init(t_bfs *data, t_map map)
 	return (true);
 }
 
-void	bfs_free(t_queue *queue, bool **visited, size_t row_count)
+void	bfs_free(t_queue *queue, bool **visited, int row_count)
 {
 	t_point	*point;
-	size_t	row;
+	int		row;
 
 	row = 0;
 	while (row < row_count)

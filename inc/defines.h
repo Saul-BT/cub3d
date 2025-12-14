@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 19:20:42 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:21:26 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,9 @@
 # define BLACK 0x000000FF
 # define WHITE 0xFFFFFFFF
 
-// TODO: delete when merged with parser
-# define WALL_NORTH "./assets/textures/minecraft/creeper.png"
-# define WALL_SOUTH "./assets/textures/minecraft/enderman.png"
-# define WALL_EAST "./assets/textures/minecraft/pig.png"
-# define WALL_WEST "./assets/textures/minecraft/steve.png"
-
 # define SUCCESS 0
 # define ERROR 1
 
-//# include "../lib/MLX42/include/MLX42/MLX42.h"
-//# include "../lib/queue/queue.h"
-
-// from gabri
 typedef enum e_texture_type
 {
 	NORTH = 0,
@@ -54,27 +44,27 @@ typedef enum e_texture_type
 
 typedef struct s_dpoint
 {
-	double		x;
-	double		y;
+	double	x;
+	double	y;
 }				t_dpoint;
 
 typedef struct s_point
 {
-	size_t		x;
-	size_t		y;
+	int	x;
+	int	y;
 }				t_point;
 
 typedef struct s_win
 {
 	mlx_t			*mlx;
-	mlx_image_t		*mmap; // TODO: bonus
+	mlx_image_t		*mmap;
 	mlx_image_t		*game;
 	uint32_t		ceiling_color;
 	uint32_t		floor_color;
-	mlx_texture_t	*wall_north; // from saul north_img
-	mlx_texture_t	*wall_south; // from saul south_img
-	mlx_texture_t	*wall_east; // from saul east_img
-	mlx_texture_t	*wall_west; // from saul west_img
+	mlx_texture_t	*wall_north;
+	mlx_texture_t	*wall_south;
+	mlx_texture_t	*wall_east;
+	mlx_texture_t	*wall_west;
 }				t_win;
 
 typedef struct s_player
@@ -99,25 +89,25 @@ typedef struct s_ray
 	int			step_x;
 	int			step_y;
 	int			hit;
-	int			side; // 0 if wall is N,S / 1 if wall is W,E
-	int			line_height; // wall size to draw
+	int			side;
+	int			line_height;
 	int			draw_start;
 	int			draw_end;
 }				t_ray;
 
 typedef struct s_map
 {
-	char		**raw;
-	size_t		height;
-	size_t		width;
+	char	**raw;
+	int		height;
+	int		width;
 }				t_map;
 
 typedef struct s_cub
 {
-	t_win		*win; // t_mlx from saul
+	t_win		*win;
 	t_map		map;
 	t_player	*player;
-	char		**texture; // from saul cub3d
+	char		**texture;
 }				t_cub;
 
 typedef struct s_bfs

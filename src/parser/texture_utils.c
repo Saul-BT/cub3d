@@ -6,15 +6,15 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 18:38:06 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/14 18:34:47 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:23:59 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-static size_t	count_color_values(char **values)
+static int	count_color_values(char **values)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (values[len])
@@ -24,7 +24,7 @@ static size_t	count_color_values(char **values)
 
 static void	color_values_free(char **values)
 {
-	size_t	len;
+	int	len;
 
 	len = 0;
 	while (values[len])

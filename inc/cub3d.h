@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:26:46 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:39:28 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include "defines.h"
 # include <fcntl.h>
 # include <math.h>
-# include <stdio.h> // FIXME: remove when debug is removed
+# include <stdio.h>
 # include <stdlib.h>
 
 // utils/ft_error.c
@@ -66,17 +66,21 @@ void	render_wall(t_cub *cub, t_ray *ray, int x);
 // parser/texture_utils.c
 bool	set_valid_color(char *color, uint32_t *value);
 // parser/index.c
-bool	set_texture(char ***texture, int fd);
+bool	set_textures(char ***texture, int fd);
 bool	set_map(t_map *map, int fd);
+// parser/map_utils.c
+bool	set_texture(char ***texture, char **texture_ids, char **line);
+void	ids_init(char **texture_ids);
+int	get_max_map_width(t_map *map);
 
 // validator/bfs_utils.c
-bool	**get_visited_map(size_t width, size_t height);
-bool	visit_point(size_t x, size_t y, t_bfs *data);
+bool	**get_visited_map(int width, int height);
+bool	visit_point(int x, int y, t_bfs *data);
 bool	visit_borders(t_bfs *data);
 bool	visit_neighbourgs(t_point point, t_bfs *data);
 bool	has_invalid_spaces(t_map map, bool **visited);
 // validator/bfs.c
-void	bfs_free(t_queue *queue, bool **visited, size_t row_count);
+void	bfs_free(t_queue *queue, bool **visited, int row_count);
 bool	bfs(t_map map);
 // validator/utils.c
 bool	all_valid_chars(char **map);

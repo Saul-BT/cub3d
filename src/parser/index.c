@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 18:41:12 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 18:57:15 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 21:38:22 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,50 +18,27 @@ static bool	all_textures_setted(char **texture)
 		&& texture[C_FLOOR] && texture[C_CEILING]);
 }
 
-bool	set_texture(char ***texture, int fd)
+bool	set_textures(char ***texture, int fd)
 {
-	int			tex_id;
-	int			tex_id_len;
 	char		*line;
 	static char	*texture_ids[6];
 
-	texture_ids[NORTH] = "NO ";
-	texture_ids[SOUTH] = "SO ";
-	texture_ids[EAST] = "EA ";
-	texture_ids[WEST] = "WE ";
-	texture_ids[C_FLOOR] = "F ";
-	texture_ids[C_CEILING] = "C ";
+	ids_init(texture_ids);
 	*texture = ft_calloc(6, sizeof(char *));
 	if (!*texture)
 		return (false);
-	while (!all_textures_setted(*texture) && (line = get_next_line(fd)) != NULL)
+	while (!all_textures_setted(*texture))
 	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
 		if (*line == '\n')
 		{
 			free(line);
 			continue ;
 		}
-		tex_id = 0;
-		while (tex_id < 6)
-		{
-			tex_id_len = ft_strlen(texture_ids[tex_id]);
-			if (ft_strncmp(texture_ids[tex_id], line, tex_id_len) == 0)
-			{
-				if ((*texture)[tex_id])
-				{
-					tex_id++;
-					continue ;
-				}
-				(*texture)[tex_id] = ft_strtrim(line + tex_id_len, " \n");
-				if (!(*texture)[tex_id])
-					return (free(line), false);
-				break ;
-			}
-			tex_id++;
-		}
-		if (tex_id == 6)
-			return (free(line), false);
-		free(line);
+		if (!set_texture(texture, texture_ids, &line))
+			return (false);
 	}
 	return (true);
 }
@@ -74,8 +51,11 @@ static char	*read_map(char *head, int fd)
 
 	map = head;
 	tmp = NULL;
-	while ((line = get_next_line(fd)) != NULL)
+	while (true)
 	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
 		if (*line == '\n')
 		{
 			free(map);
@@ -103,20 +83,12 @@ static char	*read_map(char *head, int fd)
  */
 static bool	reshape_map(t_map *map)
 {
-	size_t	y;
-	size_t	cur_len;
-	size_t	max_x;
+	int		y;
+	int		max_x;
+	int		cur_len;
 	char	*reshaped;
 
-	y = 0;
-	max_x = 0;
-	while (map->raw[y])
-	{
-		cur_len = ft_strlen(map->raw[y]);
-		if (cur_len > max_x)
-			max_x = cur_len;
-		y++;
-	}
+	max_x = get_max_map_width(map);
 	if (max_x == 0)
 		return (false);
 	y = 0;
@@ -138,8 +110,8 @@ static bool	reshape_map(t_map *map)
 
 bool	set_map(t_map *map, int fd)
 {
-	char *line;
-	char *raw_map;
+	char	*line;
+	char	*raw_map;
 
 	line = get_next_line(fd);
 	if (!line)
