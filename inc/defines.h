@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 11:32:56 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 12:17:53 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@
 # define WIN_HEIGHT 720
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
-# define MMAP_SIZE 8 * TILE
+# define MMAP_SIZE 128 //number of rows&columns * TILE size
 # define TILE 16
 
-# define CYAN 0x87CEEBFF
 # define BLUE 0x00FFFFFF
 # define RED 0xFF0000FF
 # define GREEN 0x228B22FF
@@ -37,15 +36,13 @@
 # define SUCCESS 0
 # define ERROR 1
 
-# define PI 3.141592653589
-
-typedef struct	s_point
+typedef struct s_point
 {
 	int	x;
 	int	y;
 }	t_point;
 
-typedef struct	s_win
+typedef struct s_win
 {
 	mlx_t			*mlx;
 	mlx_image_t		*mmap; //TODO: bonus
@@ -60,7 +57,7 @@ typedef struct	s_win
 	mlx_texture_t	*wall_west;
 }	t_win;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double		x;
 	double		y;
@@ -91,7 +88,7 @@ typedef struct s_ray
 	int			draw_end;
 }	t_ray;
 
-typedef struct	s_cub
+typedef struct s_cub
 {
 	t_win		*win;
 	char		**map;

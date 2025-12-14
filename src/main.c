@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 11:24:03 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 12:20:04 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,13 @@ void	get_map_dimensions(char **map, int *map_width, int *map_height)
 	*map_width = max_x;
 }
 
-int	main(int argc, char **argv) 
+//TODO: activate parser
+int	main(int argc, char **argv)
 {
 	t_cub	cub;
 	int		error;
 
-	//TODO: activate when parser is done
-	//if (argc != 2)
-	//	return (ft_error("usage: ./cub3d mapfile.cub"));
-	//printf("map file: %s\n", argv[1]);
 	(void)argc, (void)argv;
-
 	error = init_structs(&cub);
 	if (error)
 		return (ERROR);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_array.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:00:20 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/05 20:00:21 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 12:20:38 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free_array(void **arr)
 {
-	int i;
+	int	i;
 
 	if (!arr)
 		return ;
