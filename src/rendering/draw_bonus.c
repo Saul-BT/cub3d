@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw.c                                             :+:      :+:    :+:   */
+/*   draw_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -30,8 +30,7 @@ void	draw_cube(t_win *win, int x, int y, int color)
 	}
 }
 
-static t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from,
-		t_point *to)
+t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from, t_point *to)
 {
 	t_point	diff;
 

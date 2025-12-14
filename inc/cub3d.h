@@ -45,7 +45,7 @@ int		init_window(t_cub *cub);
 void	safe_put_pixel(mlx_image_t *img, int x, int y, uint32_t color);
 void	clear_screen(t_cub *cub);
 
-// rendering/draw.c
+// rendering/draw_bonus.c
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_line(t_win *win, t_point from, t_point to, uint32_t color);
 void	draw_circle(t_win *win, int center_x, int center_y);

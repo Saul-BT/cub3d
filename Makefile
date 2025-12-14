@@ -30,8 +30,8 @@ SRC =	src/main.c \
 		src/mlx/hooks.c src/mlx/window.c \
 		src/core/init.c src/core/init_player.c \
 		src/core/init_minimap_bonus.c \
-		src/rendering/draw.c src/rendering/player_motion.c src/rendering/raycast.c src/rendering/texture.c \
-		src/rendering/minimap_bonus.c \
+		src/rendering/player_motion.c src/rendering/raycast.c src/rendering/texture.c \
+		src/rendering/draw_bonus.c src/rendering/minimap_bonus.c \
 		src/utils/ft_error.c src/utils/math.c src/utils/free_array.c
 
 # PARSER

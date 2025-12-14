@@ -34,6 +34,6 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			rotate_player(cub->player, ROTATION_RADS);
 	}
 	clear_screen(cub);
-	//draw_minimap(cub);
+	draw_minimap(cub);
 	raycast(cub);
 }

@@ -36,7 +36,7 @@ int	init_window(t_cub *cub)
 		cub_free(cub);
 		return (ERROR);
 	}
-	//init_minimap(win); // TODO: only add minimap for bonus
+	init_minimap(cub->win);
 	return (SUCCESS);
 }
 
@@ -65,5 +65,5 @@ void	clear_screen(t_cub *cub)
 		}
 		y++;
 	}
-	//clear_mmap(cub);
+	clear_mmap_window(cub);
 }

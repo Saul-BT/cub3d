@@ -46,3 +46,10 @@
 	...
 	fun:_dl_open
 }
+
+{
+	<MLX42>
+	Memcheck:Leak
+	...
+	fun:mlx_load_png
+}

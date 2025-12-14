@@ -12,7 +12,6 @@
 
 #include "../../inc/cub3d.h"
 
-// TODO: bonus include texture loading for ceiling and floor
 int	init_minimap(t_win *win)
 {
 	win->mmap = mlx_new_image(win->mlx, MMAP_SIZE, MMAP_SIZE);

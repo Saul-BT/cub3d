@@ -109,7 +109,5 @@ void	draw_minimap(t_cub *cub)
 	player_pos.x = (MMAP_SIZE / TILE / 2) * TILE + TILE / 2;
 	player_pos.y = (MMAP_SIZE / TILE / 2) * TILE + TILE / 2;
 	draw_tiles(cub, view);
-	draw_grid(cub->win);
-	draw_player_ray(cub, view);
 	draw_circle(cub->win, player_pos.x, player_pos.y);
 }
