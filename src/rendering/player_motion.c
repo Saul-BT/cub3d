@@ -31,23 +31,23 @@ void	rotate_player(t_player *player, double rotation)
 
 static int	is_wall(t_cub *cub, double x, double y)
 {
-    if (x < 0 || x >= cub->map.width || y < 0 || y >= cub->map.height)
-        return (1);
-    if (cub->map.raw[(int)y][(int)x] == '1')
-        return (1);
-    return (0);
+	if (x < 0 || x >= cub->map.width || y < 0 || y >= cub->map.height)
+		return (1);
+	if (cub->map.raw[(int)y][(int)x] == '1')
+		return (1);
+	return (0);
 }
 
 static void	move_player(t_cub *cub, t_dpoint diff)
 {
-    t_dpoint	new_pos;
+	t_dpoint	new_pos;
 
-    new_pos.x = cub->player->pos.x + diff.x;
-    new_pos.y = cub->player->pos.y + diff.y;
-    if (!is_wall(cub, new_pos.x, cub->player->pos.y))
-        cub->player->pos.x = new_pos.x;
-    if (!is_wall(cub, cub->player->pos.x, new_pos.y))
-        cub->player->pos.y = new_pos.y;
+	new_pos.x = cub->player->pos.x + diff.x;
+	new_pos.y = cub->player->pos.y + diff.y;
+	if (!is_wall(cub, new_pos.x, cub->player->pos.y))
+		cub->player->pos.x = new_pos.x;
+	if (!is_wall(cub, cub->player->pos.x, new_pos.y))
+		cub->player->pos.y = new_pos.y;
 }
 
 void	player_motion(t_player *player, keys_t key, t_cub *cub)
