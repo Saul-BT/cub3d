@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:26:38 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:53:43 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # define MMAP_SIZE 128 // number of rows&columns * TILE size
 # define TILE 16
 # define MMAP_RAY_STEP 0.05
-# define DBL_EPSILON 2.2204460492503131e-16
+# define DBL_EPSILON 0.1
 
 # define BLUE 0x00FFFFFF
 # define RED 0xFF0000FF
