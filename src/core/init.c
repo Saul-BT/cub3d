@@ -47,7 +47,10 @@ void	cub_mlx_free(t_win *win)
 	if (win->wall_west)
 		mlx_delete_texture(win->wall_west);
 	if (win->mlx)
+	{
 		mlx_close_window(win->mlx);
+		mlx_terminate(win->mlx);
+	}
 }
 
 void	cub_free(t_cub *cub)
