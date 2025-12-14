@@ -6,23 +6,11 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:21:41 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 14:32:33 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:34:49 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-static void	move_player(t_cub *cub, t_dpoint diff)
-{
-	t_dpoint new_pos;
-
-	new_pos.x = cub->player->pos.x + diff.x;
-	new_pos.y = cub->player->pos.y + diff.y;
-	if (new_pos.x >= 0 && new_pos.x <= cub->map_width)
-		cub->player->pos.x = new_pos.x;
-	if (new_pos.y >= 0 && new_pos.y <= cub->map_height)
-		cub->player->pos.y = new_pos.y;
-}
 
 void	rotate_player(t_player *player, double rotation)
 {
@@ -41,7 +29,19 @@ void	rotate_player(t_player *player, double rotation)
 	player->plane.y = old_plane_x * dy + player->plane.y * dx;
 }
 
-void    player_motion(t_player *player, keys_t key, t_cub *cub)
+static void	move_player(t_cub *cub, t_dpoint diff)
+{
+	t_dpoint	new_pos;
+
+	new_pos.x = cub->player->pos.x + diff.x;
+	new_pos.y = cub->player->pos.y + diff.y;
+	if (new_pos.x >= 0 && new_pos.x <= cub->map_width)
+		cub->player->pos.x = new_pos.x;
+	if (new_pos.y >= 0 && new_pos.y <= cub->map_height)
+		cub->player->pos.y = new_pos.y;
+}
+
+void	player_motion(t_player *player, keys_t key, t_cub *cub)
 {
 	t_dpoint	diff;
 
