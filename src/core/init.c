@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 19:35:10 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 20:27:06 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,7 @@ void	set_defaults(t_cub *cub)
 	cub->map.height = 0;
 	cub->map.width = 0;
 	cub->win = NULL;
-	/*cub->win->game = NULL;
-	cub->win->mlx = NULL;
-	cub->win->wall_north = NULL;
-	cub->win->wall_south = NULL;
-	cub->win->wall_east = NULL;
-	cub->win->wall_west = NULL;
-	cub->win->floor_color = 0;
-	cub->win->ceiling_color = 0;*/
+	cub->player = NULL;
 	cub->texture = NULL;
 }
 
@@ -36,72 +29,63 @@ void	cub_free(t_cub *cub)
 	i = 0;
 	while (cub->map.raw && cub->map.raw[i])
 		free(cub->map.raw[i++]);
-	// mlx_terminate((*cub)->win->mlx); <- check
 	free(cub->map.raw);
-	//free(cub->win->game);
-	//free(cub->win->mmap);
-	//free(cub->win->mlx);
-	//free(cub->win->wall_north);
-	//free(cub->win->wall_south);
-	//free(cub->win->wall_east);
-	//free(cub->win->wall_west);
-	free(cub->win); // <- check if pointer is needed
+	free(cub->win);
 	free(cub->player);
-	// free_array(cub->map); //TODO: enable when parser is integrated
 	i = 0;
 	while (cub->texture && i < 6)
-		free(cub->texture[i++]);
+	{
+		if (cub->texture[i])
+			free(cub->texture[i]);
+		i++;
+	}
 	free(cub->texture);
 	set_defaults(cub);
-	// free(*cub);
-	//*cub = NULL;
 }
 
-bool	cub_init(char *mapfile, t_cub *cub)
+static bool	set_mapfile_stuff(char *mapfile, t_cub *cub, int *fd)
 {
-	int fd;
-
 	if (!is_filename_valid(mapfile))
 		return (false);
 	set_defaults(cub);
 	fd = open(mapfile, O_RDONLY);
 	if (fd == -1)
-		return (NULL);
+	{
+		ft_error("error: cant read the mapfile, plz check the provided path");
+		return (false);
+	}
 	if (!set_texture(&cub->texture, fd))
 	{
+		ft_error("error: there are missing textures in the mapfile.");
 		cub_free(cub);
-		close(fd);
-		return (NULL);
+		return (close(fd), false);
 	}
 	if (!set_map(&cub->map, fd))
 	{
+		ft_error("error: the map zone is broken/missing, idk.");
 		cub_free(cub);
-		close(fd);
-		return (NULL);
+		return (close(fd), false);
 	}
-	// from gabri
+	return (true);
+}
+
+bool	cub_init(char *mapfile, t_cub *cub)
+{
+	int	fd;
+
+	set_mapfile_stuff(mapfile, cub, &fd);
 	cub->win = malloc(sizeof(t_win));
 	if (!cub->win)
 		return (ft_error("malloc error in window struct\n"), NULL);
-	// end of gabri
 	if (init_window(cub) == ERROR)
 	{
 		cub_free(cub);
 		close(fd);
-		return (NULL);
+		return (false);
 	}
 	close(fd);
-
-	// from gabri
-	// TODO: malloc check for map when parser is integrated
 	cub->player = malloc(sizeof(t_player));
 	if (!cub->player)
-	{
-		// free_array(ret->map); //TODO: enable when parser is integrated
-		free(cub->win);
-		return (ft_error("malloc error in player struct\n"), NULL);
-	}
-	// end of gabri
-
-	return (cub);
+		return (cub_free(cub), ft_error("malloc error player struct\n"), NULL);
+	return (true);
 }
