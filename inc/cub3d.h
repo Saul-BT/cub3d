@@ -6,14 +6,13 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 13:45:15 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 14:38:54 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
-# include <stdio.h> //TODO: delete all printf calls
 # include <stdlib.h>
 # include <math.h>
 # include <float.h>
