@@ -71,7 +71,7 @@ bool	set_map(t_map *map, int fd);
 // parser/map_utils.c
 bool	set_texture(char ***texture, char **texture_ids, char **line);
 void	ids_init(char **texture_ids);
-int	get_max_map_width(t_map *map);
+int		get_max_map_width(t_map *map);
 
 // validator/bfs_utils.c
 bool	**get_visited_map(int width, int height);
