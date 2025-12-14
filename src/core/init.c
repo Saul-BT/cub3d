@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 22:26:10 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:48:40 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,24 @@ void	set_defaults(t_cub *cub)
 	cub->texture = NULL;
 }
 
+void	cub_mlx_free(t_win *win)
+{
+	if (win->mlx && win->mmap)
+		mlx_delete_image(win->mlx, win->mmap);
+	if (win->mlx && win->game)
+		mlx_delete_image(win->mlx, win->game);
+	if (win->wall_east)
+		mlx_delete_texture(win->wall_east);
+	if (win->wall_north)
+		mlx_delete_texture(win->wall_north);
+	if (win->wall_south)
+		mlx_delete_texture(win->wall_south);
+	if (win->wall_west)
+		mlx_delete_texture(win->wall_west);
+	if (win->mlx)
+		mlx_close_window(win->mlx);
+}
+
 void	cub_free(t_cub *cub)
 {
 	int	i;
@@ -48,6 +66,7 @@ void	cub_free(t_cub *cub)
 		i++;
 	}
 	free(cub->texture);
+	cub_mlx_free(&cub->win);
 	set_defaults(cub);
 }
 

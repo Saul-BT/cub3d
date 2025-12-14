@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:42:50 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 22:22:25 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:52:51 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,13 @@ int	init_window(t_cub *cub)
 		return (ERROR);
 	cub->win.game = mlx_new_image(cub->win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!cub->win.game)
-	{
-		mlx_close_window(cub->win.mlx);
 		return (ERROR);
-	}
 	if (mlx_image_to_window(cub->win.mlx, cub->win.game, 0, 0) == -1)
-	{
-		mlx_delete_image(cub->win.mlx, cub->win.game);
-		mlx_close_window(cub->win.mlx);
 		return (ERROR);
-	}
 	if (!set_valid_textures(cub->texture, &cub->win))
-	{
-		mlx_delete_image(cub->win.mlx, cub->win.game);
-		mlx_close_window(cub->win.mlx);
-		cub_free(cub);
 		return (ERROR);
-	}
-	init_minimap(&cub->win);
+	if (init_minimap(&cub->win) == ERROR)
+		return (ERROR);
 	return (SUCCESS);
 }
 
