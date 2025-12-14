@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 22:48:40 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 23:55:28 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ static bool	set_mapfile_stuff(char *mapfile, t_cub *cub, int *fd)
 	{
 		ft_error("error: there are weird textures in the mapfile.");
 		cub_free(cub);
-		return (close(*fd), false);
+		return (get_next_line(-1), close(*fd), false);
 	}
 	if (!set_map(&cub->map, *fd))
 	{
 		ft_error("error: the map zone is broken/missing, idk.");
 		cub_free(cub);
-		return (close(*fd), false);
+		return (get_next_line(-1), close(*fd), false);
 	}
 	return (true);
 }
@@ -108,9 +108,11 @@ bool	cub_init(char *mapfile, t_cub *cub)
 	if (init_window(cub) == ERROR)
 	{
 		cub_free(cub);
+		get_next_line(-1),
 		close(fd);
 		return (false);
 	}
+	get_next_line(-1),
 	close(fd);
 	return (true);
 }
