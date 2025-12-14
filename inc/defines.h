@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 20:54:37 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:32:56 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # define WIN_NAME "cub3d"
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
-# define TILE 64 //square tile
 # define MOVE_SPEED 0.25
 # define ROTATION_SPEED 0.15
+# define MMAP_SIZE 8 * TILE
+# define TILE 16
 
 # define CYAN 0x87CEEBFF
 # define BLUE 0x00FFFFFF
@@ -37,6 +38,12 @@
 # define ERROR 1
 
 # define PI 3.141592653589
+
+typedef struct	s_point
+{
+	int	x;
+	int	y;
+}	t_point;
 
 typedef struct	s_win
 {

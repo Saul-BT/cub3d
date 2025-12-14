@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 20:42:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 21:50:45 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 10:54:48 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	init_ray(t_cub *cub, t_ray *ray, int x)
 	ray->hit = 0;
 }
 
-static void	init_step(t_cub *cub, t_ray *ray)
+void	init_step(t_cub *cub, t_ray *ray)
 {
 	if (ray->ray_dir_x < 0)
     {
@@ -107,9 +107,9 @@ void raycast(t_cub *cub)
 		init_step(cub, &ray);
 		perform_dda(cub, &ray);
 		calculate_wall_height(cub, &ray);
-		draw_ceiling(cub, &ray, x);
-		draw_wall(cub, &ray, x);
-		draw_floor(cub, &ray, x);
+		render_ceiling(cub, &ray, x);
+		render_wall(cub, &ray, x);
+		render_floor(cub, &ray, x);
 		x++;
 	}
 }

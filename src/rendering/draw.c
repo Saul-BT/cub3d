@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com>   +#+  +:+       +#+        */
+/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:41:42 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/11/25 19:41:45 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:24:26 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
 
-// the size of a cube is atm determined through the TILE size on defines.h
 void	draw_cube(t_win *win, int x, int y, int color)
 {
 	int	i;
@@ -31,35 +30,48 @@ void	draw_cube(t_win *win, int x, int y, int color)
 	}
 }
 
-void	draw_grid(t_cub *cub, t_win *win)
+static t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from, t_point *to)
 {
-	int	x;
-	int	y;
+	t_point	diff;
 
-	// vertical lines
-	x = 0;
-	while (x <= cub->map_width * TILE)
+	p->x = from->x;
+	p->y = from->y;
+	dir->x = -1;
+	dir->y = -1;
+	if (from->x < to->x)
+		dir->x = 1;
+	if (from->y < to->y)
+		dir->y = 1;
+	diff.x = abs(to->x - from->x);
+	diff.y = abs(to->y - from->y);
+	return (diff);
+}
+
+void	draw_line(t_win *win, t_point from, t_point to, uint32_t color)
+{
+	t_point	point;
+	t_point	diff;
+	t_point	dir;
+	int		err;
+	int		factor;
+
+	diff = setup_bresenham(&point, &dir, &from, &to);
+	err = diff.x - diff.y;
+	while (!(point.x == to.x && point.y == to.y))
 	{
-		y = 0;
-		while (y < cub->map_height * TILE)
+		safe_put_pixel(win->mmap, point.x, point.y, color);
+		factor = err * 2;
+		if (factor > -diff.y)
 		{
-			safe_put_pixel(win->mmap, x, y, GREEN);
-			y++;
+			point.x += dir.x;
+			err -= diff.y;
 		}
-		x += TILE;
+		if (factor < diff.x)
+		{
+			point.y += dir.y;
+			err += diff.x;
+		}
 	}
-	// horizontal lines
-	y = 0;
-    while (y <= cub->map_height * TILE)
-    {
-        x = 0;
-        while (x < cub->map_width * TILE)
-        {
-            safe_put_pixel(win->mmap, x, y, GREEN);
-            x++;
-        }
-        y += TILE;
-    }
 }
 
 void	draw_circle(t_win *win, int center_x, int center_y)

@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 16:30:48 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 18:17:54 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:29:47 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,31 +43,33 @@ static mlx_texture_t	*get_current_texture(t_cub *cub, t_ray *ray)
     }
 }
 
-void	draw_ceiling(t_cub *cub, t_ray *ray, int x)
+//TODO: bonus include texture loading for ceiling and floor
+void	render_ceiling(t_cub *cub, t_ray *ray, int x)
 {
 	int y;
 
 	y = 0;
 	while (y < ray->draw_start)
 	{
-		safe_put_pixel(cub->win->mmap, x, y, cub->win->ceiling_color);
+		safe_put_pixel(cub->win->game, x, y, cub->win->ceiling_color);
 		y++;
 	}
 }
 
-void	draw_floor(t_cub *cub, t_ray *ray, int x)
+//TODO: bonus include texture loading for ceiling and floor
+void	render_floor(t_cub *cub, t_ray *ray, int x)
 {
 	int y;
 
 	y = ray->draw_end;
 	while (y < WIN_HEIGHT)
 	{
-		safe_put_pixel(cub->win->mmap, x, y, cub->win->floor_color);
+		safe_put_pixel(cub->win->game, x, y, cub->win->floor_color);
 		y++;
 	}
 }
 
-void	draw_wall(t_cub *cub, t_ray *ray, int x)
+void	render_wall(t_cub *cub, t_ray *ray, int x)
 {
 	mlx_texture_t	*tex;
 	uint32_t		color;
@@ -92,7 +94,7 @@ void	draw_wall(t_cub *cub, t_ray *ray, int x)
 	{
 		tex_y = (int)tex_pos % tex->height;
 		color = get_texture_pixel(tex, tex_x, tex_y);
-		safe_put_pixel(cub->win->mmap, x, y, color);
+		safe_put_pixel(cub->win->game, x, y, color);
 		tex_pos += step;
 		y++;
 	}

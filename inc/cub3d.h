@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 17:01:07 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 11:31:34 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,11 @@ void	safe_put_pixel(mlx_image_t	*img, int x, int y, uint32_t color);
 void	clear_screen(t_cub *cub);
 // rendering/draw.c
 void	draw_cube(t_win *win, int x, int y, int color);
-void	draw_grid(t_cub *cub, t_win *win);
+void    draw_line(t_win *win, t_point from, t_point to, uint32_t color);
+void	draw_grid(t_win *win);
 void	draw_circle(t_win *win, int center_x, int center_y);
 // rendering/minimap.c
-void	get_map_dimensions(char **map, int *map_width, int *map_height);
+int		init_minimap(t_win *win);
 void	draw_minimap(t_cub *cub);
 // rendering/player.c
 int     is_player(char c);
@@ -51,11 +52,12 @@ void	init_player_position(t_player *player, char **map, int map_height);
 void	rotate_player(t_player *p, double rotation);
 void    player_motion(t_player *p, keys_t key, t_cub *cub);
 // rendering/raycast.c
+void	init_step(t_cub *cub, t_ray *ray);
 int	    ray_hits_wall(int px, int py, t_cub *cub);
 void	raycast(t_cub *cub);
 // rendering/texture.c
-void	draw_ceiling(t_cub *cub, t_ray *ray, int x);
-void	draw_floor(t_cub *cub, t_ray *ray, int x);
-void	draw_wall(t_cub *cub, t_ray *ray, int x);
+void	render_ceiling(t_cub *cub, t_ray *ray, int x);
+void	render_floor(t_cub *cub, t_ray *ray, int x);
+void	render_wall(t_cub *cub, t_ray *ray, int x);
 
 #endif
