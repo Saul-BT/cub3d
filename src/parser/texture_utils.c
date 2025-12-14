@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 18:38:06 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/08 18:47:25 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:34:47 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,5 +68,6 @@ bool	set_valid_color(char *color, uint32_t *value)
 	if (blue == -1)
 		return (color_values_free(values), false);
 	*value |= (red << 24 | green << 16 | blue << 8);
+	color_values_free(values);
 	return (true);
 }

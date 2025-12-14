@@ -3,38 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/13 17:02:44 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 18:31:52 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/cub3d.h"
-
-static bool	set_mlx(t_win *win)
-{
-	/* from saul
-	mlx->mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
-	if (!mlx->mlx)
-			return (false);
-	mlx->img = mlx_new_image(mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
-	if (!mlx->img)
-	{
-			mlx_close_window(mlx->mlx);
-			return (false);
-	}
-	if (mlx_image_to_window(mlx->mlx, mlx->img, 0, 0) == -1)
-	{
-			mlx_close_window(mlx->mlx);
-			return (false);
-	}
-	return (true);
-	*/
-	if (init_window(win) == ERROR)
-		return (false);
-	return (true);
-}
 
 void	set_defaults(t_cub *cub)
 {
@@ -106,7 +82,7 @@ bool	cub_init(char *mapfile, t_cub *cub)
 	if (!cub->win)
 		return (ft_error("malloc error in window struct\n"), NULL);
 	// end of gabri
-	if (!set_mlx(cub->win))
+	if (init_window(cub->win) == ERROR)
 	{
 		cub_free(cub);
 		close(fd);
