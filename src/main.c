@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:27:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 21:15:43 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:24:50 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,11 @@ int	main(int argc, char **argv)
 		cub_free(&cub);
 		return (ERROR);
 	}
-	mlx_key_hook(cub.win->mlx, &key_hook, &cub);
-	init_player(cub.player, cub.map.raw, cub.map.height);
+	mlx_key_hook(cub.win.mlx, &key_hook, &cub);
+	init_player(&cub.player, cub.map.raw, cub.map.height);
 	draw_minimap(&cub);
 	raycast(&cub);
-	mlx_loop(cub.win->mlx);
+	mlx_loop(cub.win.mlx);
 	cub_free(&cub);
 	return (SUCCESS);
 }

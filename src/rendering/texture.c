@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/13 16:30:48 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 18:12:35 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:24:24 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,16 @@ static mlx_texture_t	*get_current_texture(t_cub *cub, t_ray *ray)
 	if (ray->side == 0)
 	{
 		if (ray->ray_dir_x > 0)
-			return (cub->win->wall_east);
+			return (cub->win.wall_east);
 		else
-			return (cub->win->wall_west);
+			return (cub->win.wall_west);
 	}
 	else
 	{
 		if (ray->ray_dir_y > 0)
-			return (cub->win->wall_south);
+			return (cub->win.wall_south);
 		else
-			return (cub->win->wall_north);
+			return (cub->win.wall_north);
 	}
 }
 
@@ -50,7 +50,7 @@ void	render_ceiling(t_cub *cub, t_ray *ray, int x)
 	y = 0;
 	while (y < ray->draw_start)
 	{
-		safe_put_pixel(cub->win->game, x, y, cub->win->ceiling_color);
+		safe_put_pixel(cub->win.game, x, y, cub->win.ceiling_color);
 		y++;
 	}
 }
@@ -62,7 +62,7 @@ void	render_floor(t_cub *cub, t_ray *ray, int x)
 	y = ray->draw_end;
 	while (y < WIN_HEIGHT)
 	{
-		safe_put_pixel(cub->win->game, x, y, cub->win->floor_color);
+		safe_put_pixel(cub->win.game, x, y, cub->win.floor_color);
 		y++;
 	}
 }
@@ -77,9 +77,9 @@ void	render_wall(t_cub *cub, t_ray *ray, int x)
 
 	tex = get_current_texture(cub, ray);
 	if (ray->side == 0)
-		wall_x = cub->player->pos.y + ray->perp_wall_dist * ray->ray_dir_y;
+		wall_x = cub->player.pos.y + ray->perp_wall_dist * ray->ray_dir_y;
 	else
-		wall_x = cub->player->pos.x + ray->perp_wall_dist * ray->ray_dir_x;
+		wall_x = cub->player.pos.x + ray->perp_wall_dist * ray->ray_dir_x;
 	wall_x -= floor(wall_x);
 	tex_slice.x = (int)(wall_x * (double)tex->width);
 	tex_pos = (ray->draw_start - WIN_HEIGHT / 2 + ray->line_height / 2) * 1.0
@@ -88,7 +88,7 @@ void	render_wall(t_cub *cub, t_ray *ray, int x)
 	while (y < ray->draw_end)
 	{
 		tex_slice.y = (int)tex_pos % tex->height;
-		safe_put_pixel(cub->win->game, x, y, get_texture_pixel(tex, tex_slice.x,
+		safe_put_pixel(cub->win.game, x, y, get_texture_pixel(tex, tex_slice.x,
 				tex_slice.y));
 		tex_pos += 1.0 * tex->height / ray->line_height;
 		y++;

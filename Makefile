@@ -6,7 +6,7 @@
 #    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/12/14 21:32:19 by sblanco-         ###   ########.fr        #
+#    Updated: 2025/12/14 22:25:36 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC =	src/main.c \
 
 # PARSER
 SRC += src/parser/texture_utils.c \
+	src/parser/map_utils.c \
 	src/parser/index.c
 
 # VALIDATOR

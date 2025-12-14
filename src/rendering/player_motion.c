@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_motion.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 20:21:41 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 14:34:49 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:23:48 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,12 @@ static void	move_player(t_cub *cub, t_dpoint diff)
 {
 	t_dpoint	new_pos;
 
-	new_pos.x = cub->player->pos.x + diff.x;
-	new_pos.y = cub->player->pos.y + diff.y;
-	if (!is_wall(cub, new_pos.x, cub->player->pos.y))
-		cub->player->pos.x = new_pos.x;
-	if (!is_wall(cub, cub->player->pos.x, new_pos.y))
-		cub->player->pos.y = new_pos.y;
+	new_pos.x = cub->player.pos.x + diff.x;
+	new_pos.y = cub->player.pos.y + diff.y;
+	if (!is_wall(cub, new_pos.x, cub->player.pos.y))
+		cub->player.pos.x = new_pos.x;
+	if (!is_wall(cub, cub->player.pos.x, new_pos.y))
+		cub->player.pos.y = new_pos.y;
 }
 
 void	player_motion(t_player *player, keys_t key, t_cub *cub)

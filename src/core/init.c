@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 21:23:07 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:26:10 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,18 @@ void	set_defaults(t_cub *cub)
 	cub->map.raw = NULL;
 	cub->map.height = 0;
 	cub->map.width = 0;
-	cub->win = NULL;
-	cub->player = NULL;
+	cub->win.mlx = NULL;
+	cub->win.mmap = NULL;
+	cub->win.game = NULL;
+	cub->win.wall_east = NULL;
+	cub->win.wall_north = NULL;
+	cub->win.wall_south = NULL;
+	cub->win.wall_west = NULL;
+	cub->win.ceiling_color = 0;
+	cub->win.floor_color = 0;
+	cub->player.dir = (t_dpoint){0, 0};
+	cub->player.pos = (t_dpoint){0, 0};
+	cub->player.plane = (t_dpoint){0, 0};
 	cub->texture = NULL;
 }
 
@@ -30,8 +40,6 @@ void	cub_free(t_cub *cub)
 	while (cub->map.raw && cub->map.raw[i])
 		free(cub->map.raw[i++]);
 	free(cub->map.raw);
-	free(cub->win);
-	free(cub->player);
 	i = 0;
 	while (cub->texture && i < 6)
 	{
@@ -75,9 +83,6 @@ bool	cub_init(char *mapfile, t_cub *cub)
 
 	if (!set_mapfile_stuff(mapfile, cub, &fd))
 		return (false);
-	cub->win = malloc(sizeof(t_win));
-	if (!cub->win)
-		return (ft_error("malloc error in window struct\n"), NULL);
 	if (init_window(cub) == ERROR)
 	{
 		cub_free(cub);
@@ -85,8 +90,5 @@ bool	cub_init(char *mapfile, t_cub *cub)
 		return (false);
 	}
 	close(fd);
-	cub->player = malloc(sizeof(t_player));
-	if (!cub->player)
-		return (cub_free(cub), ft_error("malloc error player struct\n"), NULL);
 	return (true);
 }

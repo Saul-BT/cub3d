@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minimap_bonus.c                                    :+:      :+:    :+:   */
+/*   minimap.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/24 20:46:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 14:36:24 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:23:36 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ static void	draw_tiles(t_cub *cub, int view)
 	i.y = 0;
 	while (i.y < view * 2)
 	{
-		map.y = (int)cub->player->pos.y - view + i.y;
+		map.y = (int)cub->player.pos.y - view + i.y;
 		i.x = 0;
 		while (i.x < view * 2)
 		{
-			map.x = (int)cub->player->pos.x - view + i.x;
+			map.x = (int)cub->player.pos.x - view + i.x;
 			if (map.x >= 0 && map.x < cub->map.width && map.y >= 0
 				&& map.y < cub->map.height)
 			{
 				if (cub->map.raw[map.y][map.x] == '1')
-					draw_cube(cub->win, i.x * TILE, i.y * TILE, BLUE);
+					draw_cube(&cub->win, i.x * TILE, i.y * TILE, BLUE);
 				else
-					draw_cube(cub->win, i.x * TILE, i.y * TILE, WHITE);
+					draw_cube(&cub->win, i.x * TILE, i.y * TILE, WHITE);
 			}
 			else
-				draw_cube(cub->win, i.x * TILE, i.y * TILE, BLACK);
+				draw_cube(&cub->win, i.x * TILE, i.y * TILE, BLACK);
 			i.x++;
 		}
 		i.y++;
@@ -58,5 +58,5 @@ void	draw_minimap(t_cub *cub)
 	player_pos.x = (MMAP_SIZE / TILE / 2) * TILE + TILE / 2;
 	player_pos.y = (MMAP_SIZE / TILE / 2) * TILE + TILE / 2;
 	draw_tiles(cub, view);
-	draw_circle(cub->win, player_pos.x, player_pos.y);
+	draw_circle(&cub->win, player_pos.x, player_pos.y);
 }

@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 21:21:26 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:13:56 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,9 +104,9 @@ typedef struct s_map
 
 typedef struct s_cub
 {
-	t_win		*win;
+	t_win		win;
 	t_map		map;
-	t_player	*player;
+	t_player	player;
 	char		**texture;
 }				t_cub;
 

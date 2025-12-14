@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_minimap_bonus.c                               :+:      :+:    :+:   */
+/*   init_minimap.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
+/*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/14 13:43:22 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 14:08:30 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 22:23:01 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	clear_mmap_window(t_cub *cub)
 	int	y;
 
 	y = 0;
-	while (y < (int)cub->win->mmap->height)
+	while (y < (int)cub->win.mmap->height)
 	{
 		x = 0;
-		while (x < (int)cub->win->mmap->width)
+		while (x < (int)cub->win.mmap->width)
 		{
-			safe_put_pixel(cub->win->mmap, x, y, BLACK);
+			safe_put_pixel(cub->win.mmap, x, y, BLACK);
 			x++;
 		}
 		y++;
