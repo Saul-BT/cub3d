@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 21:13:26 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 12:17:53 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 13:25:02 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,10 @@
 # define WIN_WIDTH 1080
 # define WIN_HEIGHT 720
 # define MOVE_SPEED 0.25
-# define ROTATION_SPEED 0.15
+# define ROTATION_RADS 0.15
 # define MMAP_SIZE 128 //number of rows&columns * TILE size
 # define TILE 16
+# define MMAP_RAY_STEP 0.05
 
 # define BLUE 0x00FFFFFF
 # define RED 0xFF0000FF
@@ -42,6 +43,12 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+typedef struct s_dpoint
+{
+	double	x;
+	double	y;
+}	t_dpoint;
+
 typedef struct s_win
 {
 	mlx_t			*mlx;
@@ -59,12 +66,9 @@ typedef struct s_win
 
 typedef struct s_player
 {
-	double		x;
-	double		y;
-	double		dir_x;
-	double		dir_y;
-	double		plane_x;
-	double		plane_y;
+	t_dpoint	pos;
+	t_dpoint	dir;
+	t_dpoint	plane;
 }	t_player;
 
 typedef struct s_ray

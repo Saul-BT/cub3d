@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 22:36:19 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 12:18:44 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 13:45:15 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ void	free_array(void **arr);
 // core/init.c
 int		init_structs(t_cub *cub);
 void	free_all(t_cub *cub);
+// core/init_player.c
+void	init_player(t_player *player, char **map, int map_height);
+// core/init_minimap_bonus.c
+int		init_minimap(t_win *win);
 
 // mlx/hooks.c
 void	key_hook(mlx_key_data_t keydata, void *param);
@@ -41,16 +45,13 @@ void	clear_screen(t_cub *cub);
 // rendering/draw.c
 void	draw_cube(t_win *win, int x, int y, int color);
 void	draw_line(t_win *win, t_point from, t_point to, uint32_t color);
-void	draw_grid(t_win *win);
 void	draw_circle(t_win *win, int center_x, int center_y);
-// rendering/minimap.c
+// rendering/minimap_bonus.c
 int		init_minimap(t_win *win);
 void	draw_minimap(t_cub *cub);
 // rendering/player.c
-int		is_player(char c);
-void	init_player_position(t_player *player, char **map, int map_height);
-void	rotate_player(t_player *p, double rotation);
-void	player_motion(t_player *p, keys_t key, t_cub *cub);
+void	rotate_player(t_player *player, double rotation);
+void	player_motion(t_player *player, keys_t key, t_cub *cub);
 // rendering/raycast.c
 void	init_step(t_cub *cub, t_ray *ray);
 void	raycast(t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:41:42 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 11:24:26 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 12:28:56 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ void	draw_cube(t_win *win, int x, int y, int color)
 		i = 0;
 		while (i < TILE)
 		{
-			safe_put_pixel(win->mmap, x+i, y+j, color);
+			safe_put_pixel(win->mmap, x + i, y + j, color);
 			i++;
 		}
 		j++;
 	}
 }
 
-static t_point	setup_bresenham(t_point *p, t_point *dir, t_point *from, t_point *to)
+static t_point	setup_bresenham(t_point *p, t_point *dir,
+	t_point *from, t_point *to)
 {
 	t_point	diff;
 

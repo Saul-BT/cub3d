@@ -6,7 +6,7 @@
 /*   By: gade-oli <gade-oli@student.42madrid.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/13 00:04:13 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 12:21:46 by gade-oli         ###   ########.fr       */
+/*   Updated: 2025/12/14 13:05:33 by gade-oli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ void	key_hook(mlx_key_data_t keydata, void *param)
 			|| keydata.key == MLX_KEY_S || keydata.key == MLX_KEY_D)
 			player_motion(cub->player, keydata.key, cub);
 		else if (keydata.key == MLX_KEY_LEFT)
-			rotate_player(cub->player, -ROTATION_SPEED);
+			rotate_player(cub->player, -ROTATION_RADS);
 		else if (keydata.key == MLX_KEY_RIGHT)
-			rotate_player(cub->player, ROTATION_SPEED);
+			rotate_player(cub->player, ROTATION_RADS);
 	}
 	clear_screen(cub);
 	draw_minimap(cub);

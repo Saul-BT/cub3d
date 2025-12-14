@@ -1,0 +1,3 @@
+- [ ] merger with saul
+	- [ ] norminette init.c
+	- [ ] norminette window.c
