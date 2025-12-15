@@ -6,7 +6,7 @@
 #    By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/25 17:28:54 by gade-oli          #+#    #+#              #
-#    Updated: 2025/12/14 22:50:02 by sblanco-         ###   ########.fr        #
+#    Updated: 2025/12/15 19:18:25 by sblanco-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ RESET   = \033[0;0m
 
 #variables----------------------------------------------------------------------
 
-NAME = cub3d
+NAME = cub3D
 
 CC = gcc
 CFLAGS = -g #-fsanitize=address # -Wall -Wextra -Werror -g

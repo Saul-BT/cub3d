@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:48 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/15 19:33:37 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:14:15 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 bool	is_map_valid(t_map map)
 {
 	if (!all_valid_chars(map.raw))
-		return (ft_error("error: forbbiden characters in map."), false);
+		return (ft_error("forbbiden characters in map."), false);
 	if (!is_one_player(map.raw))
-		return (ft_error("error: should has 1 player."), false);
+		return (ft_error("should have 1 player."), false);
 	if (!bfs(map))
-		return (ft_error("error: unclosed map."), false);
+		return (ft_error("malformed/unclosed map."), false);
 	return (true);
 }
 

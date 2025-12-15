@@ -1,5 +1,5 @@
 # Build artifacts
-cub3d
+cub3D
 
 # Object files
 *.o

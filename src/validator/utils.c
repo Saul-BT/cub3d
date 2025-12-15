@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 11:15:44 by sblanco-          #+#    #+#             */
-/*   Updated: 2025/12/15 18:05:08 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:05:22 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,17 @@ bool	is_filename_valid(char *filename)
 	len = ft_strlen(filename);
 	if (len < 5)
 	{
-		ft_error("error: invalid map filename");
+		ft_error("invalid map filename");
 		return (false);
 	}
 	if (ft_strncmp(filename + (len - 4), ".cub", 4))
 	{
-		ft_error("error: invalid map filename");
+		ft_error("invalid map filename");
 		return (false);
 	}
 	if (*(filename + (len - 5)) == '/')
 	{
-		ft_error("error: invalid map filename");
+		ft_error("invalid map filename");
 		return (false);
 	}
 	return (true);
