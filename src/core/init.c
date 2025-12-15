@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/05 20:10:08 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 23:55:28 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/15 19:02:24 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static bool	set_mapfile_stuff(char *mapfile, t_cub *cub, int *fd)
 	}
 	if (!set_map(&cub->map, *fd))
 	{
-		ft_error("error: the map zone is broken/missing, idk.");
+		ft_error("error: there is a malformed zone, idk.");
 		cub_free(cub);
 		return (get_next_line(-1), close(*fd), false);
 	}
