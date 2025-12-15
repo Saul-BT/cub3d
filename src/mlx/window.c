@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/25 19:42:50 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 22:52:51 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/15 18:39:22 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,16 @@ int	init_window(t_cub *cub)
 {
 	cub->win.mlx = mlx_init(WIN_WIDTH, WIN_HEIGHT, WIN_NAME, false);
 	if (!cub->win.mlx)
-		return (ERROR);
+		return (ft_error("error: window creation."));
 	cub->win.game = mlx_new_image(cub->win.mlx, WIN_WIDTH, WIN_HEIGHT);
 	if (!cub->win.game)
-		return (ERROR);
+		return (ft_error("error: game image creation."));
 	if (mlx_image_to_window(cub->win.mlx, cub->win.game, 0, 0) == -1)
-		return (ERROR);
+		return (ft_error("error: game image creation."));
 	if (!set_valid_textures(cub->texture, &cub->win))
-		return (ERROR);
+		return (ft_error("error: malformed textures."));
 	if (init_minimap(&cub->win) == ERROR)
-		return (ERROR);
+		return (ft_error("error: minimap creation."));
 	return (SUCCESS);
 }
 
