@@ -4,7 +4,7 @@ WE assets/textures/Obsidian.png
 EA       assets/textures/Tile.png
 
 C 242,34,3
-F 0,30,255
+F 255,30,25
 
         1111111111111111111111111
         1000000000110000000000001

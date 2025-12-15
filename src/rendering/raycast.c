@@ -6,7 +6,7 @@
 /*   By: sblanco- <sblanco-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/30 20:42:04 by gade-oli          #+#    #+#             */
-/*   Updated: 2025/12/14 22:24:03 by sblanco-         ###   ########.fr       */
+/*   Updated: 2025/12/15 20:19:49 by sblanco-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static void	calculate_wall_height(t_cub *cub, t_ray *ray)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + WIN_HEIGHT / 2;
 	if (ray->draw_end >= WIN_HEIGHT)
-		ray->draw_end = WIN_HEIGHT - 1;
+		ray->draw_end = WIN_HEIGHT;
 }
 
 void	raycast(t_cub *cub)
